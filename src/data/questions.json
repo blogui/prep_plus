@@ -1,0 +1,32 @@
+{
+  "1": [
+    {
+      "id": 1,
+      "question": "Which of the following is NOT a primitive data type in JavaScript?",
+      "options": ["String", "Number", "Boolean", "Array"],
+      "correct": 3,
+      "explanation": "Array is not a primitive data type. It's an object in JavaScript."
+    },
+    {
+      "id": 2,
+      "question": "What does the '===' operator do in JavaScript?",
+      "options": ["Assignment", "Loose equality", "Strict equality", "Not equal"],
+      "correct": 2,
+      "explanation": "The '===' operator checks for strict equality, comparing both value and type."
+    }
+  ],
+  "2": [
+    {
+      "id": 1,
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "A function that returns another function",
+        "A function that has access to variables in its outer scope",
+        "A method to close browser windows",
+        "A way to hide variables"
+      ],
+      "correct": 1,
+      "explanation": "A closure is a function that has access to variables in its outer (enclosing) scope even after the outer function has returned."
+    }
+  ]
+}

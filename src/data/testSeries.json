@@ -1,0 +1,84 @@
+[
+  {
+    "id": 1,
+    "title": "Basic Programming Fundamentals",
+    "description": "Master the core concepts of programming with variables, loops, and functions.",
+    "duration": 60,
+    "questions": 50,
+    "difficulty": "Beginner",
+    "type": "free",
+    "category": "Programming",
+    "image": "https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg?auto=compress&cs=tinysrgb&w=400",
+    "topics": ["Variables", "Loops", "Functions", "Data Types"],
+    "passingScore": 70,
+    "totalMarks": 100,
+    "instructions": [
+      "Each question carries 2 marks",
+      "No negative marking",
+      "You can review and change answers before submission",
+      "Timer will be displayed during the test"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Advanced JavaScript Concepts",
+    "description": "Deep dive into closures, promises, async/await, and modern ES6+ features.",
+    "duration": 90,
+    "questions": 75,
+    "difficulty": "Advanced",
+    "type": "paid",
+    "price": 299,
+    "category": "JavaScript",
+    "image": "https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?auto=compress&cs=tinysrgb&w=400",
+    "topics": ["Closures", "Promises", "Async/Await", "ES6+", "DOM Manipulation"],
+    "passingScore": 75,
+    "totalMarks": 150,
+    "instructions": [
+      "Each question carries 2 marks",
+      "No negative marking",
+      "Code snippets will be provided for analysis",
+      "Browser developer tools are not allowed"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "React Fundamentals",
+    "description": "Learn React components, hooks, state management, and best practices.",
+    "duration": 75,
+    "questions": 60,
+    "difficulty": "Intermediate",
+    "type": "free",
+    "category": "React",
+    "image": "https://images.pexels.com/photos/11035471/pexels-photo-11035471.jpeg?auto=compress&cs=tinysrgb&w=400",
+    "topics": ["Components", "Hooks", "State Management", "Props", "Event Handling"],
+    "passingScore": 70,
+    "totalMarks": 120,
+    "instructions": [
+      "Each question carries 2 marks",
+      "Focus on React 18+ features",
+      "Understanding of JSX is essential",
+      "Practical coding scenarios included"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Full Stack Development",
+    "description": "Comprehensive test covering both frontend and backend development concepts.",
+    "duration": 120,
+    "questions": 100,
+    "difficulty": "Expert",
+    "type": "paid",
+    "price": 599,
+    "category": "Full Stack",
+    "image": "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=400",
+    "topics": ["Node.js", "Express", "Database Design", "API Development", "Authentication"],
+    "passingScore": 80,
+    "totalMarks": 200,
+    "instructions": [
+      "Each question carries 2 marks",
+      "Database design questions included",
+      "System design scenarios present",
+      "Real-world problem solving required"
+    ]
+  }
+]

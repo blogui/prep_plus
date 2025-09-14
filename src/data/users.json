@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "email": "john.doe@example.com",
+    "name": "John Doe",
+    "avatar": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=100",
+    "joinedDate": "2024-01-15",
+    "role": "user",
+    "testsAttempted": [
+      {
+        "testId": 1,
+        "completedAt": "2024-01-20",
+        "score": 85,
+        "totalMarks": 100,
+        "passed": true,
+        "certificateId": "CERT-001-2024"
+      },
+      {
+        "testId": 3,
+        "completedAt": "2024-02-01",
+        "score": 92,
+        "totalMarks": 120,
+        "passed": true,
+        "certificateId": "CERT-003-2024"
+      }
+    ],
+    "certificates": [
+      {
+        "id": "CERT-001-2024",
+        "testTitle": "Basic Programming Fundamentals",
+        "score": 85,
+        "issuedDate": "2024-01-20"
+      },
+      {
+        "id": "CERT-003-2024",
+        "testTitle": "React Fundamentals",
+        "score": 92,
+        "issuedDate": "2024-02-01"
+      }
+    ]
+  }
+]
