@@ -1,28 +1,32 @@
 import React, { useState } from 'react';
 import { Search, Filter, BookOpen, Users, Award, TrendingUp } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import TestCard from './TestCard';
 
-const Home = ({ testSeries, onSelectTest }) => {
+const Home = ({ testSeries, onSelectTest, user }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedDifficulty, setSelectedDifficulty] = useState('All');
   const [selectedType, setSelectedType] = useState('All');
+  const navigate = useNavigate();
 
-  const categories = ['All', ...new Set(testSeries.map(test => test.category))];
-  const difficulties = ['All', 'Beginner', 'Intermediate', 'Advanced', 'Expert'];
-  const types = ['All', 'Free', 'Paid'];
+  const categories = ['All Categories', ...new Set(testSeries.map(test => test.category))];
+  const difficulties = ['All Levels', 'Beginner', 'Intermediate', 'Advanced', 'Expert'];
+  const types = ['Free', 'Paid'];
 
   const filteredTests = testSeries.filter(test => {
     const matchesSearch = test.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          test.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'All' || test.category === selectedCategory;
-    const matchesDifficulty = selectedDifficulty === 'All' || test.difficulty === selectedDifficulty;
-    const matchesType = selectedType === 'All' || 
-                       (selectedType === 'Free' && test.type === 'free') ||
-                       (selectedType === 'Paid' && test.type === 'paid');
+    const matchesCategory = selectedCategory === 'All' || selectedCategory === 'All Categories' || test.category === selectedCategory;
+    const matchesDifficulty = selectedDifficulty === 'All' || selectedDifficulty === 'All Levels' || test.difficulty === selectedDifficulty;
+    const matchesType = selectedType === 'All' || (selectedType === 'Free' && test.type === 'free');
 
     return matchesSearch && matchesCategory && matchesDifficulty && matchesType;
   });
+
+  const handleViewDetails = (test) => {
+    navigate(`/test/${test.testId}`);
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
@@ -36,6 +40,13 @@ const Home = ({ testSeries, onSelectTest }) => {
             Challenge yourself with carefully crafted tests designed by industry experts. 
             Track your progress and earn certificates.
           </p>
+          {!user && (
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 mb-6">
+              <p className="text-white/90 text-sm">
+                <span className="font-semibold">Sign in to unlock:</span> Track your progress, earn certificates, and access premium content
+              </p>
+            </div>
+          )}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
             <div className="flex items-center">
               <BookOpen className="w-8 h-8 mr-3" />
@@ -79,7 +90,7 @@ const Home = ({ testSeries, onSelectTest }) => {
             </div>
 
             {/* Filters */}
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 items-center">
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
@@ -100,15 +111,13 @@ const Home = ({ testSeries, onSelectTest }) => {
                 ))}
               </select>
 
-              <select
-                value={selectedType}
-                onChange={(e) => setSelectedType(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              {/* Free Only Toggle Button */}
+              <button
+                className={`px-4 py-2 border rounded-lg flex items-center gap-2 ${selectedType === 'Free' ? 'bg-blue-100 border-blue-400 text-blue-700' : 'bg-white border-gray-300 text-gray-700'}`}
+                onClick={() => setSelectedType(selectedType === 'Free' ? 'All' : 'Free')}
               >
-                {types.map(type => (
-                  <option key={type} value={type}>{type}</option>
-                ))}
-              </select>
+                <Filter className="w-4 h-4" /> Free Only
+              </button>
             </div>
           </div>
         </div>
@@ -136,9 +145,10 @@ const Home = ({ testSeries, onSelectTest }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredTests.map(test => (
             <TestCard 
-              key={test.id} 
+              key={test.testId} 
               test={test} 
-              onSelect={onSelectTest}
+              onSelect={handleViewDetails}
+              user={user}
             />
           ))}
         </div>

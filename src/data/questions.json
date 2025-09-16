@@ -2,6 +2,7 @@
   "1": [
     {
       "id": 1,
+      "testId": "JS-1",
       "question": "Which of the following is NOT a primitive data type in JavaScript?",
       "options": ["String", "Number", "Boolean", "Array"],
       "correct": 3,
@@ -9,6 +10,7 @@
     },
     {
       "id": 2,
+      "testId": "JS-1",
       "question": "What does the '===' operator do in JavaScript?",
       "options": ["Assignment", "Loose equality", "Strict equality", "Not equal"],
       "correct": 2,
@@ -18,6 +20,7 @@
   "2": [
     {
       "id": 1,
+      "testId": "Programming-1",
       "question": "What is a closure in JavaScript?",
       "options": [
         "A function that returns another function",
@@ -27,6 +30,138 @@
       ],
       "correct": 1,
       "explanation": "A closure is a function that has access to variables in its outer (enclosing) scope even after the outer function has returned."
+    }
+  ],
+  "5": [
+    {
+      "id": 1,
+      "testId": "Math-1",
+      "question": "What is 2+2?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "correct": 3,
+      "explanation": "Basic addition dude."
+    },
+    {
+      "id": 2,
+      "testId": "Math-1",
+      "question": "What is 2*2?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "correct": 3,
+      "explanation": "Basic multiplication dude."
+    },
+    {
+      "id": 3,
+      "testId": "Math-1",
+      "question": "What is 2+6?",
+      "options": [
+        "1",
+        "8",
+        "5",
+        "7"
+      ],
+      "correct": 1,
+      "explanation": "Basic addition dude."
+    },
+    {
+      "id": 4,
+      "testId": "Math-1",
+      "question": "What is 12+2?",
+      "options": [
+        "14",
+        "24",
+        "35",
+        "24"
+      ],
+      "correct": 0,
+      "explanation": "Basic addition dude."
+    },
+    {
+      "id": 5,
+      "testId": "Math-1",
+      "question": "What is 8+2?",
+      "options": [
+        "10",
+        "20",
+        "30",
+        "40"
+      ],
+      "correct": 0,
+      "explanation": "Basic addition dude."
+    },
+    {
+      "id": 6,
+      "testId": "Math-1",
+      "question": "What is 15+17?",
+      "options": [
+        "112",
+        "82",
+        "32",
+        "48"
+      ],
+      "correct": 2,
+      "explanation": "Basic addition dude."
+    },
+    {
+      "id": 7,
+      "testId": "Math-1",
+      "question": "What is 2+2?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "correct": 3,
+      "explanation": "Basic addition dude."
+    },
+    {
+      "id": 8,
+      "testId": "Math-1",
+      "question": "What is 2+2?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "correct": 3,
+      "explanation": "Basic addition dude."
+    },
+    {
+      "id": 9,
+      "testId": "Math-1",
+      "question": "What is 2+2?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "correct": 3,
+      "explanation": "Basic addition dude."
+    },
+    {
+      "id": 10,
+      "testId": "Math-1",
+      "question": "What is 2+2?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "correct": 3,
+      "explanation": "Basic addition dude."
     }
   ]
 }
