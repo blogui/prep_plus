@@ -1,9 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Clock, FileText, Star, Crown, CheckCircle } from 'lucide-react';
 
-const TestCard = ({ test, onSelect }) => {
+const TestCard = ({ test, onSelect, user }) => {
+  const navigate = useNavigate();
+  
+  const handleClick = () => {
+    navigate(`/test/${test.id}`);
+  };
+
   return (
-    <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group cursor-pointer" onClick={() => onSelect(test)}>
+    <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group cursor-pointer" onClick={handleClick}>
       <div className="relative">
         <img 
           src={test.image} 

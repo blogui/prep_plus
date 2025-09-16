@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { User, LogOut, BookOpen, BarChart3 } from 'lucide-react';
 
-const Navbar = ({ user, onLogout }) => {
+const Navbar = ({ user, onLogout, onLogin }) => {
   return (
     <nav className="bg-white shadow-md border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,10 +51,13 @@ const Navbar = ({ user, onLogout }) => {
                 </button>
               </>
             ) : (
-              <div className="flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium text-gray-700">
+              <button
+                onClick={onLogin}
+                className="flex items-center space-x-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              >
                 <User className="h-4 w-4" />
-                <span>Please login to continue</span>
-              </div>
+                <span>Login / Sign Up</span>
+              </button>
             )}
           </div>
         </div>

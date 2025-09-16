@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "testId": "Programming-1",
     "title": "Basic Programming Fundamentals",
     "description": "Master the core concepts of programming with variables, loops, and functions.",
     "duration": 60,
@@ -21,12 +22,13 @@
   },
   {
     "id": 2,
+    "testId": "JS-1",
     "title": "Advanced JavaScript Concepts",
     "description": "Deep dive into closures, promises, async/await, and modern ES6+ features.",
     "duration": 90,
     "questions": 75,
     "difficulty": "Advanced",
-    "type": "paid",
+    "type": "free",
     "price": 299,
     "category": "JavaScript",
     "image": "https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?auto=compress&cs=tinysrgb&w=400",
@@ -42,6 +44,7 @@
   },
   {
     "id": 3,
+    "testId": "React-1",
     "title": "React Fundamentals",
     "description": "Learn React components, hooks, state management, and best practices.",
     "duration": 75,
@@ -62,6 +65,7 @@
   },
   {
     "id": 4,
+    "testId": "FullStack-1",
     "title": "Full Stack Development",
     "description": "Comprehensive test covering both frontend and backend development concepts.",
     "duration": 120,
@@ -78,6 +82,28 @@
       "Each question carries 2 marks",
       "Database design questions included",
       "System design scenarios present",
+      "Real-world problem solving required"
+    ]
+  },
+  {
+    "id": 5,
+    "testId": "Math-1",
+    "title": "Basic Mathematics",
+    "description": "Math test covering arithmetic, algebra, and geometry fundamentals.",
+    "duration": 10,
+    "questions": 10,
+    "difficulty": "Easy",
+    "type": "free",
+    "price": 599,
+    "category": "Mathematics",
+    "image": "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=400",
+    "topics": ["Addition", "Substraction", "Multiplication", "Division"],
+    "passingScore": 16,
+    "totalMarks": 20,
+    "instructions": [
+      "Each question carries 2 marks",
+      "Understanding of basic mathematics needed",
+      "No cheating please!!!",
       "Real-world problem solving required"
     ]
   }

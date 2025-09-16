@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Clock, CheckCircle, AlertTriangle, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Clock, CheckCircle, AlertTriangle, ArrowLeft, ArrowRight, Flag } from 'lucide-react';
 
 const TestInterface = ({ testSeries, questionsData }) => {
   const { id } = useParams();
@@ -12,21 +12,23 @@ const TestInterface = ({ testSeries, questionsData }) => {
   const [answers, setAnswers] = useState({});
   const [timeLeft, setTimeLeft] = useState(0);
   const [showConfirmSubmit, setShowConfirmSubmit] = useState(false);
+  const [testStarted, setTestStarted] = useState(false);
 
   useEffect(() => {
-    if (test) {
+    if (test && !testStarted) {
       setTimeLeft(test.duration * 60); // Convert minutes to seconds
+      setTestStarted(true);
     }
-  }, [test]);
+  }, [test, testStarted]);
 
   useEffect(() => {
-    if (timeLeft > 0) {
+    if (timeLeft > 0 && testStarted) {
       const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
       return () => clearTimeout(timer);
-    } else if (timeLeft === 0 && test) {
+    } else if (timeLeft === 0 && testStarted) {
       handleSubmitTest();
     }
-  }, [timeLeft, test]);
+  }, [timeLeft, testStarted]);
 
   if (!test || questions.length === 0) {
     return (
@@ -55,10 +57,18 @@ const TestInterface = ({ testSeries, questionsData }) => {
     const score = calculateScore();
     const passed = (score / test.totalMarks) * 100 >= test.passingScore;
     
-    // In a real app, you'd send this to the backend
-    alert(`Test completed!\nScore: ${score}/${test.totalMarks} (${Math.round((score / test.totalMarks) * 100)}%)\n${passed ? 'Congratulations! You passed!' : 'Better luck next time!'}`);
-    
-    navigate('/dashboard');
+    // Navigate to results page with test data
+    navigate(`/test/${test.id}/results`, {
+      state: {
+        test,
+        questions,
+        answers,
+        score,
+        totalMarks: test.totalMarks,
+        passed,
+        timeSpent: test.duration * 60 - timeLeft
+      }
+    });
   };
 
   const calculateScore = () => {
@@ -114,12 +124,12 @@ const TestInterface = ({ testSeries, questionsData }) => {
                 <span className="font-medium">{answeredQuestions}</span>/{questions.length} answered
               </div>
               
-              {/* Submit Button */}
+              {/* End Test Button */}
               <button
                 onClick={() => setShowConfirmSubmit(true)}
-                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium"
               >
-                Submit Test
+                End Test
               </button>
             </div>
           </div>
@@ -257,7 +267,7 @@ const TestInterface = ({ testSeries, questionsData }) => {
           <div className="bg-white rounded-xl max-w-md w-full p-6">
             <div className="text-center mb-6">
               <AlertTriangle className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Submit Test?</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">End Test?</h3>
               <p className="text-gray-600">
                 You have answered {answeredQuestions} out of {questions.length} questions.
               </p>
@@ -279,7 +289,7 @@ const TestInterface = ({ testSeries, questionsData }) => {
                 onClick={handleSubmitTest}
                 className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
               >
-                Submit Test
+                End Test
               </button>
             </div>
           </div>
