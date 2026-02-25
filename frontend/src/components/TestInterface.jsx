@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Clock, CheckCircle, AlertTriangle, ArrowLeft, ArrowRight, Flag } from 'lucide-react';
 import api from '../services/api';
 
-const TestInterface = ({ testSeries }) => {
+const TestInterface = ({ testSeries, user }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const test = testSeries.find(t => t.id === id || t.id === parseInt(id));
@@ -138,13 +138,29 @@ const TestInterface = ({ testSeries }) => {
     });
   };
 
-  const handleSubmitTest = () => {
+  const handleSubmitTest = async () => {
     const calculatedTotalMarks = questions.reduce((sum, q) => sum + (q.marks || 1), 0); // Calculate total marks dynamically based on question marks
     const score = calculateScore();
     const passed = (score / calculatedTotalMarks) * 100 >= test.passingScore;
 
     // Use the same time parsing logic as useEffect
     const timeInMinutes = parseTime(test.time) || parseTime(test.duration) || 60;
+
+    // Save progress to backend (fire-and-forget — failure must not block results page)
+    if (user && user._id) {
+      const questionIds = questions.map(q => q.id);
+      try {
+        await api.submitTestProgress({
+          userId: user._id,
+          courseId: test.id,
+          questionIds,
+          score,
+          totalMarks: calculatedTotalMarks,
+        });
+      } catch (err) {
+        console.warn('Could not save test progress:', err);
+      }
+    }
 
     // Navigate to results page with test data
     navigate(`/test/${test.id}/results`, {

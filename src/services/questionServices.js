@@ -38,7 +38,7 @@ exports.getQuestionsByCourseIdService = async (filters) => {
         as: "course",
       },
     },
-    { $unwind: "$course" },
+    { $unwind: { path: "$course", preserveNullAndEmptyArrays: true } },
     {
       $lookup: {
         from: "users",
@@ -47,7 +47,7 @@ exports.getQuestionsByCourseIdService = async (filters) => {
         as: "user",
       },
     },
-    { $unwind: "$user" },
+    { $unwind: { path: "$user", preserveNullAndEmptyArrays: true } },
     {
       $project: {
         _id: 1,
@@ -57,6 +57,8 @@ exports.getQuestionsByCourseIdService = async (filters) => {
         explanation: 1,
         difficulty: 1,
         marks: 1,
+        negativeMarks: 1,
+        tags: 1,
         "course.title": 1,
         "course.category": 1,
         "course.isPaid": 1,

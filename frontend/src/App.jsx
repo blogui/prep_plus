@@ -106,7 +106,7 @@ function App() {
           />
           <Route
             path="/test/:id/start"
-            element={user ? <TestInterface testSeries={testSeries} /> : <Navigate to="/" replace />}
+            element={user ? <TestInterface testSeries={testSeries} user={user} /> : <Navigate to="/" replace />}
           />
           <Route
             path="/test/:id/results"
