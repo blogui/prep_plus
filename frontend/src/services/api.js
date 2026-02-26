@@ -101,10 +101,47 @@ const api = {
 
     getQuestions: async (courseId) => {
         try {
-            const response = await fetch(`${API_URL}/questions?courseId=${courseId}`);
+            const response = await fetch(`${API_URL}/questions?courseId=${courseId}`, {
+                cache: 'no-store', // Always fetch fresh — prevents 304 returning a stale/empty cached body
+            });
             const data = await response.json();
             if (!response.ok) throw new Error(data.message || 'Failed to fetch questions');
             return data.data; // Assuming backend returns { success: true, data: [...] } or { success: true, ...paging, data: [...] }
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    submitTestProgress: async ({ userId, courseId, questionIds, score, totalMarks }) => {
+        try {
+            const token = localStorage.getItem('accessToken');
+            const response = await fetch(`${API_URL}/progress`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+                },
+                body: JSON.stringify({ userId, courseId, questionIds, score, totalMarks }),
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message || 'Failed to save test progress');
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    getUserTestProgress: async (userId, courseId) => {
+        try {
+            const token = localStorage.getItem('accessToken');
+            const response = await fetch(`${API_URL}/progress?userId=${userId}&courseId=${courseId}`, {
+                headers: {
+                    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+                },
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message || 'Failed to fetch test progress');
+            return data.data;
         } catch (error) {
             throw error;
         }
@@ -112,3 +149,4 @@ const api = {
 };
 
 export default api;
+
