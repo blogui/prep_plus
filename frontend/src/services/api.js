@@ -145,7 +145,23 @@ const api = {
         } catch (error) {
             throw error;
         }
-    }
+    },
+
+    getUserAllProgress: async (userId) => {
+        try {
+            const token = localStorage.getItem('accessToken');
+            const response = await fetch(`${API_URL}/progress/all?userId=${userId}`, {
+                headers: {
+                    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+                },
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message || 'Failed to fetch all progress');
+            return data.data; // [{ courseId, courseName, highestPercentage, totalAttempts, ... }]
+        } catch (error) {
+            throw error;
+        }
+    },
 };
 
 export default api;

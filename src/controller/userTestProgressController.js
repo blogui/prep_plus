@@ -1,4 +1,5 @@
 const UserTestProgress = require("../models/UserTestProgress");
+const Course = require("../models/Course");
 
 /**
  * Upsert (create or update) a user's test progress record after submitting a test.
@@ -94,7 +95,49 @@ const getUserTestProgress = async (req, res, next) => {
     }
 };
 
+/**
+ * Get all progress records for a user (one per course attempted).
+ * Includes course title via populate so the frontend can display course names.
+ *
+ * Query: ?userId=
+ */
+const getAllUserProgress = async (req, res, next) => {
+    try {
+        const { userId } = req.query;
+
+        if (!userId) {
+            const error = new Error("userId query param is required");
+            error.status = 400;
+            return next(error);
+        }
+
+        // Fetch progress records and populate course title
+        const progressRecords = await UserTestProgress.find({ userId })
+            .populate("courseId", "title")
+            .lean();
+
+        // Shape data for the frontend
+        const data = progressRecords.map((rec) => ({
+            courseId: rec.courseId?._id || rec.courseId,
+            courseName: rec.courseId?.title || "Unknown Course",
+            highestPercentage: rec.highestPercentage || 0,
+            highestScore: rec.highestScore || 0,
+            totalAttempts: rec.totalAttempts || 0,
+            lastAttemptedAt: rec.lastAttemptedAt,
+        }));
+
+        res.status(200).json({
+            success: true,
+            message: "All user progress fetched successfully",
+            data,
+        });
+    } catch (error) {
+        return next(error);
+    }
+};
+
 module.exports = {
     upsertUserTestProgress,
     getUserTestProgress,
+    getAllUserProgress,
 };

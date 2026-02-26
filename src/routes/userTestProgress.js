@@ -2,6 +2,7 @@ const express = require("express");
 const {
     upsertUserTestProgress,
     getUserTestProgress,
+    getAllUserProgress,
 } = require("../controller/userTestProgressController");
 
 const router = express.Router();
@@ -98,6 +99,24 @@ router.post("/", upsertUserTestProgress);
  *         description: Missing userId or courseId query params
  */
 router.get("/", getUserTestProgress);
+
+/**
+ * @swagger
+ * /api/progress/all:
+ *   get:
+ *     summary: Get all progress records for a user across all courses
+ *     tags: [UserTestProgress]
+ *     parameters:
+ *       - in: query
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: All progress records with course names
+ */
+router.get("/all", getAllUserProgress);
 
 
 
