@@ -70,7 +70,7 @@ const Home = ({ testSeries, onSelectTest, user }) => {
               <Award className="w-8 h-8 mr-3" />
               <div>
                 <div className="font-semibold text-lg">5,000+</div>
-                <div className="text-sm opacity-80">Certificates Issued</div>
+                <div className="text-sm opacity-80">Tests Taken</div>
               </div>
             </div>
           </div>
