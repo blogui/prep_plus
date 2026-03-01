@@ -1,5 +1,5 @@
 const prepareCourseData = (course) => {
-    const { title, description, thumbnail, category, isPaid, price, duration, time, totalMarks, totalQuestions, difficulty, isPublished, author } = course;
+    const { title, description, thumbnail, category, isPaid, price, duration, time, totalMarks, totalQuestions, difficulty, topics, isPublished, author } = course;
     const courseData = {
         title,
         description,
@@ -13,6 +13,7 @@ const prepareCourseData = (course) => {
     if (totalMarks) courseData.totalMarks = totalMarks;
     if (totalQuestions) courseData.totalQuestions = totalQuestions;
     if (difficulty) courseData.difficulty = difficulty;
+    if (Array.isArray(topics)) courseData.topics = topics;
     if (isPublished !== undefined) courseData.isPublished = isPublished;
     if (author) courseData.author = author;
     return courseData;

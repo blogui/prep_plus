@@ -27,6 +27,7 @@ const courseSchema = new mongoose.Schema(
       default: 'Beginner',
       trim: true,
     },
+    topics: { type: [String], default: [] },        // e.g. ['Algebra', 'Geometry']
     isPublished: { type: Boolean, default: false },
     author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
