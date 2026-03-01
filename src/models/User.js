@@ -64,6 +64,23 @@ const userSchema = new mongoose.Schema({
     refreshToken: {
         type: String,
         default: null
+    },
+    refreshTokens: {
+        type: [{
+            token: { type: String },
+            expiresAt: { type: Date },
+            createdAt: { type: Date, default: Date.now },
+            deviceInfo: { type: String, default: 'unknown' }
+        }],
+        default: []
+    },
+    passwordResetToken: {
+        type: String,
+        default: undefined
+    },
+    passwordResetExpires: {
+        type: Date,
+        default: undefined
     }
 }, { timestamps: true });
 

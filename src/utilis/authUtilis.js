@@ -57,8 +57,11 @@ const generateTokens = (user) => {
 };
 
 const generateResetToken = () => {
-    // Generate a random token
-    return require('crypto').randomBytes(32).toString('hex');
+    const crypto = require('crypto');
+    const token = crypto.randomBytes(32).toString('hex');
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+    const expiresAt = Date.now() + 15 * 60 * 1000; // 15 minutes
+    return { token, hashedToken, expiresAt };
 };
 
 const validateLoginCredentials = (email, password) => {

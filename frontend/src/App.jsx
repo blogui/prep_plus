@@ -8,6 +8,7 @@ import UserDashboard from './components/UserDashboard';
 import AdminDashboard from './components/AdminDashboard';
 import TestResults from './components/TestResults';
 import LoginModal from './components/LoginModal';
+import ResetPassword from './components/ResetPassword';
 
 import api from './services/api';
 
@@ -122,6 +123,8 @@ function App() {
               element={<AdminDashboard testSeries={testSeries} setTestSeries={setTestSeries} />}
             />
           )}
+          {/* Public route — token in URL acts as the credential */}
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
 

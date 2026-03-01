@@ -162,6 +162,46 @@ const api = {
             throw error;
         }
     },
+
+    forgotPassword: async (email) => {
+        try {
+            const response = await fetch(`${API_URL}/auth/forget-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                if (data.errors && Array.isArray(data.errors)) {
+                    throw new Error(data.errors.map(e => e.msg).join(', '));
+                }
+                throw new Error(data.message || 'Failed to send reset email');
+            }
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    resetPassword: async (token, email, newPassword, confirmPassword) => {
+        try {
+            const response = await fetch(`${API_URL}/auth/reset-password/${token}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, newPassword, confirmPassword }),
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                if (data.errors && Array.isArray(data.errors)) {
+                    throw new Error(data.errors.map(e => e.msg).join(', '));
+                }
+                throw new Error(data.message || 'Failed to reset password');
+            }
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    },
 };
 
 export default api;

@@ -150,19 +150,102 @@ const loginHandler = async (req, res, next) => {
 };
 
 const forgetPasswordHandler = async (req, res, next) => {
-    // Implementation omitted for brevity, keeping existing if present or placeholder
     try {
-        // ... logic
-        res.status(501).json({ message: "Not implemented yet" });
-    } catch (error) {
-        next(error);
-    }
-}
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const error = new Error("Validation failed");
+            error.status = 400;
+            error.errors = errors.array();
+            return next(error);
+        }
 
+        const { email } = req.body;
+        const foundUser = await User.findOne({ email: email.toLowerCase() });
+
+        // Always return success to prevent user enumeration
+        if (!foundUser) {
+            return res.status(200).json({
+                success: true,
+                message: "If an account exists, you will receive a password reset link shortly."
+            });
+        }
+
+        if (foundUser.isGoogle) {
+            return res.status(200).json({
+                success: true,
+                message: "If an account exists, you will receive a password reset link shortly."
+            });
+        }
+
+        // Generate reset token
+        const { token, hashedToken, expiresAt } = generateResetToken();
+        foundUser.passwordResetToken = hashedToken;
+        foundUser.passwordResetExpires = new Date(expiresAt);
+        await foundUser.save();
+
+        // Build reset link — /test matches the Vite app's basename
+        const baseUrl = process.env.FRONTEND_URL || "http://localhost:5174";
+        const resetLink = `${baseUrl}/test/reset-password?token=${token}&email=${encodeURIComponent(foundUser.email)}`;
+
+        try {
+            await sendResetPasswordEmail(foundUser.email, resetLink);
+            return res.status(200).json({
+                success: true,
+                message: "If an account exists, you will receive a password reset link shortly."
+            });
+        } catch (emailError) {
+            console.error("Error sending email:", emailError);
+            // Roll back token to keep DB clean
+            foundUser.passwordResetToken = undefined;
+            foundUser.passwordResetExpires = undefined;
+            await foundUser.save();
+            return res.status(500).json({
+                success: false,
+                message: "Error sending reset email. Please try again later."
+            });
+        }
+
+    } catch (error) {
+        return next(error);
+    }
+};
 const resetPasswordHandler = async (req, res, next) => {
     try {
-        // ... logic
-        res.status(501).json({ message: "Not implemented yet" });
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const error = new Error("Validation failed");
+            error.status = 400;
+            error.errors = errors.array();
+            return next(error);
+        }
+
+        const { email, newPassword } = req.body;
+        const token = req.params.token;
+
+        const foundUser = await User.findOne({ email: email.toLowerCase() });
+        if (!foundUser || !foundUser.passwordResetToken) {
+            return res.status(400).json({ success: false, message: "Invalid or expired password reset token." });
+        }
+
+        // Hash token sent by user and compare
+        const crypto = require("crypto");
+        const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+
+        if (hashedToken !== foundUser.passwordResetToken || foundUser.passwordResetExpires < Date.now()) {
+            return res.status(400).json({ success: false, message: "Invalid or expired password reset token." });
+        }
+
+        foundUser.password = await hashPassword(newPassword);
+
+        // Clear reset token fields
+        foundUser.passwordResetToken = undefined;
+        foundUser.passwordResetExpires = undefined;
+        foundUser.refreshTokens = [];
+        foundUser.refreshToken = null;
+
+        await foundUser.save();
+
+        return res.status(200).json({ success: true, message: "Password reset successful. Please login with your new password." });
     } catch (error) {
         next(error);
     }
