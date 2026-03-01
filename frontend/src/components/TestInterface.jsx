@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Clock, CheckCircle, AlertTriangle, ArrowLeft, ArrowRight, Flag } from 'lucide-react';
 import api from '../services/api';
+import QuestionCard from './QuestionCard';
 
 const TestInterface = ({ testSeries, user }) => {
   const { id } = useParams();
@@ -36,12 +37,17 @@ const TestInterface = ({ testSeries, user }) => {
           // Transform backend data to frontend format
           const formattedQuestions = fetchedQuestions.map(q => ({
             id: q._id,
-            question: q.questionText,
-            options: q.options.map(o => o.text), // Extract option text
-            correct: q.options.findIndex(o => o.isCorrect), // Find index of correct option
-            explanation: q.explanation?.text || "",
-            marks: q.marks || 1, // Default to 1 if missing
-            negativeMarks: q.negativeMarks || 0
+            question: q.questionText || '',
+            questionImage: q.questionImage || '',                    // ← carry image
+            options: q.options.map(o => ({                          // ← full objects
+              text: o.text || '',
+              image: o.image || '',
+            })),
+            correct: q.options.findIndex(o => o.isCorrect),
+            explanation: q.explanation?.text || '',
+            explanationImage: q.explanation?.image || '',
+            marks: q.marks || 1,
+            negativeMarks: q.negativeMarks || 0,
           }));
 
           // Shuffle questions
@@ -204,8 +210,8 @@ const TestInterface = ({ testSeries, user }) => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b">
+      {/* Header — sticky so timer/progress always visible */}
+      <div className="bg-white shadow-sm border-b sticky top-0 z-20">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
@@ -254,52 +260,23 @@ const TestInterface = ({ testSeries, user }) => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Question Panel */}
           <div className="lg:col-span-3">
-            <div className="bg-white rounded-xl shadow-sm border p-8">
-              <div className="mb-6">
-                <div className="flex items-center mb-4">
-                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mr-3">
-                    Question {currentQuestion + 1}
-                  </span>
-                  <span className="text-sm text-gray-500">{currentQuestionData.marks} marks</span>
-                </div>
+            {/* Card is a flex column — QuestionCard scrolls, nav buttons stay pinned */}
+            <div className="bg-white rounded-xl shadow-sm border p-8 flex flex-col"
+              style={{ maxHeight: 'calc(100vh - 11rem)' }}>
 
-                <h2 className="text-xl font-semibold text-gray-900 mb-6 leading-relaxed">
-                  {currentQuestionData.question}
-                </h2>
-
-                <div className="space-y-4">
-                  {currentQuestionData.options.map((option, index) => (
-                    <label
-                      key={index}
-                      className={`flex items-center p-4 rounded-lg border-2 cursor-pointer transition-all ${answers[currentQuestionData.id] === index
-                        ? 'border-blue-500 bg-blue-50'
-                        : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
-                        }`}
-                    >
-                      <input
-                        type="radio"
-                        name={`question-${currentQuestionData.id}`}
-                        value={index}
-                        checked={answers[currentQuestionData.id] === index}
-                        onChange={() => handleAnswerSelect(currentQuestionData.id, index)}
-                        className="sr-only"
-                      />
-                      <div className={`w-5 h-5 rounded-full border-2 mr-4 flex items-center justify-center ${answers[currentQuestionData.id] === index
-                        ? 'border-blue-500 bg-blue-500'
-                        : 'border-gray-300'
-                        }`}>
-                        {answers[currentQuestionData.id] === index && (
-                          <div className="w-2 h-2 bg-white rounded-full"></div>
-                        )}
-                      </div>
-                      <span className="text-gray-900">{option}</span>
-                    </label>
-                  ))}
-                </div>
+              {/* Scrollable question area */}
+              <div className="flex-1 overflow-y-auto min-h-0 pr-1">
+                <QuestionCard
+                  key={currentQuestionData.id}
+                  questionData={currentQuestionData}
+                  questionIndex={currentQuestion}
+                  selectedAnswer={answers[currentQuestionData.id]}
+                  onAnswerSelect={handleAnswerSelect}
+                />
               </div>
 
-              {/* Navigation Buttons */}
-              <div className="flex justify-between">
+              {/* Navigation Buttons — always visible at bottom of card */}
+              <div className="flex justify-between mt-6 pt-6 border-t border-gray-100 shrink-0">
                 <button
                   onClick={() => setCurrentQuestion(Math.max(0, currentQuestion - 1))}
                   disabled={currentQuestion === 0}

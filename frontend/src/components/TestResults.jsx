@@ -155,9 +155,25 @@ const TestResults = () => {
                         Q{index + 1}
                       </span>
                       <div className="flex-1">
-                        <h3 className="text-lg font-medium text-gray-900 mb-4">
+                        <h3 className="text-lg font-medium text-gray-900 mb-2">
                           {question.question}
                         </h3>
+
+                        {/* Question image */}
+                        {question.questionImage && (
+                          <div className="mb-4">
+                            <img
+                              src={question.questionImage}
+                              alt="Question"
+                              style={{
+                                maxHeight: '220px',
+                                maxWidth: '100%',
+                                objectFit: 'contain',
+                                borderRadius: '8px',
+                              }}
+                            />
+                          </div>
+                        )}
 
                         <div className="space-y-3">
                           {question.options.map((option, optionIndex) => {
@@ -173,7 +189,6 @@ const TestResults = () => {
                             } else {
                               optionClass += 'border-gray-200 bg-gray-50 text-gray-700';
                             }
-
                             return (
                               <div key={optionIndex} className={optionClass}>
                                 <div className="flex items-center">
@@ -185,14 +200,26 @@ const TestResults = () => {
                                       <XCircle className="w-4 h-4 text-red-600 mr-1" />
                                     )}
                                   </div>
-                                  <span>{option}</span>
+                                  <div className="flex-1">
+                                    {/* option text */}
+                                    {option.text && <span>{option.text}</span>}
+                                    {/* option image */}
+                                    {option.image && (
+                                      <img
+                                        src={option.image}
+                                        alt={`Option ${optionIndex + 1}`}
+                                        style={{ maxHeight: '80px', objectFit: 'contain', borderRadius: '6px', marginTop: '4px' }}
+                                      />
+                                    )}
+                                    {!option.text && !option.image && <span className="text-gray-400 italic">Content not available</span>}
+                                  </div>
                                   {isUserAnswer && (
-                                    <span className="ml-auto text-xs font-medium">
+                                    <span className="ml-auto text-xs font-medium shrink-0">
                                       Your Answer
                                     </span>
                                   )}
                                   {isCorrectAnswer && (
-                                    <span className="ml-auto text-xs font-medium">
+                                    <span className="ml-auto text-xs font-medium shrink-0">
                                       Correct Answer
                                     </span>
                                   )}
@@ -225,10 +252,25 @@ const TestResults = () => {
                         </div>
 
                         {/* Explanation */}
-                        {question.explanation && (
+                        {(question.explanation || question.explanationImage) && (
                           <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                             <h4 className="text-sm font-medium text-blue-900 mb-1">Explanation:</h4>
-                            <p className="text-sm text-blue-800">{question.explanation}</p>
+                            {question.explanation && (
+                              <p className="text-sm text-blue-800">{question.explanation}</p>
+                            )}
+                            {question.explanationImage && (
+                              <img
+                                src={question.explanationImage}
+                                alt="Explanation"
+                                style={{
+                                  maxHeight: '200px',
+                                  maxWidth: '100%',
+                                  objectFit: 'contain',
+                                  borderRadius: '6px',
+                                  marginTop: '8px',
+                                }}
+                              />
+                            )}
                           </div>
                         )}
                       </div>
