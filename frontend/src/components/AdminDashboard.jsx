@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { 
-  Users, BookOpen, Award, TrendingUp, Plus, Edit, Trash2, 
-  Search, Filter, Eye, Download, Settings, BarChart3 
+import {
+  Users, BookOpen, Award, TrendingUp, Plus, Edit, Trash2,
+  Search, Filter, Eye, Download, Settings, BarChart3
 } from 'lucide-react';
 
 const AdminDashboard = ({ testSeries, setTestSeries }) => {
@@ -103,7 +103,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
                 <input
                   type="text"
                   value={newTest.title}
-                  onChange={(e) => setNewTest({...newTest, title: e.target.value})}
+                  onChange={(e) => setNewTest({ ...newTest, title: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                   required
                 />
@@ -113,7 +113,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
                 <input
                   type="text"
                   value={newTest.category}
-                  onChange={(e) => setNewTest({...newTest, category: e.target.value})}
+                  onChange={(e) => setNewTest({ ...newTest, category: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                   required
                 />
@@ -124,7 +124,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
               <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
               <textarea
                 value={newTest.description}
-                onChange={(e) => setNewTest({...newTest, description: e.target.value})}
+                onChange={(e) => setNewTest({ ...newTest, description: e.target.value })}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 rows="3"
                 required
@@ -136,7 +136,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">Difficulty</label>
                 <select
                   value={newTest.difficulty}
-                  onChange={(e) => setNewTest({...newTest, difficulty: e.target.value})}
+                  onChange={(e) => setNewTest({ ...newTest, difficulty: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="Beginner">Beginner</option>
@@ -149,7 +149,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">Type</label>
                 <select
                   value={newTest.type}
-                  onChange={(e) => setNewTest({...newTest, type: e.target.value})}
+                  onChange={(e) => setNewTest({ ...newTest, type: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="free">Free</option>
@@ -162,7 +162,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
                   <input
                     type="number"
                     value={newTest.price}
-                    onChange={(e) => setNewTest({...newTest, price: parseInt(e.target.value)})}
+                    onChange={(e) => setNewTest({ ...newTest, price: parseInt(e.target.value) })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                     min="0"
                   />
@@ -176,7 +176,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
                 <input
                   type="number"
                   value={newTest.duration}
-                  onChange={(e) => setNewTest({...newTest, duration: parseInt(e.target.value)})}
+                  onChange={(e) => setNewTest({ ...newTest, duration: parseInt(e.target.value) })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                   min="1"
                   required
@@ -187,7 +187,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
                 <input
                   type="number"
                   value={newTest.questions}
-                  onChange={(e) => setNewTest({...newTest, questions: parseInt(e.target.value)})}
+                  onChange={(e) => setNewTest({ ...newTest, questions: parseInt(e.target.value) })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                   min="1"
                   required
@@ -198,7 +198,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
                 <input
                   type="number"
                   value={newTest.passingScore}
-                  onChange={(e) => setNewTest({...newTest, passingScore: parseInt(e.target.value)})}
+                  onChange={(e) => setNewTest({ ...newTest, passingScore: parseInt(e.target.value) })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                   min="0"
                   max="100"
@@ -210,7 +210,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
                 <input
                   type="number"
                   value={newTest.totalMarks}
-                  onChange={(e) => setNewTest({...newTest, totalMarks: parseInt(e.target.value)})}
+                  onChange={(e) => setNewTest({ ...newTest, totalMarks: parseInt(e.target.value) })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                   min="1"
                   required
@@ -223,7 +223,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
               <input
                 type="text"
                 value={newTest.topics}
-                onChange={(e) => setNewTest({...newTest, topics: e.target.value})}
+                onChange={(e) => setNewTest({ ...newTest, topics: e.target.value })}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 placeholder="React, JavaScript, HTML, CSS"
               />
@@ -269,7 +269,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
             </div>
           </div>
         </div>
-        
+
         <div className="bg-white rounded-xl p-6 shadow-sm border">
           <div className="flex items-center">
             <BookOpen className="w-8 h-8 text-green-600 mr-3" />
@@ -279,7 +279,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
             </div>
           </div>
         </div>
-        
+
         <div className="bg-white rounded-xl p-6 shadow-sm border">
           <div className="flex items-center">
             <Award className="w-8 h-8 text-yellow-600 mr-3" />
@@ -289,7 +289,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
             </div>
           </div>
         </div>
-        
+
         <div className="bg-white rounded-xl p-6 shadow-sm border">
           <div className="flex items-center">
             <TrendingUp className="w-8 h-8 text-purple-600 mr-3" />
@@ -307,41 +307,37 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
           <nav className="flex">
             <button
               onClick={() => setActiveTab('overview')}
-              className={`px-6 py-4 text-sm font-medium ${
-                activeTab === 'overview'
+              className={`px-6 py-4 text-sm font-medium ${activeTab === 'overview'
                   ? 'border-b-2 border-purple-500 text-purple-600'
                   : 'text-gray-500 hover:text-gray-700'
-              }`}
+                }`}
             >
               Overview
             </button>
             <button
               onClick={() => setActiveTab('tests')}
-              className={`px-6 py-4 text-sm font-medium ${
-                activeTab === 'tests'
+              className={`px-6 py-4 text-sm font-medium ${activeTab === 'tests'
                   ? 'border-b-2 border-purple-500 text-purple-600'
                   : 'text-gray-500 hover:text-gray-700'
-              }`}
+                }`}
             >
               Manage Tests
             </button>
             <button
               onClick={() => setActiveTab('users')}
-              className={`px-6 py-4 text-sm font-medium ${
-                activeTab === 'users'
+              className={`px-6 py-4 text-sm font-medium ${activeTab === 'users'
                   ? 'border-b-2 border-purple-500 text-purple-600'
                   : 'text-gray-500 hover:text-gray-700'
-              }`}
+                }`}
             >
               User Management
             </button>
             <button
               onClick={() => setActiveTab('analytics')}
-              className={`px-6 py-4 text-sm font-medium ${
-                activeTab === 'analytics'
+              className={`px-6 py-4 text-sm font-medium ${activeTab === 'analytics'
                   ? 'border-b-2 border-purple-500 text-purple-600'
                   : 'text-gray-500 hover:text-gray-700'
-              }`}
+                }`}
             >
               Analytics
             </button>
@@ -359,7 +355,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
                       <div key={index} className="flex items-center p-3 bg-gray-50 rounded-lg">
                         <div className="flex-1">
                           <div className="text-sm">
-                            <span className="font-medium">{activity.user}</span> {activity.action.toLowerCase()} 
+                            <span className="font-medium">{activity.user}</span> {activity.action.toLowerCase()}
                             <span className="font-medium"> {activity.test}</span>
                           </div>
                           <div className="text-xs text-gray-500">{activity.time}</div>
@@ -368,7 +364,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
                     ))}
                   </div>
                 </div>
-                
+
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
                   <div className="space-y-3">
@@ -405,7 +401,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
                   Add Test
                 </button>
               </div>
-              
+
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
@@ -426,11 +422,10 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
                         </td>
                         <td className="py-3 px-4 text-gray-600">{test.category}</td>
                         <td className="py-3 px-4">
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            test.type === 'free' 
-                              ? 'bg-green-100 text-green-800' 
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${test.type === 'free'
+                              ? 'bg-green-100 text-green-800'
                               : 'bg-yellow-100 text-yellow-800'
-                          }`}>
+                            }`}>
                             {test.type === 'free' ? 'Free' : `₹${test.price}`}
                           </span>
                         </td>
@@ -474,7 +469,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
@@ -537,9 +532,9 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
                         <span className="text-sm text-gray-600">{test.title}</span>
                         <div className="flex items-center">
                           <div className="w-20 bg-gray-200 rounded-full h-2 mr-2">
-                            <div 
-                              className="bg-blue-600 h-2 rounded-full" 
-                              style={{width: `${Math.random() * 100}%`}}
+                            <div
+                              className="bg-blue-600 h-2 rounded-full"
+                              style={{ width: `${Math.random() * 100}%` }}
                             ></div>
                           </div>
                           <span className="text-xs text-gray-500">
@@ -550,7 +545,7 @@ const AdminDashboard = ({ testSeries, setTestSeries }) => {
                     ))}
                   </div>
                 </div>
-                
+
                 <div className="bg-gray-50 rounded-lg p-6">
                   <div className="flex items-center mb-4">
                     <TrendingUp className="w-5 h-5 text-green-600 mr-2" />

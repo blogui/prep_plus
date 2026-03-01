@@ -37,6 +37,7 @@ const createUserResponse = (user) => {
         mobile: user.mobile,
         role: user.role,
         photoUrl: user.photoUrl,
+        isPremium: user.isPremium ?? false,
         createdAt: user.createdAt
     };
 };

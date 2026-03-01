@@ -26,7 +26,7 @@ const TestCard = ({ test, onSelect, user }) => {
           ) : (
             <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
               <Crown className="w-4 h-4 mr-1" />
-              ₹{test.price}
+              Premium
             </span>
           )}
         </div>

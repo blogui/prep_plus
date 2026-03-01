@@ -1,9 +1,9 @@
-const express=require('express');
+const express = require('express');
 const { registerValidationRules, loginValidationRules, forgetPasswordValidationRule, resetValidationRule } = require('../validator/authValidator');
-const { registerHandler, loginHandler,redirectToGoogle,handleGoogleCallback, forgetPasswordHandler, resetPasswordHandler } = require('../controller/authController');
- 
+const { registerHandler, loginHandler, redirectToGoogle, handleGoogleCallback, forgetPasswordHandler, resetPasswordHandler } = require('../controller/authController');
 
-const router=express.Router();
+
+const router = express.Router();
 
 /**
  * @swagger
@@ -307,7 +307,7 @@ const router=express.Router();
  *                   example: Invalid email or password
  */
 router.post("/register", registerValidationRules, registerHandler);
-router.post("/login",loginValidationRules,loginHandler)
+router.post("/login", loginValidationRules, loginHandler)
 /**
  * @swagger
  * /api/auth/google:
@@ -333,7 +333,7 @@ router.post("/login",loginValidationRules,loginHandler)
  *                   type: string
  *                   example: Failed to initiate Google OAuth
  */
-router.get('/google',redirectToGoogle);
+router.get('/google', redirectToGoogle);
 
 /**
  * @swagger
@@ -487,7 +487,7 @@ router.get('/google/callback', handleGoogleCallback);
  *                   type: string
  *                   example: Failed to send reset email
  */
-router.post('/forget-password',forgetPasswordValidationRule, forgetPasswordHandler);
+router.post('/forget-password', forgetPasswordValidationRule, forgetPasswordHandler);
 
 /**
  * @swagger
@@ -583,5 +583,5 @@ router.post('/forget-password',forgetPasswordValidationRule, forgetPasswordHandl
  *                   type: string
  *                   example: Failed to reset password
  */
-router.post('/reset-password/:token',resetValidationRule, resetPasswordHandler);
+router.post('/reset-password/:token', resetValidationRule, resetPasswordHandler);
 module.exports = router;
