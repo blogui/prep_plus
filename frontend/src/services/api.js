@@ -227,6 +227,36 @@ const api = {
         }
     },
 
+    sendOtp: async (email) => {
+        try {
+            const response = await fetch(`${API_URL}/auth/send-otp`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message || 'Failed to send OTP');
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    verifyOtp: async (email, otp) => {
+        try {
+            const response = await fetch(`${API_URL}/auth/verify-otp`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, otp }),
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message || 'OTP verification failed');
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
     resetPassword: async (token, email, newPassword, confirmPassword) => {
         try {
             const response = await fetch(`${API_URL}/auth/reset-password/${token}`, {

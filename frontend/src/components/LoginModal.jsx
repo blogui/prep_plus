@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
-import { BookOpen, Shield, Award, Users, X, Eye, EyeOff, Mail, ArrowLeft, CheckCircle } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { BookOpen, Shield, Award, Users, X, Eye, EyeOff, Mail, ArrowLeft, CheckCircle, Loader2 } from 'lucide-react';
 import api from '../services/api';
+
+const OTP_TIMER_SECS = 120;
+
+// Simple email format check
+const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 const LoginModal = ({ onLogin, onClose, onRegister }) => {
   const [activeTab, setActiveTab] = useState('signin');
@@ -17,6 +22,18 @@ const LoginModal = ({ onLogin, onClose, onRegister }) => {
   const [signUpMobile, setSignUpMobile] = useState('');
   const [signUpPassword, setSignUpPassword] = useState('');
 
+  // OTP state
+  const [otpSent, setOtpSent] = useState(false);
+  const [emailVerified, setEmailVerified] = useState(false);
+  const [otpValues, setOtpValues] = useState(['', '', '', '']);
+  const [otpTimer, setOtpTimer] = useState(OTP_TIMER_SECS);
+  const [otpLoading, setOtpLoading] = useState(false);
+  const [otpError, setOtpError] = useState('');
+
+  // Refs for OTP boxes and timer interval
+  const otpRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+  const timerRef = useRef(null);
+
   // Forgot Password
   const [forgotEmail, setForgotEmail] = useState('');
   const [forgotSuccess, setForgotSuccess] = useState(false);
@@ -24,6 +41,7 @@ const LoginModal = ({ onLogin, onClose, onRegister }) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // ─── Google token from URL ────────────────────────────────────────────────
   React.useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const accessToken = params.get('accessToken');
@@ -45,6 +63,129 @@ const LoginModal = ({ onLogin, onClose, onRegister }) => {
     }
   }, [onLogin, onClose]);
 
+  // ─── Timer logic ──────────────────────────────────────────────────────────
+  const startTimer = useCallback(() => {
+    clearInterval(timerRef.current);
+    setOtpTimer(OTP_TIMER_SECS);
+    timerRef.current = setInterval(() => {
+      setOtpTimer((prev) => {
+        if (prev <= 1) {
+          clearInterval(timerRef.current);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  }, []);
+
+  useEffect(() => {
+    return () => clearInterval(timerRef.current);
+  }, []);
+
+  // If user changes email after OTP flow started, reset everything
+  const handleSignUpEmailChange = (e) => {
+    const value = e.target.value;
+    setSignUpEmail(value);
+    if (otpSent || emailVerified) {
+      setOtpSent(false);
+      setEmailVerified(false);
+      setOtpValues(['', '', '', '']);
+      setOtpError('');
+      clearInterval(timerRef.current);
+    }
+  };
+
+  // ─── Send OTP ─────────────────────────────────────────────────────────────
+  const handleSendOtp = async () => {
+    if (!isValidEmail(signUpEmail)) return;
+    setOtpError('');
+    setOtpLoading(true);
+    try {
+      await api.sendOtp(signUpEmail);
+      setOtpSent(true);
+      setOtpValues(['', '', '', '']);
+      startTimer();
+      setTimeout(() => otpRefs[0].current?.focus(), 100);
+    } catch (err) {
+      setOtpError(err.message || 'Failed to send OTP');
+    } finally {
+      setOtpLoading(false);
+    }
+  };
+
+  // ─── Resend OTP ───────────────────────────────────────────────────────────
+  const handleResendOtp = async () => {
+    if (otpTimer > 0) return;
+    setOtpError('');
+    setOtpValues(['', '', '', '']);
+    setOtpLoading(true);
+    try {
+      await api.sendOtp(signUpEmail);
+      startTimer();
+      setTimeout(() => otpRefs[0].current?.focus(), 100);
+    } catch (err) {
+      setOtpError(err.message || 'Failed to resend OTP');
+    } finally {
+      setOtpLoading(false);
+    }
+  };
+
+  // ─── OTP input handling ───────────────────────────────────────────────────
+  const handleOtpChange = async (index, value) => {
+    const digit = value.replace(/\D/g, '').slice(-1);
+    const newOtp = [...otpValues];
+    newOtp[index] = digit;
+    setOtpValues(newOtp);
+    setOtpError('');
+
+    if (digit && index < 3) {
+      otpRefs[index + 1].current?.focus();
+    }
+
+    if (newOtp.every((d) => d !== '') && newOtp.join('').length === 4) {
+      await verifyOtp(newOtp.join(''));
+    }
+  };
+
+  const handleOtpKeyDown = (index, e) => {
+    if (e.key === 'Backspace' && !otpValues[index] && index > 0) {
+      otpRefs[index - 1].current?.focus();
+    }
+  };
+
+  const handleOtpPaste = (e) => {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 4);
+    if (!pasted) return;
+    const newOtp = ['', '', '', ''];
+    for (let i = 0; i < pasted.length; i++) newOtp[i] = pasted[i];
+    setOtpValues(newOtp);
+    const focusIdx = Math.min(pasted.length, 3);
+    otpRefs[focusIdx].current?.focus();
+    if (newOtp.every((d) => d !== '')) verifyOtp(newOtp.join(''));
+  };
+
+  // ─── Verify OTP ───────────────────────────────────────────────────────────
+  const verifyOtp = async (otp) => {
+    setOtpError('');
+    try {
+      await api.verifyOtp(signUpEmail, otp);
+      setEmailVerified(true);
+      setOtpSent(false);
+      clearInterval(timerRef.current);
+    } catch (err) {
+      setOtpError(err.message || 'Invalid OTP');
+    }
+  };
+
+  // ─── Format timer as MM:SS ────────────────────────────────────────────────
+  const formatTimer = (secs) => {
+    const m = String(Math.floor(secs / 60)).padStart(2, '0');
+    const s = String(secs % 60).padStart(2, '0');
+    return `${m}:${s}`;
+  };
+
+  // ─── Tab switch helper ────────────────────────────────────────────────────
   const switchTab = (tab) => {
     setActiveTab(tab);
     setError('');
@@ -85,6 +226,10 @@ const LoginModal = ({ onLogin, onClose, onRegister }) => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    if (!emailVerified) {
+      setError('Please verify your email before signing up.');
+      return;
+    }
     setError('');
     setLoading(true);
     try {
@@ -143,7 +288,7 @@ const LoginModal = ({ onLogin, onClose, onRegister }) => {
         </div>
 
         <div className="p-6">
-          {/* Feature icons — only on sign-in / sign-up */}
+          {/* Feature icons */}
           {activeTab !== 'forgot' && (
             <div className="grid grid-cols-3 gap-4 mb-6">
               <div className="text-center p-3">
@@ -161,14 +306,14 @@ const LoginModal = ({ onLogin, onClose, onRegister }) => {
             </div>
           )}
 
-          {/* Tab Navigation — only on sign-in / sign-up */}
+          {/* Tab Navigation */}
           {activeTab !== 'forgot' && (
             <div className="flex border-b border-gray-200 mb-6">
               <button
                 onClick={() => switchTab('signin')}
                 className={`flex-1 py-3 text-center text-sm font-semibold transition-colors ${activeTab === 'signin'
-                    ? 'text-blue-600 border-b-2 border-blue-600'
-                    : 'text-gray-600 hover:text-gray-900'
+                  ? 'text-blue-600 border-b-2 border-blue-600'
+                  : 'text-gray-600 hover:text-gray-900'
                   }`}
               >
                 Sign In
@@ -176,8 +321,8 @@ const LoginModal = ({ onLogin, onClose, onRegister }) => {
               <button
                 onClick={() => switchTab('signup')}
                 className={`flex-1 py-3 text-center text-sm font-semibold transition-colors ${activeTab === 'signup'
-                    ? 'text-blue-600 border-b-2 border-blue-600'
-                    : 'text-gray-600 hover:text-gray-900'
+                  ? 'text-blue-600 border-b-2 border-blue-600'
+                  : 'text-gray-600 hover:text-gray-900'
                   }`}
               >
                 Sign Up
@@ -224,7 +369,6 @@ const LoginModal = ({ onLogin, onClose, onRegister }) => {
                 </button>
               </div>
 
-              {/* Forgot password link */}
               <div className="text-right">
                 <button
                   type="button"
@@ -248,6 +392,102 @@ const LoginModal = ({ onLogin, onClose, onRegister }) => {
           {/* ─── Sign Up ─── */}
           {activeTab === 'signup' && (
             <form onSubmit={handleSignUp} className="space-y-3 mb-4">
+
+              {/* 1. Email row with Verify Mail button or verified badge */}
+              <div className="flex items-center gap-2">
+                <div className="relative flex-1">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <input
+                    type="email"
+                    value={signUpEmail}
+                    onChange={handleSignUpEmailChange}
+                    placeholder="Email"
+                    required
+                    disabled={emailVerified}
+                    className={`w-full pl-9 pr-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${emailVerified
+                        ? 'border-green-400 bg-green-50 text-green-700'
+                        : 'border-blue-300'
+                      }`}
+                  />
+                </div>
+
+                {emailVerified ? (
+                  <span className="flex items-center gap-1 text-green-600 text-xs font-semibold whitespace-nowrap">
+                    <CheckCircle className="w-4 h-4" /> Verified
+                  </span>
+                ) : (
+                  isValidEmail(signUpEmail) && !otpSent && (
+                    <button
+                      type="button"
+                      onClick={handleSendOtp}
+                      disabled={otpLoading}
+                      className="flex items-center gap-1 whitespace-nowrap px-3 py-2 bg-blue-600 text-white text-xs font-semibold rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {otpLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : null}
+                      {otpLoading ? 'Sending...' : 'Verify Mail'}
+                    </button>
+                  )
+                )}
+              </div>
+
+              {/* Inline error (e.g. email already exists) */}
+              {otpError && !otpSent && (
+                <p className="text-xs text-red-600 font-medium -mt-1">{otpError}</p>
+              )}
+
+              {/* OTP Section */}
+              {otpSent && !emailVerified && (
+                <div className="rounded-xl border border-blue-200 bg-blue-50 p-4 space-y-3">
+                  <p className="text-xs text-blue-700 font-medium text-center">
+                    Enter the 4-digit OTP sent to your email
+                  </p>
+
+                  <div className="flex justify-center gap-3">
+                    {otpValues.map((val, idx) => (
+                      <input
+                        key={idx}
+                        ref={otpRefs[idx]}
+                        type="text"
+                        inputMode="numeric"
+                        maxLength={1}
+                        value={val}
+                        onChange={(e) => handleOtpChange(idx, e.target.value)}
+                        onKeyDown={(e) => handleOtpKeyDown(idx, e)}
+                        onPaste={idx === 0 ? handleOtpPaste : undefined}
+                        className={`w-12 h-12 text-center text-xl font-bold border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${otpError
+                            ? 'border-red-400 bg-red-50 text-red-600'
+                            : val
+                              ? 'border-blue-500 bg-white text-blue-700'
+                              : 'border-gray-300 bg-white text-gray-800'
+                          }`}
+                      />
+                    ))}
+                  </div>
+
+                  {otpError && (
+                    <p className="text-center text-xs text-red-600 font-medium">{otpError}</p>
+                  )}
+
+                  <div className="text-center text-xs">
+                    {otpTimer > 0 ? (
+                      <span className="font-semibold text-blue-600">
+                        Resend OTP in {formatTimer(otpTimer)}
+                      </span>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={handleResendOtp}
+                        disabled={otpLoading}
+                        className="font-semibold text-blue-600 hover:text-blue-800 underline underline-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {otpLoading ? 'Sending...' : 'Resend OTP'}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* 2. Name */}
               <input
                 type="text"
                 value={signUpName}
@@ -257,15 +497,7 @@ const LoginModal = ({ onLogin, onClose, onRegister }) => {
                 className="w-full px-4 py-2 border border-blue-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
 
-              <input
-                type="email"
-                value={signUpEmail}
-                onChange={(e) => setSignUpEmail(e.target.value)}
-                placeholder="Email"
-                required
-                className="w-full px-4 py-2 border border-blue-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-
+              {/* 3. Mobile */}
               <input
                 type="tel"
                 value={signUpMobile}
@@ -274,6 +506,7 @@ const LoginModal = ({ onLogin, onClose, onRegister }) => {
                 className="w-full px-4 py-2 border border-blue-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
 
+              {/* 4. Password */}
               <div className="relative">
                 <input
                   type={showSignUpPassword ? 'text' : 'password'}
@@ -292,13 +525,21 @@ const LoginModal = ({ onLogin, onClose, onRegister }) => {
                 </button>
               </div>
 
+              {/* Sign Up button — disabled until email verified */}
               <button
                 type="submit"
-                disabled={loading}
+                disabled={loading || !emailVerified}
+                title={!emailVerified ? 'Please verify your email first' : ''}
                 className="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Creating Account...' : 'Sign Up'}
               </button>
+
+              {!emailVerified && (
+                <p className="text-center text-xs text-amber-600">
+                  ⚠ Verify your email to enable Sign Up
+                </p>
+              )}
             </form>
           )}
 
@@ -360,7 +601,7 @@ const LoginModal = ({ onLogin, onClose, onRegister }) => {
             </div>
           )}
 
-          {/* ─── Google / Admin (only for sign-in and sign-up) ─── */}
+          {/* ─── Google / Admin ─── */}
           {activeTab !== 'forgot' && (
             <>
               <div className="relative my-4">

@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const EmailOtp = require("../models/EmailOtp");
 const {
     prepareUserData,
     validateUserData,
@@ -66,6 +67,60 @@ const handleGoogleCallback = async (req, res) => {
     }
 }
 
+const sendOtpHandler = async (req, res, next) => {
+    try {
+        const { email } = req.body;
+        if (!email) {
+            return res.status(400).json({ success: false, message: "Email is required" });
+        }
+
+        // Check if a user with this email already exists
+        const existingUser = await User.findOne({ email: email.toLowerCase() });
+        if (existingUser) {
+            return res.status(400).json({ success: false, message: "An account with this email already exists. Please sign in instead." });
+        }
+
+        // Generate a random 4-digit OTP
+        const otp = String(Math.floor(1000 + Math.random() * 9000));
+
+        // Upsert: create or replace the OTP record, reset createdAt for TTL
+        await EmailOtp.findOneAndUpdate(
+            { email: email.toLowerCase() },
+            { otp, createdAt: new Date() },
+            { upsert: true, new: true, setDefaultsOnInsert: true }
+        );
+
+        // TODO: Send actual email once email service is configured
+        console.log(`[OTP] Email: ${email} | OTP: ${otp}`);
+
+        return res.status(200).json({ success: true, message: "OTP sent successfully" });
+    } catch (err) {
+        return next(err);
+    }
+};
+
+const verifyOtpHandler = async (req, res, next) => {
+    try {
+        const { email, otp } = req.body;
+        if (!email || !otp) {
+            return res.status(400).json({ success: false, message: "Email and OTP are required" });
+        }
+
+        const record = await EmailOtp.findOne({ email: email.toLowerCase() });
+        if (!record) {
+            return res.status(400).json({ success: false, message: "OTP expired or not found. Please request a new one." });
+        }
+
+        if (record.otp !== String(otp)) {
+            return res.status(400).json({ success: false, message: "Invalid OTP. Please try again." });
+        }
+
+        return res.status(200).json({ success: true, message: "Email verified successfully" });
+    } catch (err) {
+        return next(err);
+    }
+};
+
 const registerHandler = async (req, res, next) => {
     try {
         const errors = validationResult(req);
@@ -91,6 +146,9 @@ const registerHandler = async (req, res, next) => {
         });
 
         await user.save();
+
+        // Clean up OTP record after successful registration
+        await EmailOtp.deleteOne({ email: userData.email });
 
         res.status(201).json({
             success: true,
@@ -257,5 +315,7 @@ module.exports = {
     redirectToGoogle,
     handleGoogleCallback,
     forgetPasswordHandler,
-    resetPasswordHandler
+    resetPasswordHandler,
+    sendOtpHandler,
+    verifyOtpHandler,
 };

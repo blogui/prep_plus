@@ -38,7 +38,8 @@ const createUserResponse = (user) => {
         role: user.role,
         photoUrl: user.photoUrl,
         isPremium: user.isPremium ?? false,
-        createdAt: user.createdAt
+        createdAt: user.createdAt,
+        isGoogleAuthenticated: user.isGoogleAuthenticated
     };
 };
 
