@@ -298,6 +298,14 @@ const api = {
         }
         return data;
     },
+
+    // ── Premium activation (simulated payment) ────────────────────────────────
+    activatePremium: async () => {
+        const response = await request('/payment/activate-premium', { method: 'PATCH' });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to activate premium');
+        return data;
+    },
 };
 
 export default api;

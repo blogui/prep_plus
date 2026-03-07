@@ -59,6 +59,7 @@ app.use("/api/categories", require("./src/routes/categories"));
 app.use("/api/courses", require("./src/routes/courses"));
 app.use("/api/questions", require("./src/routes/question"));
 app.use("/api/progress", require("./src/routes/userTestProgress"));
+app.use("/api/payment", require("./src/routes/payment"));
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {

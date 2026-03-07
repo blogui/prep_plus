@@ -113,53 +113,56 @@ const PreTestModal = ({ test, onConfirm, onClose }) => {
 };
 
 /* ── Premium Upgrade Modal ── */
-const PremiumModal = ({ test, onClose }) => (
-  <div
-    className="fixed inset-0 z-50 flex items-center justify-center p-4"
-    style={{ backgroundColor: 'rgba(0,0,0,0.6)' }}
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="premium-modal-title"
-  >
-    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
-      <div className="relative bg-gradient-to-br from-yellow-400 via-amber-400 to-orange-400 px-6 pt-8 pb-10 text-center">
-        <button onClick={onClose} aria-label="Close" className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors">
-          <X className="w-5 h-5" />
-        </button>
-        <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
-          <Crown className="w-8 h-8 text-white" />
+const PremiumModal = ({ test, onClose }) => {
+  const navigate = useNavigate();
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ backgroundColor: 'rgba(0,0,0,0.6)' }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="premium-modal-title"
+    >
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+        <div className="relative bg-gradient-to-br from-yellow-400 via-amber-400 to-orange-400 px-6 pt-8 pb-10 text-center">
+          <button onClick={onClose} aria-label="Close" className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors">
+            <X className="w-5 h-5" />
+          </button>
+          <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
+            <Crown className="w-8 h-8 text-white" />
+          </div>
+          <h2 id="premium-modal-title" className="text-2xl font-bold text-white mb-1">Premium Content</h2>
+          <p className="text-white/85 text-sm">This test is available exclusively for Premium members. Subscribe to unlock all tests &amp; features.</p>
         </div>
-        <h2 id="premium-modal-title" className="text-2xl font-bold text-white mb-1">Premium Content</h2>
-        <p className="text-white/85 text-sm">This test is available exclusively for Premium members. Subscribe to unlock all tests &amp; features.</p>
-      </div>
-      <div className="px-6 py-6 -mt-4">
-        <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 mb-5 text-center">
-          <p className="text-xs font-semibold text-amber-600 uppercase tracking-wide mb-1">Premium Membership</p>
-          <p className="text-lg font-bold text-gray-900">Unlock all tests &amp; premium content</p>
-          <p className="text-sm text-gray-500 mt-1">Full access across the entire platform</p>
+        <div className="px-6 py-6 -mt-4">
+          <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 mb-5 text-center">
+            <p className="text-xs font-semibold text-amber-600 uppercase tracking-wide mb-1">Premium Membership</p>
+            <p className="text-lg font-bold text-gray-900">Unlock all tests &amp; premium content</p>
+            <p className="text-sm text-gray-500 mt-1">Full access across the entire platform</p>
+          </div>
+          <ul className="space-y-3 mb-6">
+            {[
+              { icon: <CheckCircle className="w-4 h-4 text-green-500" />, text: 'Full access to all questions in this test' },
+              { icon: <Zap className="w-4 h-4 text-blue-500" />, text: 'Detailed explanations for every answer' },
+              { icon: <Award className="w-4 h-4 text-purple-500" />, text: 'Progress tracked in your dashboard' },
+            ].map(({ icon, text }, i) => (
+              <li key={i} className="flex items-center gap-3 text-sm text-gray-700">{icon}{text}</li>
+            ))}
+          </ul>
+          <button
+            className="w-full py-3 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white font-semibold rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+            onClick={() => { onClose(); navigate('/payment'); }}
+          >
+            <Lock className="w-4 h-4" /> Upgrade to Premium
+          </button>
+          <button onClick={onClose} className="w-full mt-3 text-sm text-gray-400 hover:text-gray-600 transition-colors py-1">
+            Maybe Later
+          </button>
         </div>
-        <ul className="space-y-3 mb-6">
-          {[
-            { icon: <CheckCircle className="w-4 h-4 text-green-500" />, text: 'Full access to all questions in this test' },
-            { icon: <Zap className="w-4 h-4 text-blue-500" />, text: 'Detailed explanations for every answer' },
-            { icon: <Award className="w-4 h-4 text-purple-500" />, text: 'Progress tracked in your dashboard' },
-          ].map(({ icon, text }, i) => (
-            <li key={i} className="flex items-center gap-3 text-sm text-gray-700">{icon}{text}</li>
-          ))}
-        </ul>
-        <button
-          className="w-full py-3 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white font-semibold rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
-          onClick={onClose}
-        >
-          <Lock className="w-4 h-4" /> Upgrade to Premium
-        </button>
-        <button onClick={onClose} className="w-full mt-3 text-sm text-gray-400 hover:text-gray-600 transition-colors py-1">
-          Maybe Later
-        </button>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 /* ── Stat chip used in the sticky sidebar ── */
 const SidebarStat = ({ icon: Icon, label, value, colour }) => (

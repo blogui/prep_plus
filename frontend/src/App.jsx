@@ -10,6 +10,7 @@ import TestResults from './components/TestResults';
 import LoginModal from './components/LoginModal';
 import ResetPassword from './components/ResetPassword';
 import SessionTimeoutModal from './components/SessionTimeoutModal';
+import PaymentPage from './components/PaymentPage';
 
 import api from './services/api';
 
@@ -238,6 +239,12 @@ function App() {
     doLogout();
   };
 
+  // Called by PaymentPage after premium is activated — updates state + localStorage
+  const handleUpgrade = (updatedUser) => {
+    setUser(updatedUser);
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+  };
+
   const handleSelectTest = (test) => {
     window.location.href = `/test/${test.id}`;
   };
@@ -283,6 +290,14 @@ function App() {
             <Route
               path="/dashboard"
               element={user ? <UserDashboard user={user} testSeries={testSeries} /> : <Navigate to="/" replace />}
+            />
+            <Route
+              path="/payment"
+              element={
+                user
+                  ? <PaymentPage user={user} onUpgrade={handleUpgrade} />
+                  : <Navigate to="/" replace />
+              }
             />
             {user && user.role === 'admin' && (
               <Route
