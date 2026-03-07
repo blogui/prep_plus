@@ -4,7 +4,7 @@ const {
     getUserTestProgress,
     getAllUserProgress,
 } = require("../controller/userTestProgressController");
-
+const authenticate = require("../middleware/authenticate");
 const router = express.Router();
 
 /**
@@ -64,7 +64,7 @@ const router = express.Router();
  *       400:
  *         description: Missing required fields
  */
-router.post("/", upsertUserTestProgress);
+router.post("/", authenticate, upsertUserTestProgress);
 
 /**
  * @swagger
@@ -98,7 +98,7 @@ router.post("/", upsertUserTestProgress);
  *       400:
  *         description: Missing userId or courseId query params
  */
-router.get("/", getUserTestProgress);
+router.get("/", authenticate, getUserTestProgress);
 
 /**
  * @swagger
@@ -116,7 +116,7 @@ router.get("/", getUserTestProgress);
  *       200:
  *         description: All progress records with course names
  */
-router.get("/all", getAllUserProgress);
+router.get("/all", authenticate, getAllUserProgress);
 
 
 

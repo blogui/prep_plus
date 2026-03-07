@@ -1,7 +1,6 @@
 const express = require('express');
 const { registerValidationRules, loginValidationRules, forgetPasswordValidationRule, resetValidationRule } = require('../validator/authValidator');
-const { registerHandler, loginHandler, redirectToGoogle, handleGoogleCallback, forgetPasswordHandler, resetPasswordHandler, sendOtpHandler, verifyOtpHandler } = require('../controller/authController');
-
+const { registerHandler, loginHandler, redirectToGoogle, handleGoogleCallback, forgetPasswordHandler, resetPasswordHandler, sendOtpHandler, verifyOtpHandler, refreshTokenHandler } = require('../controller/authController');
 
 const router = express.Router();
 
@@ -310,6 +309,8 @@ router.post("/register", registerValidationRules, registerHandler);
 router.post("/login", loginValidationRules, loginHandler);
 router.post("/send-otp", sendOtpHandler);
 router.post("/verify-otp", verifyOtpHandler);
+router.post("/refresh-token", refreshTokenHandler);
+
 /**
  * @swagger
  * /api/auth/google:

@@ -17,7 +17,9 @@ const {
   getSingleQuestionValidationRules
 } = require('../validator/questionValidator');
 const createUpload = require('../config/multer');
+const authenticate = require('../middleware/authenticate');
 const router = express.Router();
+
 /**
  * @swagger
  * /api/questions:
@@ -77,7 +79,7 @@ const router = express.Router();
  *       400:
  *         description: Validation failed / missing courseId
  */
-router.get('/',getSingleQuestionValidationRules, getAllQuestionController);
+router.get('/', authenticate, getSingleQuestionValidationRules, getAllQuestionController);
 
 /**
  * @swagger

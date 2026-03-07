@@ -200,8 +200,19 @@ const loginHandler = async (req, res, next) => {
         }
 
         const { accessToken, refreshToken } = generateTokens(user);
-        // user.refreshToken = refreshToken; // Optional: save refresh token to DB
-        // await user.save();
+
+        // ── Save refresh token to DB (enables server-side revocation) ─────────
+        const refreshExpiry = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
+        user.refreshTokens.push({
+            token: refreshToken,
+            expiresAt: refreshExpiry,
+            deviceInfo: req.headers['user-agent'] || 'unknown',
+        });
+        // Keep a rolling window — max 5 active sessions per user
+        if (user.refreshTokens.length > 5) {
+            user.refreshTokens = user.refreshTokens.slice(-5);
+        }
+        await user.save();
 
         res.status(200).json({
             success: true,
@@ -211,7 +222,7 @@ const loginHandler = async (req, res, next) => {
                 accessToken,
                 refreshToken,
                 expiresIn: {
-                    accessToken: '15m',
+                    accessToken: process.env.JWT_ACCESS_EXPIRES || '15m',
                     refreshToken: '7d'
                 }
             },
@@ -283,6 +294,69 @@ const forgetPasswordHandler = async (req, res, next) => {
         return next(error);
     }
 };
+// ── Refresh Token Handler ─────────────────────────────────────────────────────
+// POST /api/auth/refresh-token
+// Body: { refreshToken }
+// → verifies the refresh token, confirms it exists in DB, issues a new accessToken
+//   and rotates the refresh token (old removed, new stored)
+const refreshTokenHandler = async (req, res, next) => {
+    try {
+        const { refreshToken } = req.body;
+
+        if (!refreshToken) {
+            return res.status(401).json({ success: false, message: 'Refresh token is required.' });
+        }
+
+        // 1. Verify JWT signature + expiry
+        let decoded;
+        try {
+            decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET || 'refreshSecret');
+        } catch (err) {
+            return res.status(401).json({
+                success: false,
+                message: err.name === 'TokenExpiredError'
+                    ? 'Refresh token has expired. Please log in again.'
+                    : 'Invalid refresh token.',
+            });
+        }
+
+        // 2. Find user and confirm this token is still stored in DB
+        const user = await User.findById(decoded.user.id);
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'User no longer exists.' });
+        }
+
+        const storedToken = user.refreshTokens.find(t => t.token === refreshToken);
+        if (!storedToken) {
+            // Token not in DB — possible reuse attack; wipe all sessions
+            user.refreshTokens = [];
+            await user.save();
+            return res.status(401).json({ success: false, message: 'Refresh token reuse detected. Please log in again.' });
+        }
+
+        // 3. Issue new tokens (rotation — invalidate old refresh token)
+        const { accessToken: newAccessToken, refreshToken: newRefreshToken } = generateTokens(user);
+
+        // Remove the used token, add the new one
+        user.refreshTokens = user.refreshTokens.filter(t => t.token !== refreshToken);
+        const refreshExpiry = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+        user.refreshTokens.push({
+            token: newRefreshToken,
+            expiresAt: refreshExpiry,
+            deviceInfo: req.headers['user-agent'] || 'unknown',
+        });
+        await user.save();
+
+        return res.status(200).json({
+            success: true,
+            message: 'Token refreshed successfully.',
+            data: { accessToken: newAccessToken, refreshToken: newRefreshToken },
+        });
+    } catch (err) {
+        return next(err);
+    }
+};
+
 const resetPasswordHandler = async (req, res, next) => {
     try {
         const errors = validationResult(req);
@@ -332,6 +406,7 @@ module.exports = {
     handleGoogleCallback,
     forgetPasswordHandler,
     resetPasswordHandler,
+    refreshTokenHandler,
     sendOtpHandler,
     verifyOtpHandler,
 };

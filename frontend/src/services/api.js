@@ -1,7 +1,6 @@
 const API_URL = 'http://localhost:5000/api';
 
-// ─── Public routes that must NOT send an Authorization header ────────────────
-// Everything else automatically gets the access token attached.
+// ─── Public routes — no Authorization header needed ──────────────────────────
 const PUBLIC_PATHS = [
     '/auth/login',
     '/auth/register',
@@ -9,6 +8,7 @@ const PUBLIC_PATHS = [
     '/auth/send-otp',
     '/auth/verify-otp',
     '/auth/reset-password',
+    '/auth/refresh-token',  // refresh endpoint is public by nature
 ];
 
 // ─── JWT helper ───────────────────────────────────────────────────────────────
@@ -21,35 +21,100 @@ const getJwtExpiry = (token) => {
     }
 };
 
+// ─── Token refresh state ──────────────────────────────────────────────────────
+// Prevents multiple simultaneous 401s from each triggering their own refresh call.
+// While one refresh is in-flight, all other 401'd requests are queued and replayed
+// once the new token arrives (or rejected together if refresh fails).
+let isRefreshing = false;
+let failedQueue = []; // [{ resolve, reject }]
+
+const processQueue = (error, token = null) => {
+    failedQueue.forEach(({ resolve, reject }) => {
+        if (error) reject(error);
+        else resolve(token);
+    });
+    failedQueue = [];
+};
+
+// ─── Silent refresh helper ────────────────────────────────────────────────────
+const silentRefresh = async () => {
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (!refreshToken) throw new Error('No refresh token available.');
+
+    const res = await fetch(`${API_URL}/auth/refresh-token`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refreshToken }),
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'Token refresh failed.');
+
+    // Store the new tokens
+    localStorage.setItem('accessToken', data.data.accessToken);
+    localStorage.setItem('refreshToken', data.data.refreshToken);
+
+    return data.data.accessToken;
+};
+
 // ─── Core interceptor ────────────────────────────────────────────────────────
-// All API calls go through this function.
+// All API calls go through this single function.
 //   • Auto-attaches Authorization: Bearer <accessToken> for protected routes
-//   • On 401 → clears localStorage + fires 'auth:expired' (App.jsx handles it)
+//   • On 401 → silently refreshes once, then retries the original request
+//   • If refresh also fails → clears storage + fires 'auth:expired'
 const request = async (path, options = {}) => {
     const token = localStorage.getItem('accessToken');
     const isPublic = PUBLIC_PATHS.some(p => path.startsWith(p));
 
-    // Merge headers — always include Content-Type for JSON bodies
-    const headers = {
+    const buildHeaders = (accessToken) => ({
         ...(options.body && !(options.body instanceof FormData)
             ? { 'Content-Type': 'application/json' }
             : {}),
-        ...(token && !isPublic ? { Authorization: `Bearer ${token}` } : {}),
+        ...(accessToken && !isPublic ? { Authorization: `Bearer ${accessToken}` } : {}),
         ...(options.headers || {}),
-    };
-
-    const response = await fetch(`${API_URL}${path}`, {
-        ...options,
-        headers,
     });
 
-    // Token rejected by server → force logout everywhere in the app
+    // First attempt
+    let response = await fetch(`${API_URL}${path}`, {
+        ...options,
+        headers: buildHeaders(token),
+    });
+
+    // ── Handle 401: try silent refresh ────────────────────────────────────────
     if (response.status === 401 && !isPublic) {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('user');
-        window.dispatchEvent(new Event('auth:expired'));
-        throw new Error('Session expired. Please log in again.');
+        if (isRefreshing) {
+            // Another refresh is already in-flight — queue this request
+            return new Promise((resolve, reject) => {
+                failedQueue.push({ resolve, reject });
+            }).then(newToken => fetch(`${API_URL}${path}`, {
+                ...options,
+                headers: buildHeaders(newToken),
+            }));
+        }
+
+        isRefreshing = true;
+
+        try {
+            const newToken = await silentRefresh();
+            isRefreshing = false;
+            processQueue(null, newToken);
+
+            // Retry original request with the fresh token
+            response = await fetch(`${API_URL}${path}`, {
+                ...options,
+                headers: buildHeaders(newToken),
+            });
+        } catch (refreshError) {
+            isRefreshing = false;
+            processQueue(refreshError);
+
+            // Refresh failed — force logout everywhere
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('user');
+            window.dispatchEvent(new Event('auth:expired'));
+            throw new Error('Session expired. Please log in again.');
+        }
     }
 
     return response;
@@ -135,7 +200,7 @@ const api = {
         }
     },
 
-    // ── Protected ──────────────────────────────────────────────────────────────
+    // ── Protected routes (token auto-attached + silent refresh on 401) ─────────
     getCategories: async () => {
         const response = await request('/categories');
         const data = await response.json();
@@ -150,7 +215,7 @@ const api = {
         return data.data;
     },
 
-    // getQuestions is protected — requires a valid access token
+    // Protected — valid access token required (silently refreshed if expired)
     getQuestions: async (courseId) => {
         const response = await request(`/questions?courseId=${courseId}`, {
             cache: 'no-store',
