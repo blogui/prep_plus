@@ -1,7 +1,8 @@
-const express=require('express');
+const express = require('express');
 const { getAllCategoriesHandler, createCategoryHandler, updateCategoryHandler, deleteCategoryHandler } = require('../controller/categoryController');
 const { deleteCategoryValidationRule, updateCategoryValidationRule, createCategoryValidationRule } = require('../validator/categoryValidator');
-const router=express.Router();
+const authenticate = require('../middleware/authenticate');
+const router = express.Router();
 
 /**
  * @swagger
@@ -70,7 +71,7 @@ const router=express.Router();
  *       500:
  *         description: Server error
  */
-router.get('/',getAllCategoriesHandler);
+router.get('/', authenticate, getAllCategoriesHandler);
 
 /**
  * @swagger
@@ -119,7 +120,7 @@ router.get('/',getAllCategoriesHandler);
  *       500:
  *         description: Server error
  */
-router.post('/',createCategoryValidationRule,createCategoryHandler);
+router.post('/', createCategoryValidationRule, createCategoryHandler);
 
 /**
  * @swagger
@@ -175,7 +176,7 @@ router.post('/',createCategoryValidationRule,createCategoryHandler);
  *       500:
  *         description: Server error
  */
-router.put('/:id',updateCategoryValidationRule,updateCategoryHandler);
+router.put('/:id', updateCategoryValidationRule, updateCategoryHandler);
 
 /**
  * @swagger
@@ -213,5 +214,5 @@ router.put('/:id',updateCategoryValidationRule,updateCategoryHandler);
  *       500:
  *         description: Server error
  */
-router.delete('/:id',deleteCategoryValidationRule,deleteCategoryHandler);
-module.exports=router;
+router.delete('/:id', deleteCategoryValidationRule, deleteCategoryHandler);
+module.exports = router;
