@@ -52,6 +52,7 @@ const TestInterface = ({ testSeries, user }) => {
 
           // Shuffle questions
           const shuffledQuestions = formattedQuestions.sort(() => 0.5 - Math.random());
+          ;
 
           // Limit questions to test.totalQuestions (or all if not specified)
           const questionLimit = test.totalQuestions || shuffledQuestions.length;
