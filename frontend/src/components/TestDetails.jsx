@@ -335,7 +335,7 @@ const TestDetails = ({ testSeries, user, onStartTest }) => {
                   <div className="grid grid-cols-2 gap-3 mb-6">
                     <SidebarStat icon={Clock} label="Duration" value={`${test.time} mins`} colour="bg-blue-500" />
                     <SidebarStat icon={FileText} label="Questions" value={test.totalQuestions} colour="bg-violet-500" />
-                    <SidebarStat icon={Target} label="Pass Score" value={`${test.passingScore}%`} colour="bg-amber-500" />
+                    <SidebarStat icon={Target} label="Difficulty" value={test.difficulty} colour="bg-amber-500" />
                     <SidebarStat icon={Award} label="Total Marks" value={test.totalMarks} colour="bg-emerald-500" />
                   </div>
 
