@@ -11,6 +11,15 @@ import LoginModal from './components/LoginModal';
 import ResetPassword from './components/ResetPassword';
 import SessionTimeoutModal from './components/SessionTimeoutModal';
 import PaymentPage from './components/PaymentPage';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfService from './components/TermsOfService';
+import RefundPolicy from './components/RefundPolicy';
+import CookiePolicy from './components/CookiePolicy';
+import HelpCenter from './components/HelpCenter';
+import ReportBug from './components/ReportBug';
+import ContactUs from './components/ContactUs';
+import StudyMaterial from './components/StudyMaterial';
+import Syllabus from './components/Syllabus';
 
 import api from './services/api';
 
@@ -307,6 +316,16 @@ function App() {
             )}
             {/* Public route — token in URL acts as the credential */}
             <Route path="/reset-password" element={<ResetPassword />} />
+            {/* Public legal pages */}
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/refund-policy" element={<RefundPolicy />} />
+            <Route path="/cookie-policy" element={<CookiePolicy />} />
+            <Route path="/help-center" element={<HelpCenter />} />
+            <Route path="/report-a-bug" element={<ReportBug />} />
+            <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/study-material" element={<StudyMaterial />} />
+            <Route path="/syllabus" element={<Syllabus />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
