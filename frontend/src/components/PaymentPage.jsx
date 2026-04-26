@@ -17,8 +17,10 @@ const FEATURES = [
 
 /* ── Payment option cards (static UI) ── */
 const PLANS = [
-    { id: 'monthly', label: 'Monthly', price: '₹ 99', period: '/month', tag: null },
-    { id: 'yearly', label: 'Yearly', price: '₹ 999', period: '/year', tag: 'Best Value 🎉' },
+    { id: 'monthly',   label: 'Monthly',   price: '₹ 99',  period: '/month',    tag: null },
+    { id: 'quarterly', label: 'Quarterly', price: '₹ 249', period: '/3 months', tag: 'Most Popular 🔥' },
+    { id: 'half-yearly',    label: 'Half-Yearly',    price: '₹ 599',  period: '/6 months',     tag: 'Save 10%' },
+    { id: 'yearly',    label: 'Yearly',    price: '₹ 999', period: '/year',     tag: 'Best Value 🎉' },
 ];
 
 const PaymentPage = ({ user, onUpgrade, onLogin }) => {
@@ -118,38 +120,67 @@ const PaymentPage = ({ user, onUpgrade, onLogin }) => {
 
                     {/* Right: Plan picker + CTA */}
                     <div className="flex flex-col gap-5">
-                        {/* Plan cards */}
-                        {PLANS.map(plan => (
-                            <button
-                                key={plan.id}
-                                onClick={() => setSelectedPlan(plan.id)}
-                                className={`relative w-full text-left rounded-2xl border-2 p-6 transition-all duration-200 cursor-pointer
-                  ${selectedPlan === plan.id
-                                        ? 'border-amber-400 bg-amber-400/10 shadow-lg shadow-amber-500/20'
-                                        : 'border-white/10 bg-white/5 hover:border-white/30'}
-                `}
-                            >
-                                {plan.tag && (
-                                    <span className="absolute top-4 right-4 px-2.5 py-0.5 bg-amber-400 text-slate-900 text-xs font-bold rounded-full">
-                                        {plan.tag}
-                                    </span>
-                                )}
-                                <div className="flex items-baseline gap-1">
-                                    <span className="text-3xl font-extrabold text-white">{plan.price}</span>
-                                    <span className="text-white/50 text-sm">{plan.period}</span>
-                                </div>
-                                <p className="text-white/60 text-sm mt-1">{plan.label} plan — cancel anytime</p>
-                                {/* Radio indicator */}
-                                <div className={`absolute top-6 left-6 w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors
-                  ${selectedPlan === plan.id ? 'border-amber-400' : 'border-white/30'}`}>
-                                    {selectedPlan === plan.id && (
-                                        <div className="w-2 h-2 rounded-full bg-amber-400" />
+
+                        {/* ── 2×2 plan grid (1 col mobile, 2 cols sm+) ── */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+                            {PLANS.map(plan => (
+                                <button
+                                    key={plan.id}
+                                    onClick={() => setSelectedPlan(plan.id)}
+                                    className={`relative w-full text-left rounded-2xl border-2 p-6 min-h-[160px]
+                                        flex flex-col justify-between
+                                        transition-all duration-300 cursor-pointer
+                                        ${selectedPlan === plan.id
+                                            ? 'border-amber-400 bg-gradient-to-br from-amber-400/15 to-orange-400/5 shadow-2xl shadow-amber-500/30 scale-[1.02]'
+                                            : 'border-white/10 bg-white/5 hover:border-amber-400/40 hover:shadow-lg hover:shadow-amber-500/10 hover:scale-[1.01]'
+                                        }`}
+                                >
+                                    {/* Floating tag badge */}
+                                    {plan.tag && (
+                                        <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 py-1
+                                            bg-gradient-to-r from-amber-400 to-orange-400
+                                            text-slate-900 text-xs font-bold rounded-full shadow-lg whitespace-nowrap tracking-wide">
+                                            {plan.tag}
+                                        </span>
                                     )}
-                                </div>
-                                {/* Shift content right to clear radio */}
-                                <style>{`.plan-label-${plan.id} { padding-left: 1.75rem; }`}</style>
-                            </button>
-                        ))}
+
+                                    {/* Top row: plan label + checkmark */}
+                                    <div className="flex items-center justify-between mb-4">
+                                        <span className={`text-xs font-bold uppercase tracking-widest transition-colors
+                                            ${selectedPlan === plan.id ? 'text-amber-400' : 'text-white/40'}`}>
+                                            {plan.label}
+                                        </span>
+                                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center
+                                            flex-shrink-0 transition-all duration-200
+                                            ${selectedPlan === plan.id ? 'border-amber-400 bg-amber-400' : 'border-white/20'}`}>
+                                            {selectedPlan === plan.id && (
+                                                <svg className="w-3 h-3 text-slate-900" fill="none" viewBox="0 0 24 24"
+                                                    stroke="currentColor" strokeWidth={3}>
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* Price */}
+                                    <div>
+                                        <div className="flex items-baseline gap-1.5 mb-1.5">
+                                            <span className="text-3xl font-extrabold text-white leading-none">
+                                                {plan.price}
+                                            </span>
+                                            <span className="text-white/40 text-sm">{plan.period}</span>
+                                        </div>
+                                        <p className="text-white/35 text-xs">Cancel anytime</p>
+                                    </div>
+
+                                    {/* Bottom glow accent on selected */}
+                                    {selectedPlan === plan.id && (
+                                        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-0.5
+                                            bg-gradient-to-r from-transparent via-amber-400 to-transparent rounded-full" />
+                                    )}
+                                </button>
+                            ))}
+                        </div>
 
                         {/* Error */}
                         {error && (
@@ -163,20 +194,16 @@ const PaymentPage = ({ user, onUpgrade, onLogin }) => {
                             onClick={handleProceed}
                             disabled={loading}
                             className="w-full py-4 px-6 rounded-2xl font-bold text-slate-900 text-base
-                bg-gradient-to-r from-amber-400 to-orange-400
-                hover:from-amber-300 hover:to-orange-300
-                disabled:opacity-60 disabled:cursor-not-allowed
-                shadow-xl shadow-amber-500/30 hover:shadow-amber-400/50
-                transition-all duration-300 flex items-center justify-center gap-2"
+                                bg-gradient-to-r from-amber-400 to-orange-400
+                                hover:from-amber-300 hover:to-orange-300
+                                disabled:opacity-60 disabled:cursor-not-allowed
+                                shadow-xl shadow-amber-500/30 hover:shadow-amber-400/50
+                                transition-all duration-300 flex items-center justify-center gap-2"
                         >
                             {loading ? (
-                                <>
-                                    <Loader2 className="w-5 h-5 animate-spin" /> Processing…
-                                </>
+                                <><Loader2 className="w-5 h-5 animate-spin" /> Processing…</>
                             ) : (
-                                <>
-                                    <Crown className="w-5 h-5" /> Proceed to Pay
-                                </>
+                                <><Crown className="w-5 h-5" /> Proceed to Pay</>
                             )}
                         </button>
 
