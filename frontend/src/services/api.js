@@ -299,6 +299,22 @@ const api = {
         return data;
     },
 
+    // ── Contact Support ────────────────────────────────────────────────────────
+    contactSupport: async ({ contact, message }) => {
+        const response = await request('/support/contact', {
+            method: 'POST',
+            body: JSON.stringify({ contact, message }),
+        });
+        const data = await response.json();
+        if (!response.ok) {
+            if (data.errors && Array.isArray(data.errors)) {
+                throw new Error(data.errors.map(e => e.msg).join(', '));
+            }
+            throw new Error(data.message || 'Failed to send support message');
+        }
+        return data;
+    },
+
     // ── Premium activation (simulated payment) ────────────────────────────────
     activatePremium: async () => {
         const response = await request('/payment/activate-premium', { method: 'PATCH' });

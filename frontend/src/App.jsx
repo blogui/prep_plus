@@ -20,6 +20,7 @@ import ReportBug from './components/ReportBug';
 import ContactUs from './components/ContactUs';
 import StudyMaterial from './components/StudyMaterial';
 import Syllabus from './components/Syllabus';
+import ContactSupport from './components/ContactSupport';
 
 import api from './services/api';
 
@@ -303,9 +304,11 @@ function App() {
             <Route
               path="/payment"
               element={
-                user
-                  ? <PaymentPage user={user} onUpgrade={handleUpgrade} />
-                  : <Navigate to="/" replace />
+                <PaymentPage
+                  user={user}
+                  onUpgrade={handleUpgrade}
+                  onLogin={() => setShowLoginModal(true)}
+                />
               }
             />
             {user && user.role === 'admin' && (
@@ -326,6 +329,10 @@ function App() {
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/study-material" element={<StudyMaterial />} />
             <Route path="/syllabus" element={<Syllabus />} />
+            <Route
+              path="/contact-support"
+              element={<ContactSupport user={user} onLogin={() => setShowLoginModal(true)} />}
+            />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

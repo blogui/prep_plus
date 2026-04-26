@@ -42,18 +42,18 @@ const Footer = () => {
     Platform: [
       { label: 'All Tests', href: '#test-series-section' },
       { label: 'Free Tests', href: '#test-series-section' },
-      { label: 'Premium Plans', href: '#' },
-      { label: 'Leaderboard', href: '#' },
+      { label: 'Premium Plans', href: '#', to: '/payment' },
+      // { label: 'Leaderboard', href: '#' },
     ],
     Learn: [
       { label: 'Study Material', href: '#', to: '/study-material' },
       { label: 'Syllabus', href: '#', to: '/syllabus' },
-      { label: 'Tips & Tricks', href: '#' },
+      // { label: 'Tips & Tricks', href: '#' },
       { label: 'Blog', href: '#' },
     ],
     Support: [
       { label: 'Help Center', href: '#', to: '/help-center' },
-      { label: 'Contact Us', href: '#', to: '/contact-us' },
+      { label: 'Contact Us', href: '#', to: '/contact-support' },
       { label: 'FAQs', href: '#', scrollTo: 'faq-section' },
       // { label: 'Report a Bug', href: '#', to: '/report-a-bug' },
     ],

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronDown, MessageCircle } from 'lucide-react';
 
 /* ── Scroll animation via React state (avoids React overwriting classList) ── */
@@ -178,13 +179,14 @@ const FAQ = () => {
               </div>
               <p className="text-white font-bold text-lg mb-1">Still have questions?</p>
               <p className="text-white/70 text-sm mb-5">Our support team is happy to help you out</p>
-              <a
-                href="mailto:support@logicjunior.com"
+              <Link
+                to="/contact-support"
+                id="faq-contact-support-btn"
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold
                            bg-white text-blue-700 hover:bg-blue-50 transition-colors duration-200 shadow-lg"
               >
                 Contact Support
-              </a>
+              </Link>
             </div>
           </div>
         </div>

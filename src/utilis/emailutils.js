@@ -246,4 +246,70 @@ const sendPasswordResetEmail = async (to, resetLink) => {
     return result;
 };
 
-module.exports = { sendOtpEmail, sendPasswordResetEmail };
+/* ─────────────────────────────────────────────────────────────
+   TEMPLATE 3: Support Request Email
+───────────────────────────────────────────────────────────── */
+const getSupportEmailTemplate = (userEmail, contact, message) => {
+    const contactRow = contact
+        ? `<tr>
+             <td style="padding:6px 0;color:#9ca3af;font-size:14px;font-weight:600;width:140px;vertical-align:top;">Contact Number</td>
+             <td style="padding:6px 0;color:#e5e7eb;font-size:14px;">${contact}</td>
+           </tr>`
+        : '';
+
+    const body = `
+      <h2 style="margin:0 0 8px;color:#ffffff;font-size:24px;font-weight:700;">
+        New Support Request
+      </h2>
+      <p style="margin:0 0 24px;color:#9ca3af;font-size:15px;line-height:1.6;">
+        A support message has been submitted via the LogicJunior platform.
+        Details are listed below.
+      </p>
+
+      <!-- INFO TABLE -->
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
+        style="background:#0f0f1a;border:1px solid #2e2e4a;border-radius:10px;padding:20px 24px;margin-bottom:24px;">
+        <tr>
+          <td style="padding:6px 0;color:#9ca3af;font-size:14px;font-weight:600;width:140px;vertical-align:top;">From (Email)</td>
+          <td style="padding:6px 0;color:#a78bfa;font-size:14px;font-weight:600;">${userEmail}</td>
+        </tr>
+        ${contactRow}
+      </table>
+
+      <!-- MESSAGE BLOCK -->
+      <p style="margin:0 0 8px;color:#9ca3af;font-size:13px;font-weight:600;
+                text-transform:uppercase;letter-spacing:1px;">Message</p>
+      <div style="background:#0f0f1a;border:1px solid #2e2e4a;border-left:4px solid #6C63FF;
+                  border-radius:8px;padding:18px 20px;margin-bottom:24px;">
+        <p style="margin:0;color:#e5e7eb;font-size:15px;line-height:1.8;white-space:pre-wrap;">${message}</p>
+      </div>
+
+      <p style="margin:0;color:#6b7280;font-size:13px;line-height:1.6;
+                 border-top:1px solid #2e2e4a;padding-top:20px;">
+        Reply directly to this email to respond to the user at
+        <strong style="color:#a78bfa;">${userEmail}</strong>.
+      </p>
+    `;
+    return baseTemplate('Support Request — LogicJunior', body);
+};
+
+/**
+ * Send a support request email to the hardcoded support inbox.
+ * @param {string} userEmail - Authenticated user's email (fetched from DB)
+ * @param {string|undefined} contact - Optional contact number
+ * @param {string} message - User's support message
+ * @returns {Promise<object>} nodemailer send info
+ */
+const sendSupportEmail = async (userEmail, contact, message) => {
+    const mailOptions = {
+        from: `"LogicJunior Support" <${process.env.SMTP_USER || 'jspmern@gmail.com'}>`,
+        to: process.env.SUPPORT_EMAIL || 'ashishtwr866@gmail.com',
+        replyTo: userEmail,
+        subject: `Support Request from ${userEmail}`,
+        html: getSupportEmailTemplate(userEmail, contact, message),
+    };
+    const result = await transporter.sendMail(mailOptions);
+    return result;
+};
+
+module.exports = { sendOtpEmail, sendPasswordResetEmail, sendSupportEmail };

@@ -18,10 +18,10 @@ const FEATURES = [
 /* ── Payment option cards (static UI) ── */
 const PLANS = [
     { id: 'monthly', label: 'Monthly', price: '₹ 99', period: '/month', tag: null },
-    { id: 'yearly', label: 'Yearly', price: '₹ 499', period: '/year', tag: 'Best Value 🎉' },
+    { id: 'yearly', label: 'Yearly', price: '₹ 999', period: '/year', tag: 'Best Value 🎉' },
 ];
 
-const PaymentPage = ({ user, onUpgrade }) => {
+const PaymentPage = ({ user, onUpgrade, onLogin }) => {
     const navigate = useNavigate();
     const [selectedPlan, setSelectedPlan] = useState('yearly');
     const [loading, setLoading] = useState(false);
@@ -29,7 +29,11 @@ const PaymentPage = ({ user, onUpgrade }) => {
     const [error, setError] = useState('');
 
     const handleProceed = async () => {
-        if (!user) { navigate('/'); return; }
+        if (!user) {
+            // Not logged in — open the login modal so they can sign in and try again
+            if (onLogin) onLogin();
+            return;
+        }
         setLoading(true);
         setError('');
         try {
