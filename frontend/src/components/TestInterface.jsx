@@ -19,27 +19,52 @@ const TestInterface = ({ testSeries, user }) => {
   const [showConfirmSubmit, setShowConfirmSubmit] = useState(false);
   const [testStarted, setTestStarted] = useState(false);
 
+  function shuffleInPlace(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
   useEffect(() => {
     const fetchQuestions = async () => {
       if (!test) return;
 
       try {
         setLoading(true);
-        // Fetch questions for this course
-        // Note: The backend expects courseId. formatting check might be needed if IDs are complex objects
+
+        // ── Step 1: Fetch seen question IDs for logged-in users ──────────────
+        // Guests always see all questions; for logged-in users we prioritise unseen ones.
+        let seenSet = new Set();
+        if (user?._id) {
+          try {
+            const progress = await api.getUserTestProgress(user._id, test.id);
+            // progress is null when no DB entry exists yet (first attempt)
+            if (progress?.seenQuestionIds?.length > 0) {
+              seenSet = new Set(progress.seenQuestionIds.map(String));
+            }
+          } catch {
+            // No progress record yet (first attempt) — treat seenSet as empty
+            seenSet = new Set();
+          }
+        }
+
+        // ── Step 2: Fetch all questions for this course ───────────────────────
         const fetchedQuestions = await api.getQuestions(test.id);
-        console.log("Test Configuration:", {
+        console.log('Test Configuration:', {
           testTotalQuestions: test.totalQuestions,
-          questionsLength: fetchedQuestions?.length
+          questionsLength: fetchedQuestions?.length,
+          seenCount: seenSet.size,
         });
 
         if (fetchedQuestions && Array.isArray(fetchedQuestions)) {
-          // Transform backend data to frontend format
+          // Transform backend data to frontend format (unchanged)
           const formattedQuestions = fetchedQuestions.map(q => ({
             id: q._id,
             question: q.questionText || '',
-            questionImage: q.questionImage || '',                    // ← carry image
-            options: q.options.map(o => ({                          // ← full objects
+            questionImage: q.questionImage || '',
+            options: q.options.map(o => ({
               text: o.text || '',
               image: o.image || '',
             })),
@@ -50,20 +75,38 @@ const TestInterface = ({ testSeries, user }) => {
             negativeMarks: q.negativeMarks || 0,
           }));
 
-          // Shuffle questions
-          const shuffledQuestions = formattedQuestions.sort(() => 0.5 - Math.random());
+          // ── Step 3: Split into unseen / seen pools ──────────────────────────
+          const unseenQuestions = formattedQuestions.filter(q => !seenSet.has(String(q.id)));
+          const seenQuestions = formattedQuestions.filter(q => seenSet.has(String(q.id)));
 
-          // Limit questions to test.totalQuestions (or all if not specified)
-          const questionLimit = test.totalQuestions || shuffledQuestions.length;
-          const selectedQuestions = shuffledQuestions.slice(0, questionLimit);
+          // ── Step 4: Shuffle both pools independently ────────────────────────
+          shuffleInPlace(unseenQuestions);
+          shuffleInPlace(seenQuestions);
+
+          // ── Step 5: Build final question list (unseen-first priority) ───────
+          const limit = test.totalQuestions || formattedQuestions.length;
+          let selectedQuestions;
+
+          if (unseenQuestions.length >= limit) {
+            // Enough unseen questions to fill the session
+            selectedQuestions = unseenQuestions.slice(0, limit);
+          } else if (unseenQuestions.length > 0) {
+            // Some unseen — top up with seen to reach the limit
+            const needed = limit - unseenQuestions.length;
+            selectedQuestions = [...unseenQuestions, ...seenQuestions.slice(0, needed)];
+          } else {
+            // All questions have been seen — serve them all again
+            // seenQuestionIds in the DB is NOT reset; new questions added later will surface next time
+            selectedQuestions = seenQuestions.slice(0, limit);
+          }
 
           setQuestions(selectedQuestions);
         } else {
-          setQuestions([]); // No questions found
+          setQuestions([]);
         }
       } catch (err) {
-        console.error("Failed to fetch questions:", err);
-        setError("Failed to load questions. Please try again.");
+        console.error('Failed to fetch questions:', err);
+        setError('Failed to load questions. Please try again.');
       } finally {
         setLoading(false);
       }

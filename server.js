@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+const connectDB = require("./src/config/db");
 
 // Initialize dotenv
 dotenv.config();
@@ -21,12 +22,7 @@ app.use(cors());
 app.use(morgan("dev"));
 
 // Database Connection
-const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/test-series-be";
-
-mongoose
-    .connect(MONGO_URI)
-    .then(() => console.log("✅ MongoDB connected successfully"))
-    .catch((err) => console.error("❌ MongoDB connection error:", err));
+connectDB();
 
 // Swagger Config
 const swaggerOptions = {
@@ -59,6 +55,8 @@ app.use("/api/categories", require("./src/routes/categories"));
 app.use("/api/courses", require("./src/routes/courses"));
 app.use("/api/questions", require("./src/routes/question"));
 app.use("/api/progress", require("./src/routes/userTestProgress"));
+app.use("/api/payment", require("./src/routes/payment"));
+app.use("/api/support", require("./src/routes/support"));
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {

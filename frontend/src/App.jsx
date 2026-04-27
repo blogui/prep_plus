@@ -10,6 +10,17 @@ import TestResults from './components/TestResults';
 import LoginModal from './components/LoginModal';
 import ResetPassword from './components/ResetPassword';
 import SessionTimeoutModal from './components/SessionTimeoutModal';
+import PaymentPage from './components/PaymentPage';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfService from './components/TermsOfService';
+import RefundPolicy from './components/RefundPolicy';
+import CookiePolicy from './components/CookiePolicy';
+import HelpCenter from './components/HelpCenter';
+import ReportBug from './components/ReportBug';
+import ContactUs from './components/ContactUs';
+import StudyMaterial from './components/StudyMaterial';
+import Syllabus from './components/Syllabus';
+import ContactSupport from './components/ContactSupport';
 
 import api from './services/api';
 
@@ -61,6 +72,13 @@ function App() {
     api.logout();
     setUser(null);
   }, []);
+
+  // ─── auth:expired — fired by api.js interceptor on 401 response ────────────
+  useEffect(() => {
+    const handleAuthExpired = () => doLogout();
+    window.addEventListener('auth:expired', handleAuthExpired);
+    return () => window.removeEventListener('auth:expired', handleAuthExpired);
+  }, [doLogout]);
 
   // ─── Start countdown interval (timestamp-aware) ────────────────────────────
   // Instead of decrementing a counter we compute remaining seconds from the
@@ -231,6 +249,12 @@ function App() {
     doLogout();
   };
 
+  // Called by PaymentPage after premium is activated — updates state + localStorage
+  const handleUpgrade = (updatedUser) => {
+    setUser(updatedUser);
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+  };
+
   const handleSelectTest = (test) => {
     window.location.href = `/test/${test.id}`;
   };
@@ -242,7 +266,7 @@ function App() {
   };
 
   return (
-    <Router>
+    <Router >
       <div className="min-h-screen bg-gray-50">
         <ScrollToTop />
         <Navbar user={user} onLogout={handleLogout} onLogin={() => setShowLoginModal(true)} />
@@ -277,6 +301,16 @@ function App() {
               path="/dashboard"
               element={user ? <UserDashboard user={user} testSeries={testSeries} /> : <Navigate to="/" replace />}
             />
+            <Route
+              path="/payment"
+              element={
+                <PaymentPage
+                  user={user}
+                  onUpgrade={handleUpgrade}
+                  onLogin={() => setShowLoginModal(true)}
+                />
+              }
+            />
             {user && user.role === 'admin' && (
               <Route
                 path="/admin"
@@ -285,6 +319,20 @@ function App() {
             )}
             {/* Public route — token in URL acts as the credential */}
             <Route path="/reset-password" element={<ResetPassword />} />
+            {/* Public legal pages */}
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/refund-policy" element={<RefundPolicy />} />
+            <Route path="/cookie-policy" element={<CookiePolicy />} />
+            <Route path="/help-center" element={<HelpCenter />} />
+            <Route path="/report-a-bug" element={<ReportBug />} />
+            <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/study-material" element={<StudyMaterial />} />
+            <Route path="/syllabus" element={<Syllabus />} />
+            <Route
+              path="/contact-support"
+              element={<ContactSupport user={user} onLogin={() => setShowLoginModal(true)} />}
+            />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

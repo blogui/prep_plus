@@ -40,7 +40,11 @@ const Navbar = ({ user, onLogout, onLogin }) => {
     setMobileOpen(false);
     const doScroll = () => {
       const el = document.getElementById(sectionId);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (el) {
+        const navbarHeight = 64; // matches h-16
+        const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
     };
     if (location.pathname === '/') {
       doScroll();

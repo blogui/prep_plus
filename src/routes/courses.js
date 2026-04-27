@@ -1,11 +1,12 @@
 
 const cache = require("../middleware/cacheMiddleware");
+const authenticate = require("../middleware/authenticate");
 const { createCourseController, getCourseByIdController, updateCourseController, deleteCourseController, getAllCourseController, uploadThumbnailController } = require("../controller/courseController");
 const { createCoureseValidationRule, getCourseByIdValidationRule, updateCourseValidationRule, deleteCourseValidationRule } = require("../validator/courseValidator");
 
-const express=require('express');
+const express = require('express');
 const createUpload = require("../config/multer");
-const router=express.Router();
+const router = express.Router();
 const upload = createUpload("courses");
 
 /**
@@ -146,7 +147,7 @@ const upload = createUpload("courses");
  *       400:
  *         description: Bad request (invalid query params)
  */
-router.get('/',cache('courses'),getAllCourseController);
+router.get('/', cache('courses'), getAllCourseController);
 
 /**
  * @openapi
@@ -232,7 +233,7 @@ router.get('/',cache('courses'),getAllCourseController);
  *                       location:
  *                         type: string
  */
-router.post('/',createCoureseValidationRule,createCourseController);
+router.post('/', createCoureseValidationRule, createCourseController);
 
 /**
  * @openapi
@@ -273,7 +274,7 @@ router.post('/',createCoureseValidationRule,createCourseController);
  *       404:
  *         description: Course not found
  */
-router.get('/:id',getCourseByIdValidationRule,getCourseByIdController);
+router.get('/:id', getCourseByIdValidationRule, getCourseByIdController);
 
 /**
  * @openapi
@@ -315,7 +316,7 @@ router.get('/:id',getCourseByIdValidationRule,getCourseByIdController);
  *       404:
  *         description: Course not found
  */
-router.put('/:id',updateCourseValidationRule,updateCourseController);
+router.put('/:id', updateCourseValidationRule, updateCourseController);
 
 /**
  * @openapi
@@ -347,7 +348,7 @@ router.put('/:id',updateCourseValidationRule,updateCourseController);
  *       404:
  *         description: Course not found
  */
-router.delete('/:id',deleteCourseValidationRule,deleteCourseController);
+router.delete('/:id', deleteCourseValidationRule, deleteCourseController);
 
 /**
  * @openapi
@@ -376,5 +377,5 @@ router.delete('/:id',deleteCourseValidationRule,deleteCourseController);
  *       400:
  *         description: Bad request / missing file
  */
-router.post('/upload/thumbnail',upload.single('thumbnail'),uploadThumbnailController);
-module.exports=router;
+router.post('/upload/thumbnail', upload.single('thumbnail'), uploadThumbnailController);
+module.exports = router;

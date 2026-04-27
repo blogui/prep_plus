@@ -351,25 +351,29 @@ const Home = ({ testSeries, onSelectTest, user, onLogin, heroImage }) => {
 
             {/* Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4">
-              Master<br />
+              Master 11+<br />
               <TypewriterText />
             </h1>
             <p className="text-lg text-white/60 max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-              Industry-crafted tests designed by experts. Track progress, earn certificates,
-              and benchmark yourself against thousands of peers.
+              Adaptive practice, unlimited mock tests, and detailed progress tracking — everything your child needs to succeed.
+              <br />Aligned with GL & ISEB exams • Built by educators • Trusted by parents
             </p>
+
 
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 mb-10">
               <button
                 onClick={() => {
                   const section = document.getElementById('test-series-section');
-                  if (section) section.scrollIntoView({ behavior: 'smooth' });
+                  if (section) {
+                    const top = section.getBoundingClientRect().top + window.scrollY - 64;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                  }
                 }}
                 className="relative flex items-center gap-2 px-7 py-3.5 rounded-2xl text-base font-bold text-white bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 shadow-xl shadow-blue-700/40 hover:shadow-blue-600/60 transition-all duration-300 overflow-hidden group"
               >
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-in-out" />
-                <span className="relative z-10">Browse Tests</span>
+                <span className="relative z-10">Try for Free</span>
                 <ArrowRight className="relative z-10 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
 
