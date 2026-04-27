@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://prep-plus.onrender.com/api';
 
 // ─── JWT helper (no library needed) ─────────────────────────────────────────
 // Decodes the expiry claim from the middle (payload) segment of a JWT.
