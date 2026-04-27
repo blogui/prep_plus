@@ -266,7 +266,7 @@ function App() {
   };
 
   return (
-    <Router basename="/test">
+    <Router >
       <div className="min-h-screen bg-gray-50">
         <ScrollToTop />
         <Navbar user={user} onLogout={handleLogout} onLogin={() => setShowLoginModal(true)} />
