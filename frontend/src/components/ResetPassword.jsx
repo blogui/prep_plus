@@ -130,7 +130,7 @@ const ResetPassword = () => {
                 {/* Header */}
                 <div className="bg-blue-600 p-8 text-center">
                     <BookOpen className="h-12 w-12 text-white mx-auto mb-4" />
-                    <h2 className="text-3xl font-bold text-white">Logic Junior</h2>
+                    <h2 className="text-3xl font-bold text-white">Prep Plus</h2>
                     <p className="text-blue-100 mt-2">Set a new password</p>
                 </div>
 

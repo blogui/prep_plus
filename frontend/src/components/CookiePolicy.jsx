@@ -103,7 +103,7 @@ const CookiePolicy = () => {
                 <div className="max-w-7xl mx-auto">
                     <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
                         <Link to="/" className="hover:text-blue-400 transition-colors flex items-center gap-1.5">
-                            <BookOpen className="w-4 h-4" /> Logic Junior
+                            <BookOpen className="w-4 h-4" /> Prep Plus
                         </Link>
                         <ChevronRight className="w-3.5 h-3.5 text-gray-600" />
                         <span className="text-gray-300">Cookie Policy</span>
@@ -118,7 +118,7 @@ const CookiePolicy = () => {
                                 Last updated: <span className="text-gray-300 font-medium">{LAST_UPDATED}</span>
                             </p>
                             <p className="text-gray-400 mt-3 max-w-2xl leading-relaxed text-[15px]">
-                                This Cookie Policy explains how Logic Junior uses cookies and similar technologies
+                                This Cookie Policy explains how Prep Plus uses cookies and similar technologies
                                 in accordance with the <strong className="text-gray-300">UK GDPR</strong>, the{' '}
                                 <strong className="text-gray-300">Privacy and Electronic Communications Regulations
                                     (PECR)</strong>, and the guidance of the{' '}
@@ -178,7 +178,7 @@ const CookiePolicy = () => {
                                 user experience, and provide information to website operators.
                             </p>
                             <p>
-                                Cookies can be <strong>first-party</strong> (set directly by Logic Junior) or{' '}
+                                Cookies can be <strong>first-party</strong> (set directly by Prep Plus) or{' '}
                                 <strong>third-party</strong> (set by a service we use, such as an analytics provider).
                                 They can also be <strong>session cookies</strong> (deleted when you close your browser)
                                 or <strong>persistent cookies</strong> (remain on your device for a set period).
@@ -186,7 +186,7 @@ const CookiePolicy = () => {
                         </SectionCard>
 
                         <SectionCard id="how-we-use" title="2. How We Use Cookies">
-                            <p>Logic Junior uses cookies to:</p>
+                            <p>Prep Plus uses cookies to:</p>
                             <BulletList items={[
                                 'Keep you securely logged in during your session.',
                                 'Remember your preferences and settings.',
@@ -312,7 +312,7 @@ const CookiePolicy = () => {
                                 If you have any questions about our use of cookies or this policy, please contact us:
                             </p>
                             <div className="bg-gradient-to-br from-blue-50 to-violet-50 border border-blue-100 rounded-xl p-5 space-y-2">
-                                <p className="text-sm font-semibold text-gray-800">Logic Junior — Data Protection Contact</p>
+                                <p className="text-sm font-semibold text-gray-800">Prep Plus — Data Protection Contact</p>
                                 <a href="mailto:support@logicjunior.com" className="flex items-center gap-1.5 text-sm text-blue-700 font-medium hover:underline">
                                     support@logicjunior.com
                                 </a>
@@ -332,7 +332,7 @@ const CookiePolicy = () => {
                             <Link to="/" className="flex items-center gap-2 text-sm text-gray-500 hover:text-blue-600 transition-colors">
                                 ← Back to Home
                             </Link>
-                            <p className="text-xs text-gray-400">© {new Date().getFullYear()} Logic Junior. All rights reserved.</p>
+                            <p className="text-xs text-gray-400">© {new Date().getFullYear()} Prep Plus. All rights reserved.</p>
                         </div>
 
                     </div>

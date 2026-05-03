@@ -2,14 +2,14 @@ const options = {
   definition: {
     openapi: "3.1.0",
     info: {
-      title: "Logic junior Test Series API",
+      title: "Prep Plus Test Series API",
       version: "0.1.0",
       description:
-        "This is a Test series for logic junior application backend",
+        "This is a Test series for Prep Plus application backend",
     
       contact: {
-        name: "logic junior",
-        url: "https://logicjunior.com",
+        name: "Prep Plus",
+        url: "https://prepplus.online",
         email: "info@email.com",
       },
     },

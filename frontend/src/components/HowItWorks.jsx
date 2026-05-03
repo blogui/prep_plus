@@ -248,7 +248,7 @@ const HowItWorks = () => {
             </span>
           </h2>
           <p className="text-gray-500 text-lg max-w-xl mx-auto leading-relaxed">
-            Here's what your experience looks like at every stage on Logic Junior.
+            Here's what your experience looks like at every stage on Prep Plus.
           </p>
         </div>
 

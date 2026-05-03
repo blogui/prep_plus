@@ -1,4 +1,4 @@
-# Logic Junior Test Series
+# Prep Plus Test Series
 
 ## Setup
 1. Clone the repository.

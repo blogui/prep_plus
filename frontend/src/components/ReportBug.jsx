@@ -94,7 +94,7 @@ const ReportBug = () => {
                     <div className="max-w-7xl mx-auto">
                         <div className="flex items-center gap-2 text-sm text-gray-400">
                             <Link to="/" className="hover:text-blue-400 transition-colors flex items-center gap-1.5">
-                                <BookOpen className="w-4 h-4" /> Logic Junior
+                                <BookOpen className="w-4 h-4" /> Prep Plus
                             </Link>
                             <ChevronRight className="w-3.5 h-3.5 text-gray-600" />
                             <span className="text-gray-300">Report a Bug</span>
@@ -143,7 +143,7 @@ const ReportBug = () => {
                 <div className="max-w-7xl mx-auto">
                     <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
                         <Link to="/" className="hover:text-blue-400 transition-colors flex items-center gap-1.5">
-                            <BookOpen className="w-4 h-4" /> Logic Junior
+                            <BookOpen className="w-4 h-4" /> Prep Plus
                         </Link>
                         <ChevronRight className="w-3.5 h-3.5 text-gray-600" />
                         <Link to="/help-center" className="hover:text-blue-400 transition-colors">Help Centre</Link>

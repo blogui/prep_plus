@@ -575,7 +575,7 @@ const LoginModal = ({ onLogin, onClose, onRegister }) => {
                   </div>
                   <p className="font-semibold text-gray-800">No account found</p>
                   <p className="text-sm text-gray-500 mt-2">
-                    There is no LogicJunior account associated with{' '}
+                    There is no Prep Plus account associated with{' '}
                     <span className="font-medium text-gray-700">{forgotEmail}</span>.
                     Please check the email address or create a new account.
                   </p>

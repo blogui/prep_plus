@@ -19,16 +19,16 @@ const FAQ_CATEGORIES = [
                 a: 'Click the "Login / Sign Up" button in the top-right corner of any page. Fill in your name, email address, and choose a password. You will receive a verification email — click the link inside to activate your account.',
             },
             {
-                q: 'Is Logic Junior free to use?',
-                a: 'Yes! Logic Junior offers a selection of free tests that any registered user can access. Premium subscribers get unlimited access to all tests, detailed analytics, and certificates. See the Premium Plans section for pricing.',
+                q: 'Is Prep Plus free to use?',
+                a: 'Yes! Prep Plus offers a selection of free tests that any registered user can access. Premium subscribers get unlimited access to all tests, detailed analytics, and certificates. See the Premium Plans section for pricing.',
             },
             {
                 q: 'What subjects and year groups are covered?',
                 a: 'We currently cover a range of subjects aligned to UK primary and secondary curricula, including Maths and English. New test series are added regularly. Browse the Tests section on the home page to see all available content.',
             },
             {
-                q: 'Can I use Logic Junior on my phone or tablet?',
-                a: 'Absolutely. Logic Junior is fully responsive and works on smartphones, tablets, laptops, and desktop computers. We recommend using a modern browser such as Chrome, Firefox, Safari, or Edge.',
+                q: 'Can I use Prep Plus on my phone or tablet?',
+                a: 'Absolutely. Prep Plus is fully responsive and works on smartphones, tablets, laptops, and desktop computers. We recommend using a modern browser such as Chrome, Firefox, Safari, or Edge.',
             },
         ],
     },
@@ -51,7 +51,7 @@ const FAQ_CATEGORIES = [
                 a: 'To request account deletion, email support@logicjunior.com with the subject "Delete Account" from your registered email address. We will process your request within 5 business days and confirm by email. Please review our Privacy Policy for details on data retention.',
             },
             {
-                q: 'I\'m not receiving emails from Logic Junior. What should I do?',
+                q: 'I\'m not receiving emails from Prep Plus. What should I do?',
                 a: 'Check your spam or junk folder first. Add support@logicjunior.com to your contacts or safe senders list. If the issue persists, contact us and we will investigate.',
             },
         ],
@@ -123,11 +123,11 @@ const FAQ_CATEGORIES = [
                 a: 'Yes. We take data security very seriously. All data is transmitted over HTTPS, passwords are hashed, and we follow UK GDPR and the Data Protection Act 2018. See our Privacy Policy for full details.',
             },
             {
-                q: 'Does Logic Junior use my data for advertising?',
+                q: 'Does Prep Plus use my data for advertising?',
                 a: 'No. We do not sell your personal data or use it for targeted advertising. Your data is used solely to provide and improve our educational services.',
             },
             {
-                q: 'My child uses Logic Junior. What protections are in place?',
+                q: 'My child uses Prep Plus. What protections are in place?',
                 a: 'We comply with the ICO\'s Children\'s Code (Age Appropriate Design Code). Privacy settings are high by default for child users, and we do not engage in behavioural monitoring or profiling of under-13s. Parental consent is required for users under 13.',
             },
         ],
@@ -238,7 +238,7 @@ const HelpCenter = () => {
                     {/* Breadcrumb */}
                     <div className="flex items-center justify-center gap-2 text-sm text-gray-400 mb-8">
                         <Link to="/" className="hover:text-blue-400 transition-colors flex items-center gap-1.5">
-                            <BookOpen className="w-4 h-4" /> Logic Junior
+                            <BookOpen className="w-4 h-4" /> Prep Plus
                         </Link>
                         <ChevronRight className="w-3.5 h-3.5 text-gray-600" />
                         <span className="text-gray-300">Help Centre</span>
@@ -391,7 +391,7 @@ const HelpCenter = () => {
                     <Link to="/" className="flex items-center gap-2 text-sm text-gray-500 hover:text-blue-600 transition-colors">
                         ← Back to Home
                     </Link>
-                    <p className="text-xs text-gray-400">© {new Date().getFullYear()} Logic Junior. All rights reserved.</p>
+                    <p className="text-xs text-gray-400">© {new Date().getFullYear()} Prep Plus. All rights reserved.</p>
                 </div>
 
             </div>
