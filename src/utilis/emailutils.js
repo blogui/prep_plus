@@ -1,9 +1,11 @@
 const nodemailer = require("nodemailer");
 
+const SMTP_PORT = parseInt(process.env.SMTP_PORT) || 587;
+
 const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || "smtp.gmail.com",
-    port: process.env.SMTP_PORT || 587,
-    secure: false, // true for 465, false for other ports
+    host: process.env.SMTP_HOST || "smtp.hostinger.com",
+    port: SMTP_PORT,
+    secure: SMTP_PORT === 465, // true for SSL (465), false for TLS (587)
     auth: {
         user: process.env.SMTP_USER || "jspmern@gmail.com",
         pass: process.env.SMTP_PASS || "ixogybmguttpnzil",
@@ -39,7 +41,7 @@ const baseTemplate = (title, bodyContent) => `
                         border-radius:12px 12px 0 0;padding:32px 40px;text-align:center;">
               <h1 style="margin:0;font-size:26px;font-weight:800;
                           letter-spacing:1px;line-height:1.2;">
-                <a href="https://www.logicjunior.com/" target="_blank"
+                <a href="https://www.prepplus.online/" target="_blank"
                    style="color:#ffffff;text-decoration:none;">⚡ PrepPlus</a>
               </h1>
               <p style="margin:6px 0 0;color:rgba(255,255,255,0.85);font-size:13px;
@@ -63,7 +65,7 @@ const baseTemplate = (title, bodyContent) => `
                         border-radius:0 0 12px 12px;border:1px solid #2e2e4a;border-top:none;">
               <p style="margin:0 0 8px;color:#6b7280;font-size:12px;line-height:1.6;">
                 You received this email because an account action was requested on
-                <a href="https://www.logicjunior.com/" target="_blank"
+                <a href="https://www.prepplus.online/" target="_blank"
                    style="color:#a78bfa;text-decoration:none;font-weight:600;">PrepPlus</a>.
                 If you didn't request this, you can safely ignore this email.
               </p>
