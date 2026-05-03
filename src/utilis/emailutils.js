@@ -40,7 +40,7 @@ const baseTemplate = (title, bodyContent) => `
               <h1 style="margin:0;font-size:26px;font-weight:800;
                           letter-spacing:1px;line-height:1.2;">
                 <a href="https://www.logicjunior.com/" target="_blank"
-                   style="color:#ffffff;text-decoration:none;">⚡ C</a>
+                   style="color:#ffffff;text-decoration:none;">⚡ PrepPlus</a>
               </h1>
               <p style="margin:6px 0 0;color:rgba(255,255,255,0.85);font-size:13px;
                          letter-spacing:2px;text-transform:uppercase;">
