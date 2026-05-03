@@ -90,8 +90,8 @@ const Footer = () => {
                 <BookOpen className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold">
-                <span className="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">Logic</span>
-                <span className="text-white">Junior</span>
+                <span className="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">Prep</span>
+                <span className="text-white">Plus</span>
               </span>
             </div>
 
@@ -171,7 +171,7 @@ const Footer = () => {
           {/* Copyright + Trust Badges */}
           <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
             <p className="text-sm text-gray-400">
-              &copy; {currentYear} Logic Junior. All rights reserved.
+              &copy; {currentYear} Prep Plus. All rights reserved.
             </p>
             {/* Trust badges */}
             <div className="flex items-center gap-2">

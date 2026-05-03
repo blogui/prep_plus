@@ -4,13 +4,10 @@ import { BookOpen, ChevronRight, Mail, ArrowUp, ReceiptText } from 'lucide-react
 
 const SECTIONS = [
     { id: 'overview', label: 'Overview' },
-    { id: 'cooling-off', label: 'Cooling-Off Period' },
     { id: 'eligibility', label: 'Refund Eligibility' },
     { id: 'non-refundable', label: 'Non-Refundable Situations' },
     { id: 'how-to-request', label: 'How to Request a Refund' },
-    { id: 'processing', label: 'Processing & Timeline' },
     { id: 'cancellation', label: 'Cancellation' },
-    { id: 'disputes', label: 'Disputes & Chargebacks' },
     { id: 'changes', label: 'Changes to This Policy' },
     { id: 'contact', label: 'Contact Us' },
 ];
@@ -87,7 +84,7 @@ const RefundPolicy = () => {
                 <div className="max-w-7xl mx-auto">
                     <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
                         <Link to="/" className="hover:text-blue-400 transition-colors flex items-center gap-1.5">
-                            <BookOpen className="w-4 h-4" /> Logic Junior
+                            <BookOpen className="w-4 h-4" /> Prep Plus
                         </Link>
                         <ChevronRight className="w-3.5 h-3.5 text-gray-600" />
                         <span className="text-gray-300">Refund Policy</span>
@@ -102,10 +99,8 @@ const RefundPolicy = () => {
                                 Last updated: <span className="text-gray-300 font-medium">{LAST_UPDATED}</span>
                             </p>
                             <p className="text-gray-400 mt-3 max-w-2xl leading-relaxed text-[15px]">
-                                We want you to feel confident when purchasing a Logic Junior subscription. This policy
-                                explains your refund rights under <strong className="text-gray-300">UK consumer law</strong>,
-                                including the Consumer Contracts (Information, Cancellation and Additional Charges)
-                                Regulations 2013.
+                                We want you to feel confident when purchasing a Prep Plus subscription. This policy
+                                explains your refund rights under different situations.
                             </p>
                         </div>
                     </div>
@@ -155,7 +150,7 @@ const RefundPolicy = () => {
 
                         <SectionCard id="overview" title="1. Overview">
                             <p>
-                                Logic Junior offers free and paid ("<strong>Premium</strong>") subscription plans. When you
+                                Prep Plus offers free and paid ("<strong>Premium</strong>") subscription plans. When you
                                 purchase a Premium subscription, you are entering into a contract with us under which we
                                 will provide you with access to premium test content.
                             </p>
@@ -163,54 +158,23 @@ const RefundPolicy = () => {
                                 We want you to be satisfied with your purchase. This policy sets out the circumstances
                                 in which we will issue refunds and the process for requesting one.
                             </p>
-                            <InfoBox variant="green">
-                                <strong>Quick summary:</strong> You have a 14-day cooling-off right if you have not
-                                accessed premium content. Once you access premium content, the cooling-off period ends.
-                            </InfoBox>
                         </SectionCard>
 
-                        <SectionCard id="cooling-off" title="2. Your Statutory Cooling-Off Right">
-                            <p>
-                                Under the <strong>Consumer Contracts (Information, Cancellation and Additional Charges)
-                                    Regulations 2013</strong>, you ordinarily have a right to cancel a digital service contract
-                                within <strong>14 calendar days</strong> of purchase without giving any reason (the
-                                "cooling-off period").
-                            </p>
-                            <p>
-                                <strong>Important exception:</strong> When you purchase a Premium Plan, you expressly
-                                consent to us beginning to supply the digital content immediately. By proceeding with
-                                your purchase and accessing any premium test or content, you acknowledge that you lose
-                                your right to cancel under the cooling-off period.
-                            </p>
-                            <InfoBox variant="yellow">
-                                If you purchase a subscription but do <strong>not</strong> access any premium content
-                                within 14 days, you retain your full statutory right to cancel and receive a refund.
-                            </InfoBox>
-                        </SectionCard>
 
-                        <SectionCard id="eligibility" title="3. Refund Eligibility">
+                        <SectionCard id="eligibility" title="2. Refund Eligibility">
                             <p>You may be eligible for a refund in the following circumstances:</p>
                             <BulletList items={[
-                                'You purchased a subscription and have not accessed any premium content within 14 days of purchase.',
                                 'You were charged incorrectly or a duplicate charge was made to your account.',
                                 'A technical fault on our platform prevented you from accessing content you paid for, and we were unable to resolve the issue within a reasonable timeframe.',
-                                'We materially change the Service in a way that significantly reduces its value and you object within 30 days of notification.',
+                                'You did the payment but it failed due to some technical issue from our side'
                             ]} />
                         </SectionCard>
 
-                        <SectionCard id="non-refundable" title="4. Non-Refundable Situations">
-                            <p>Refunds will <strong>not</strong> be issued in the following circumstances:</p>
-                            <BulletList items={[
-                                'You have accessed any premium content, test, or resource after purchase.',
-                                'More than 14 days have passed since the date of purchase (except in cases of billing errors or technical faults).',
-                                'You claim you forgot to cancel a subscription before renewal.',
-                                'You changed your mind after accessing premium content.',
-                                'Your account was suspended or terminated due to a breach of our Terms of Service.',
-                                'You purchased the wrong subscription tier by mistake — please contact us before accessing content to discuss options.',
-                            ]} />
+                        <SectionCard id="non-refundable" title="3. Non-Refundable Situations">
+                            <p>Refunds will <strong>not</strong> be issued in other circumstances except the ones mentioned above</p>
                         </SectionCard>
 
-                        <SectionCard id="how-to-request" title="5. How to Request a Refund">
+                        <SectionCard id="how-to-request" title="4. How to Request a Refund">
                             <p>To request a refund, please follow these steps:</p>
                             <div className="space-y-3">
                                 {[
@@ -233,17 +197,8 @@ const RefundPolicy = () => {
                             </div>
                         </SectionCard>
 
-                        <SectionCard id="processing" title="6. Processing & Timeline">
-                            <BulletList items={[
-                                'Approved refunds will be processed within 10 business days of our decision.',
-                                'Refunds will be issued to the original payment method used at the time of purchase.',
-                                'We cannot redirect refunds to a different card, bank account, or payment method.',
-                                'Once processed, it may take an additional 3–5 business days for funds to appear depending on your bank or card provider.',
-                                'We will send you an email confirmation once the refund has been issued.',
-                            ]} />
-                        </SectionCard>
 
-                        <SectionCard id="cancellation" title="7. Cancellation of Subscription">
+                        <SectionCard id="cancellation" title="5. Cancellation of Subscription">
                             <p>
                                 If you wish to cancel your subscription to prevent future renewals, please contact us at{' '}
                                 <a href="mailto:support@logicjunior.com" className="text-blue-600 hover:underline">
@@ -257,26 +212,8 @@ const RefundPolicy = () => {
                             ]} />
                         </SectionCard>
 
-                        <SectionCard id="disputes" title="8. Disputes & Chargebacks">
-                            <p>
-                                If you believe you have been charged incorrectly, please contact us first at{' '}
-                                <a href="mailto:support@logicjunior.com" className="text-blue-600 hover:underline">
-                                    support@logicjunior.com
-                                </a>{' '}
-                                before initiating a chargeback with your bank or payment provider.
-                            </p>
-                            <p>
-                                Raising an unwarranted chargeback may result in suspension of your account. We are
-                                committed to resolving legitimate payment disputes quickly and fairly.
-                            </p>
-                            <p>
-                                If you are not satisfied with our resolution, you may contact the{' '}
-                                <strong>Citizens Advice Consumer Helpline</strong> or refer the matter to an alternative
-                                dispute resolution (ADR) scheme.
-                            </p>
-                        </SectionCard>
 
-                        <SectionCard id="changes" title="9. Changes to This Policy">
+                        <SectionCard id="changes" title="6. Changes to This Policy">
                             <p>
                                 We may update this Refund Policy from time to time. Material changes will be communicated
                                 via email or a notice on our platform, indicating the updated "Last updated" date. Your
@@ -284,7 +221,7 @@ const RefundPolicy = () => {
                             </p>
                         </SectionCard>
 
-                        <SectionCard id="contact" title="10. Contact Us">
+                        <SectionCard id="contact" title="7. Contact Us">
                             <p>For refund enquiries or any questions about this policy, please contact us:</p>
                             <div className="bg-gradient-to-br from-blue-50 to-violet-50 border border-blue-100 rounded-xl p-5 space-y-2">
                                 <div className="flex items-center gap-2 text-sm">
@@ -293,7 +230,7 @@ const RefundPolicy = () => {
                                         support@logicjunior.com
                                     </a>
                                 </div>
-                                <p className="text-sm text-gray-600">We aim to reply within <strong>2 business days</strong>.</p>
+                                <p className="text-sm text-gray-600">We aim to reply within <strong>5 business days</strong>.</p>
                             </div>
                             <p className="text-sm text-gray-500 mt-2">
                                 You may also wish to read our{' '}
@@ -307,7 +244,7 @@ const RefundPolicy = () => {
                             <Link to="/" className="flex items-center gap-2 text-sm text-gray-500 hover:text-blue-600 transition-colors">
                                 ← Back to Home
                             </Link>
-                            <p className="text-xs text-gray-400">© {new Date().getFullYear()} Logic Junior. All rights reserved.</p>
+                            <p className="text-xs text-gray-400">© {new Date().getFullYear()} Prep Plus. All rights reserved.</p>
                         </div>
 
                     </div>

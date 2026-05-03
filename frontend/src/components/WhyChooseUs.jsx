@@ -135,7 +135,7 @@ const WhyChooseUs = () => {
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
             Why Choose{' '}
             <span className="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
-              Logic Junior
+              Prep Plus
             </span>
           </h2>
           <p className="text-lg text-white/55 max-w-2xl mx-auto">

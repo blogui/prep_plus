@@ -73,7 +73,7 @@ const Navbar = ({ user, onLogout, onLogin }) => {
               <BookOpen className="w-5 h-5 text-white" />
             </div>
             <span className="text-lg font-bold bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
-              Logic<span className={isScrolled ? 'text-gray-900' : 'text-white'}>Junior</span>
+              Prep<span className={isScrolled ? 'text-gray-900' : 'text-white'}>Plus</span>
             </span>
           </Link>
 

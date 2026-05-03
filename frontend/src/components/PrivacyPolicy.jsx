@@ -98,7 +98,7 @@ const PrivacyPolicy = () => {
                     <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
                         <Link to="/" className="hover:text-blue-400 transition-colors flex items-center gap-1.5">
                             <BookOpen className="w-4 h-4" />
-                            Logic Junior
+                            Prep Plus
                         </Link>
                         <ChevronRight className="w-3.5 h-3.5 text-gray-600" />
                         <span className="text-gray-300">Privacy Policy</span>
@@ -116,7 +116,7 @@ const PrivacyPolicy = () => {
                                 Last updated: <span className="text-gray-300 font-medium">{LAST_UPDATED}</span>
                             </p>
                             <p className="text-gray-400 mt-3 max-w-2xl leading-relaxed text-[15px]">
-                                At Logic Junior, we are committed to protecting your personal data and respecting your
+                                At Prep Plus, we are committed to protecting your personal data and respecting your
                                 privacy in accordance with the <strong className="text-gray-300">UK General Data Protection
                                     Regulation (UK GDPR)</strong> and the <strong className="text-gray-300">Data Protection
                                         Act 2018</strong>.
@@ -177,7 +177,7 @@ const PrivacyPolicy = () => {
                         {/* 1 — Introduction */}
                         <SectionCard id="introduction" title="1. Introduction & Who We Are">
                             <p>
-                                Logic Junior ("<strong>we</strong>", "<strong>us</strong>", "<strong>our</strong>") is the
+                                Prep Plus ("<strong>we</strong>", "<strong>us</strong>", "<strong>our</strong>") is the
                                 Data Controller for the personal data collected through this platform. We operate an
                                 online test-preparation and study platform for students in the United Kingdom.
                             </p>
@@ -187,7 +187,7 @@ const PrivacyPolicy = () => {
                             </p>
                             <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
                                 <p className="text-blue-800 text-sm font-medium mb-1">Data Controller</p>
-                                <p className="text-blue-700 text-sm">Logic Junior &mdash; support@logicjunior.com</p>
+                                <p className="text-blue-700 text-sm">Prep Plus &mdash; support@logicjunior.com</p>
                             </div>
                             <p className="text-sm text-gray-500">
                                 If you have any questions about this policy or how we handle your data, please contact us
@@ -412,7 +412,7 @@ const PrivacyPolicy = () => {
                         {/* 12 — Children */}
                         <SectionCard id="children" title="12. Children's Data (ICO Children's Code)">
                             <p>
-                                Logic Junior is a platform designed to serve students including those under the age of 18.
+                                Prep Plus is a platform designed to serve students including those under the age of 18.
                                 We comply with the <strong>ICO's Children's Code (Age Appropriate Design Code)</strong> and
                                 apply the following standards:
                             </p>
@@ -520,7 +520,7 @@ const PrivacyPolicy = () => {
                             >
                                 ← Back to Home
                             </Link>
-                            <p className="text-xs text-gray-400">© {new Date().getFullYear()} Logic Junior. All rights reserved.</p>
+                            <p className="text-xs text-gray-400">© {new Date().getFullYear()} Prep Plus. All rights reserved.</p>
                         </div>
 
                     </div>{/* end sections */}

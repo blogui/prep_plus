@@ -26,19 +26,19 @@ const useScrollVisible = (delay = 0) => {
 
 const faqs = [
   {
-    question: 'Is Logic Junior aligned to the national curriculum?',
-    answer: 'Yes, Logic Junior tests are meticulously aligned with national curriculum standards and follow the latest examination patterns to ensure comprehensive coverage of all required topics.',
+    question: 'Is Prep Plus aligned to the national curriculum?',
+    answer: 'Yes, Prep Plus tests are meticulously aligned with national curriculum standards and follow the latest examination patterns to ensure comprehensive coverage of all required topics.',
   },
   {
-    question: 'Is Logic Junior suitable for 11+ preparation?',
-    answer: 'Absolutely! Logic Junior offers specialised test series designed specifically for 11+ entrance exams, with difficulty levels ranging from beginner to advanced.',
+    question: 'Is Prep Plus suitable for 11+ preparation?',
+    answer: 'Absolutely! Prep Plus offers specialised test series designed specifically for 11+ entrance exams, with difficulty levels ranging from beginner to advanced.',
   },
   {
-    question: 'What tests are available on Logic Junior?',
+    question: 'What tests are available on Prep Plus?',
     answer: 'We offer a comprehensive range of tests including Mathematics, English, Reasoning, Science, and General Knowledge. Each category has multiple tests at different difficulty levels.',
   },
   {
-    question: "How accurate are Logic Junior's practice tests?",
+    question: "How accurate are Prep Plus's practice tests?",
     answer: 'Our tests are created by subject matter experts and regularly updated based on actual exam patterns. They provide highly accurate simulations of real exams.',
   },
   {
@@ -144,7 +144,7 @@ const FAQ = () => {
             </span>
           </h2>
           <p className="text-gray-500 text-lg">
-            Find answers to common questions about Logic Junior
+            Find answers to common questions about Prep Plus
           </p>
         </div>
 

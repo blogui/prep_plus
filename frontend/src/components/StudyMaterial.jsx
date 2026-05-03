@@ -400,7 +400,7 @@ const StudyMaterial = () => {
                 <div className="max-w-7xl mx-auto">
                     <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
                         <Link to="/" className="hover:text-blue-400 transition-colors flex items-center gap-1.5">
-                            <BookOpen className="w-4 h-4" /> Logic Junior
+                            <BookOpen className="w-4 h-4" /> Prep Plus
                         </Link>
                         <ChevronRight className="w-3.5 h-3.5 text-gray-600" />
                         <span className="text-gray-300">Study Material</span>
@@ -567,7 +567,7 @@ const StudyMaterial = () => {
                     <Link to="/" className="flex items-center gap-2 text-sm text-gray-500 hover:text-blue-600 transition-colors">
                         ← Back to Home
                     </Link>
-                    <p className="text-xs text-gray-400">© {new Date().getFullYear()} Logic Junior. All rights reserved.</p>
+                    <p className="text-xs text-gray-400">© {new Date().getFullYear()} Prep Plus. All rights reserved.</p>
                 </div>
             </div>
         </div>

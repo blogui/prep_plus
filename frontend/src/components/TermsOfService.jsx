@@ -102,7 +102,7 @@ const TermsOfService = () => {
                     <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
                         <Link to="/" className="hover:text-blue-400 transition-colors flex items-center gap-1.5">
                             <BookOpen className="w-4 h-4" />
-                            Logic Junior
+                            Prep Plus
                         </Link>
                         <ChevronRight className="w-3.5 h-3.5 text-gray-600" />
                         <span className="text-gray-300">Terms of Service</span>
@@ -120,7 +120,7 @@ const TermsOfService = () => {
                                 Last updated: <span className="text-gray-300 font-medium">{LAST_UPDATED}</span>
                             </p>
                             <p className="text-gray-400 mt-3 max-w-2xl leading-relaxed text-[15px]">
-                                Please read these Terms of Service carefully before using Logic Junior. By accessing or
+                                Please read these Terms of Service carefully before using Prep Plus. By accessing or
                                 using our platform, you agree to be bound by these terms. These terms are governed by
                                 the laws of <strong className="text-gray-300">England and Wales</strong>.
                             </p>
@@ -180,9 +180,9 @@ const TermsOfService = () => {
                         {/* 1 — Introduction */}
                         <SectionCard id="introduction" title="1. Introduction">
                             <p>
-                                Welcome to Logic Junior ("<strong>we</strong>", "<strong>us</strong>", "<strong>our</strong>").
-                                These Terms of Service ("<strong>Terms</strong>") govern your access to and use of the Logic
-                                Junior website and online test-preparation platform (the "<strong>Service</strong>").
+                                Welcome to Prep Plus ("<strong>we</strong>", "<strong>us</strong>", "<strong>our</strong>").
+                                These Terms of Service ("<strong>Terms</strong>") govern your access to and use of the Prep Plus
+                                website and online test-preparation platform (the "<strong>Service</strong>").
                             </p>
                             <p>
                                 By creating an account or otherwise accessing the Service, you confirm that you have read,
@@ -193,7 +193,7 @@ const TermsOfService = () => {
                                 . If you do not agree, you must not use the Service.
                             </p>
                             <InfoBox variant="blue">
-                                <strong>Plain English summary:</strong> These are the rules for using Logic Junior.
+                                <strong>Plain English summary:</strong> These are the rules for using Prep Plus.
                                 Using the platform means you accept them. If anything is unclear, contact us.
                             </InfoBox>
                         </SectionCard>
@@ -233,7 +233,7 @@ const TermsOfService = () => {
                         {/* 4 — Services */}
                         <SectionCard id="services" title="4. Our Services">
                             <p>
-                                Logic Junior provides an online test-preparation platform that includes:
+                                Prep Plus provides an online test-preparation platform that includes:
                             </p>
                             <BulletList items={[
                                 'Free and premium timed practice tests aligned to UK curricula.',
@@ -247,7 +247,7 @@ const TermsOfService = () => {
                                 modification, suspension, or discontinuation of the Service.
                             </p>
                             <InfoBox variant="yellow">
-                                <strong>Please note:</strong> Logic Junior is a revision and practice tool. Results on our
+                                <strong>Please note:</strong> Prep Plus is a revision and practice tool. Results on our
                                 platform are not a guarantee of performance in any official examination or assessment.
                             </InfoBox>
                         </SectionCard>
@@ -310,7 +310,7 @@ const TermsOfService = () => {
                         <SectionCard id="ip" title="8. Intellectual Property">
                             <p>
                                 All content on the Service — including test questions, explanations, study materials,
-                                graphics, logos, and software — is the exclusive property of Logic Junior or its licensors
+                                graphics, logos, and software — is the exclusive property of Prep Plus or its licensors
                                 and is protected by UK and international copyright, trademark, and other intellectual
                                 property laws.
                             </p>
@@ -329,7 +329,7 @@ const TermsOfService = () => {
                         <SectionCard id="user-content" title="9. User Content">
                             <p>
                                 If you submit any content to the Service (e.g. feedback, bug reports, or feature
-                                suggestions), you grant Logic Junior a worldwide, royalty-free, perpetual licence to use,
+                                suggestions), you grant Prep Plus a worldwide, royalty-free, perpetual licence to use,
                                 reproduce, and display that content in connection with operating and improving the Service.
                             </p>
                             <p>
@@ -374,7 +374,7 @@ const TermsOfService = () => {
                         {/* 12 — Liability */}
                         <SectionCard id="liability" title="12. Limitation of Liability">
                             <p>
-                                To the fullest extent permitted by English law, Logic Junior shall not be liable for:
+                                To the fullest extent permitted by English law, Prep Plus shall not be liable for:
                             </p>
                             <BulletList items={[
                                 'Any indirect, incidental, special, or consequential loss or damage.',
@@ -384,7 +384,7 @@ const TermsOfService = () => {
                             ]} />
                             <p>
                                 Our total aggregate liability to you in connection with the Service shall not exceed the
-                                greater of <strong>£50</strong> or the total fees paid by you to Logic Junior in the
+                                greater of <strong>£50</strong> or the total fees paid by you to Prep Plus in the
                                 12 months preceding the event giving rise to the claim.
                             </p>
                             <InfoBox variant="blue">
@@ -396,7 +396,7 @@ const TermsOfService = () => {
                         {/* 13 — Indemnification */}
                         <SectionCard id="indemnification" title="13. Indemnification">
                             <p>
-                                You agree to indemnify and hold harmless Logic Junior, its officers, employees, and agents
+                                You agree to indemnify and hold harmless Prep Plus, its officers, employees, and agents
                                 from and against any claims, damages, losses, liabilities, and expenses (including
                                 reasonable legal fees) arising out of or relating to:
                             </p>
@@ -527,7 +527,7 @@ const TermsOfService = () => {
                             >
                                 ← Back to Home
                             </Link>
-                            <p className="text-xs text-gray-400">© {new Date().getFullYear()} Logic Junior. All rights reserved.</p>
+                            <p className="text-xs text-gray-400">© {new Date().getFullYear()} Prep Plus. All rights reserved.</p>
                         </div>
 
                     </div>{/* end sections */}

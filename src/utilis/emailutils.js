@@ -40,7 +40,7 @@ const baseTemplate = (title, bodyContent) => `
               <h1 style="margin:0;font-size:26px;font-weight:800;
                           letter-spacing:1px;line-height:1.2;">
                 <a href="https://www.logicjunior.com/" target="_blank"
-                   style="color:#ffffff;text-decoration:none;">⚡ LogicJunior</a>
+                   style="color:#ffffff;text-decoration:none;">⚡ PrepPlus</a>
               </h1>
               <p style="margin:6px 0 0;color:rgba(255,255,255,0.85);font-size:13px;
                          letter-spacing:2px;text-transform:uppercase;">
@@ -64,11 +64,11 @@ const baseTemplate = (title, bodyContent) => `
               <p style="margin:0 0 8px;color:#6b7280;font-size:12px;line-height:1.6;">
                 You received this email because an account action was requested on
                 <a href="https://www.logicjunior.com/" target="_blank"
-                   style="color:#a78bfa;text-decoration:none;font-weight:600;">LogicJunior</a>.
+                   style="color:#a78bfa;text-decoration:none;font-weight:600;">PrepPlus</a>.
                 If you didn't request this, you can safely ignore this email.
               </p>
               <p style="margin:0;color:#4b5563;font-size:11px;">
-                © ${new Date().getFullYear()} LogicJunior. All rights reserved.
+                © ${new Date().getFullYear()} PrepPlus. All rights reserved.
               </p>
             </td>
           </tr>
@@ -91,7 +91,7 @@ const getOtpEmailTemplate = (email, otp) => {
       </h2>
       <p style="margin:0 0 24px;color:#9ca3af;font-size:15px;line-height:1.6;">
         Hi there! Use the one-time password below to verify your email address
-        for your LogicJunior account.
+        for your PrepPlus account.
       </p>
 
       <!-- OTP BOX -->
@@ -132,10 +132,10 @@ const getOtpEmailTemplate = (email, otp) => {
       <p style="margin:0;color:#6b7280;font-size:13px;line-height:1.6;
                  border-top:1px solid #2e2e4a;padding-top:20px;">
         This OTP was requested for <strong style="color:#a78bfa;">${email}</strong>.
-        Enter it on the LogicJunior sign-up page to continue.
+        Enter it on the PrepPlus sign-up page to continue.
       </p>
     `;
-    return baseTemplate("Verify Your Email — LogicJunior", body);
+    return baseTemplate("Verify Your Email — PrepPlus", body);
 };
 
 /* ─────────────────────────────────────────────────────────────
@@ -147,7 +147,7 @@ const getResetPasswordEmailTemplate = (email, resetLink) => {
         Reset Your Password
       </h2>
       <p style="margin:0 0 24px;color:#9ca3af;font-size:15px;line-height:1.6;">
-        We received a request to reset the password for your LogicJunior account
+        We received a request to reset the password for your PrepPlus account
         associated with <strong style="color:#a78bfa;">${email}</strong>.
         Click the button below to set a new password.
       </p>
@@ -205,7 +205,7 @@ const getResetPasswordEmailTemplate = (email, resetLink) => {
         password reset, your account is safe — no changes have been made.
       </p>
     `;
-    return baseTemplate("Password Reset Request — LogicJunior", body);
+    return baseTemplate("Password Reset Request — PrepPlus", body);
 };
 
 /* ─────────────────────────────────────────────────────────────
@@ -220,9 +220,9 @@ const getResetPasswordEmailTemplate = (email, resetLink) => {
  */
 const sendOtpEmail = async (to, otp) => {
     const mailOptions = {
-        from: `"LogicJunior" <${process.env.SMTP_USER || "jspmern@gmail.com"}>`,
+        from: `"PrepPlus" <${process.env.SMTP_USER || "jspmern@gmail.com"}>`,
         to,
-        subject: "Your LogicJunior Verification Code",
+        subject: "Your PrepPlus Verification Code",
         html: getOtpEmailTemplate(to, otp),
     };
     const result = await transporter.sendMail(mailOptions);
@@ -237,9 +237,9 @@ const sendOtpEmail = async (to, otp) => {
  */
 const sendPasswordResetEmail = async (to, resetLink) => {
     const mailOptions = {
-        from: `"LogicJunior" <${process.env.SMTP_USER || "jspmern@gmail.com"}>`,
+        from: `"PrepPlus" <${process.env.SMTP_USER || "jspmern@gmail.com"}>`,
         to,
-        subject: "Password Reset Request — LogicJunior",
+        subject: "Password Reset Request — PrepPlus",
         html: getResetPasswordEmailTemplate(to, resetLink),
     };
     const result = await transporter.sendMail(mailOptions);
@@ -262,7 +262,7 @@ const getSupportEmailTemplate = (userEmail, contact, message) => {
         New Support Request
       </h2>
       <p style="margin:0 0 24px;color:#9ca3af;font-size:15px;line-height:1.6;">
-        A support message has been submitted via the LogicJunior platform.
+        A support message has been submitted via the PrepPlus platform.
         Details are listed below.
       </p>
 
@@ -290,7 +290,7 @@ const getSupportEmailTemplate = (userEmail, contact, message) => {
         <strong style="color:#a78bfa;">${userEmail}</strong>.
       </p>
     `;
-    return baseTemplate('Support Request — LogicJunior', body);
+    return baseTemplate('Support Request — PrepPlus', body);
 };
 
 /**
@@ -302,7 +302,7 @@ const getSupportEmailTemplate = (userEmail, contact, message) => {
  */
 const sendSupportEmail = async (userEmail, contact, message) => {
     const mailOptions = {
-        from: `"LogicJunior Support" <${process.env.SMTP_USER || 'jspmern@gmail.com'}>`,
+        from: `"PrepPlus Support" <${process.env.SMTP_USER || 'jspmern@gmail.com'}>`,
         to: process.env.SUPPORT_EMAIL || 'ashishtwr866@gmail.com',
         replyTo: userEmail,
         subject: `Support Request from ${userEmail}`,
