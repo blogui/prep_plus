@@ -1,14 +1,17 @@
 const nodemailer = require("nodemailer");
 
-const SMTP_PORT = parseInt(process.env.SMTP_PORT) || 587;
+const SMTP_HOST = process.env.SMTP_HOST || "smtp.gmail.com";
+const SMTP_PORT = parseInt(process.env.SMTP_PORT, 10) || 465;
+const SMTP_USER = process.env.SMTP_USER || "jspmern@gmail.com";
+const SMTP_PASS = process.env.SMTP_PASS || "ixogybmguttpnzil";
 
 const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || "smtp.hostinger.com",
+    host: SMTP_HOST,
     port: SMTP_PORT,
-    secure: SMTP_PORT === 465, // true for SSL (465), false for TLS (587)
+    secure: SMTP_PORT === 465,
     auth: {
-        user: process.env.SMTP_USER || "jspmern@gmail.com",
-        pass: process.env.SMTP_PASS || "ixogybmguttpnzil",
+        user: SMTP_USER,
+        pass: SMTP_PASS,
     },
 });
 
