@@ -64,7 +64,7 @@ const handleGoogleCallback = async (req, res) => {
         await user.save();
 
         // Redirect to frontend with tokens
-        const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5174';
+        const frontendUrl = process.env.FRONTEND_URL || 'https://prep-plus.onrender.com';
 
         // Encode user data
         const userData = JSON.stringify(createUserResponse(user));
@@ -278,7 +278,7 @@ const forgetPasswordHandler = async (req, res, next) => {
         await foundUser.save();
 
         // Build reset link — /test matches the Vite app's basename
-        const baseUrl = process.env.FRONTEND_URL || "http://localhost:5174";
+        const baseUrl = process.env.FRONTEND_URL || "https://prep-plus.onrender.com";
         const resetLink = `${baseUrl}/test/reset-password?token=${token}&email=${encodeURIComponent(foundUser.email)}`;
 
         try {
