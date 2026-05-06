@@ -33,10 +33,16 @@ const Login = ({ onLogin, onRegister }) => {
     if (accessToken && userStr) {
       try {
         const user = JSON.parse(decodeURIComponent(userStr));
+        const sessionUser = {
+          ...user,
+          avatar: user.photoUrl || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+          id: user._id,
+        };
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('user', JSON.stringify(sessionUser));
         window.history.replaceState({}, document.title, window.location.pathname);
-        onLogin(user);
+        onLogin(sessionUser);
       } catch (e) {
         console.error('Error parsing user data from Google Auth:', e);
         setError('Failed to login with Google');
