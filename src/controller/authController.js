@@ -51,7 +51,17 @@ const handleGoogleCallback = async (req, res) => {
 
         const { accessToken, refreshToken } = generateTokens(user);
 
-
+        // Save refresh token for SSO users so refresh endpoint can validate it
+        const refreshExpiry = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
+        user.refreshTokens.push({
+            token: refreshToken,
+            expiresAt: refreshExpiry,
+            deviceInfo: req.headers['user-agent'] || 'Google SSO',
+        });
+        if (user.refreshTokens.length > 5) {
+            user.refreshTokens = user.refreshTokens.slice(-5);
+        }
+        await user.save();
 
         // Redirect to frontend with tokens
         const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5174';

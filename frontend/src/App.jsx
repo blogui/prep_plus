@@ -80,6 +80,34 @@ function App() {
     return () => window.removeEventListener('auth:expired', handleAuthExpired);
   }, [doLogout]);
 
+  // ─── Restore session from SSO redirect URL if present ─────────────────────
+  const restoreSessionFromUrl = useCallback(() => {
+    const params = new URLSearchParams(window.location.search);
+    const accessToken = params.get('accessToken');
+    const refreshToken = params.get('refreshToken');
+    const userStr = params.get('user');
+
+    if (!accessToken || !refreshToken || !userStr) return false;
+
+    try {
+      const parsedUser = JSON.parse(decodeURIComponent(userStr));
+      const sessionUser = {
+        ...parsedUser,
+        avatar: parsedUser.photoUrl || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+        id: parsedUser._id,
+      };
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('user', JSON.stringify(sessionUser));
+      setUser(sessionUser);
+      window.history.replaceState({}, document.title, window.location.pathname);
+      return true;
+    } catch (error) {
+      console.error('Failed to restore SSO session from URL:', error);
+      return false;
+    }
+  }, []);
+
   // ─── Start countdown interval (timestamp-aware) ────────────────────────────
   // Instead of decrementing a counter we compute remaining seconds from the
   // real wall-clock timestamp, so browser timer throttling can't skew values.
@@ -232,12 +260,15 @@ function App() {
 
     fetchData();
 
-    // ─── Restore session from localStorage ──────────────────────────────────
-    const stored = api.getStoredAuth();
-    if (stored) {
-      setUser(stored.user);
+    // ─── Restore session from SSO redirect URL or localStorage ─────────────
+    const restoredFromUrl = restoreSessionFromUrl();
+    if (!restoredFromUrl) {
+      const stored = api.getStoredAuth();
+      if (stored) {
+        setUser(stored.user);
+      }
     }
-  }, []);
+  }, [restoreSessionFromUrl]);
 
   // ─── Auth handlers ────────────────────────────────────────────────────────
   const handleLogin = (userData) => {
