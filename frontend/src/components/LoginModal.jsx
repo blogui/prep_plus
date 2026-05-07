@@ -675,12 +675,12 @@ const LoginModal = ({ onLogin, onClose, onRegister }) => {
                 Sign {activeTab === 'signin' ? 'in' : 'up'} with Google
               </button>
 
-              <button
+              {/* <button
                 onClick={handleAdminLogin}
                 className="w-full flex items-center justify-center px-3 py-2 border border-purple-300 rounded-lg bg-purple-50 text-xs font-medium text-purple-700 hover:bg-purple-100 transition-colors"
               >
                 Login as Admin (Demo)
-              </button>
+              </button> */}
 
               <p className="text-center text-xs text-gray-500 mt-4">
                 By signing in, you agree to our Terms of Service and Privacy Policy
