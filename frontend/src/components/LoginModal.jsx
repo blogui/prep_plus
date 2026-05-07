@@ -3,6 +3,7 @@ import { BookOpen, Shield, Award, Users, X, Eye, EyeOff, Mail, ArrowLeft, CheckC
 import api from '../services/api';
 
 const OTP_TIMER_SECS = 120;
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 // Simple email format check
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
