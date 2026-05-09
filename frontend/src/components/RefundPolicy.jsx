@@ -178,7 +178,7 @@ const RefundPolicy = () => {
                             <p>To request a refund, please follow these steps:</p>
                             <div className="space-y-3">
                                 {[
-                                    { step: '1', title: 'Contact us by email', desc: 'Send an email to support@logicjunior.com with the subject line "Refund Request".' },
+                                    { step: '1', title: 'Contact us by email', desc: 'Send an email to support@prepplus.online with the subject line "Refund Request".' },
                                     { step: '2', title: 'Include your details', desc: 'Provide your full name, registered email address, date of purchase, and your order reference number (found in your confirmation email).' },
                                     { step: '3', title: 'Explain your reason', desc: 'Briefly describe why you are requesting a refund. This helps us process your request quickly.' },
                                     { step: '4', title: 'We will respond', desc: 'We aim to acknowledge your request within 2 business days and issue a decision within 5 business days.' },
@@ -191,8 +191,8 @@ const RefundPolicy = () => {
                             </div>
                             <div className="bg-gradient-to-br from-blue-50 to-violet-50 border border-blue-100 rounded-xl p-4 flex items-center gap-2 mt-2">
                                 <Mail className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                                <a href="mailto:support@logicjunior.com" className="text-blue-700 font-medium hover:underline text-sm">
-                                    support@logicjunior.com
+                                <a href="mailto:support@prepplus.online" className="text-blue-700 font-medium hover:underline text-sm">
+                                    support@prepplus.online
                                 </a>
                             </div>
                         </SectionCard>
@@ -201,8 +201,8 @@ const RefundPolicy = () => {
                         <SectionCard id="cancellation" title="5. Cancellation of Subscription">
                             <p>
                                 If you wish to cancel your subscription to prevent future renewals, please contact us at{' '}
-                                <a href="mailto:support@logicjunior.com" className="text-blue-600 hover:underline">
-                                    support@logicjunior.com
+                                <a href="mailto:support@prepplus.online" className="text-blue-600 hover:underline">
+                                    support@prepplus.online
                                 </a>.
                             </p>
                             <BulletList items={[
@@ -226,8 +226,8 @@ const RefundPolicy = () => {
                             <div className="bg-gradient-to-br from-blue-50 to-violet-50 border border-blue-100 rounded-xl p-5 space-y-2">
                                 <div className="flex items-center gap-2 text-sm">
                                     <Mail className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                                    <a href="mailto:support@logicjunior.com" className="text-blue-700 font-medium hover:underline">
-                                        support@logicjunior.com
+                                    <a href="mailto:support@prepplus.online" className="text-blue-700 font-medium hover:underline">
+                                        support@prepplus.online
                                     </a>
                                 </div>
                                 <p className="text-sm text-gray-600">We aim to reply within <strong>5 business days</strong>.</p>

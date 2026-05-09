@@ -257,7 +257,7 @@ const CookiePolicy = () => {
                             <BulletList items={[
                                 'Via the cookie consent banner displayed when you first visit the platform.',
                                 'By adjusting your browser settings (see Section 6 below).',
-                                'By contacting us at support@logicjunior.com to withdraw consent.',
+                                'By contacting us at support@prepplus.online to withdraw consent.',
                             ]} />
                             <div className="bg-amber-50 border border-amber-100 rounded-xl p-4 text-sm text-amber-800">
                                 <strong>Please note:</strong> Disabling strictly necessary cookies will affect core
@@ -313,8 +313,8 @@ const CookiePolicy = () => {
                             </p>
                             <div className="bg-gradient-to-br from-blue-50 to-violet-50 border border-blue-100 rounded-xl p-5 space-y-2">
                                 <p className="text-sm font-semibold text-gray-800">Prep Plus — Data Protection Contact</p>
-                                <a href="mailto:support@logicjunior.com" className="flex items-center gap-1.5 text-sm text-blue-700 font-medium hover:underline">
-                                    support@logicjunior.com
+                                <a href="mailto:support@prepplus.online" className="flex items-center gap-1.5 text-sm text-blue-700 font-medium hover:underline">
+                                    support@prepplus.online
                                 </a>
                             </div>
                             <p className="text-sm text-gray-500 mt-2">

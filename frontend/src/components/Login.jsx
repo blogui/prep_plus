@@ -64,7 +64,7 @@ const Login = ({ onLogin, onRegister }) => {
   const handleAdminLogin = () => {
     const adminUser = {
       id: 2,
-      email: 'admin@logicjunior.com',
+      email: 'support@prepplus.online',
       name: 'Admin User',
       avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=100',
       joinedDate: '2024-01-01',

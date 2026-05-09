@@ -205,18 +205,7 @@ const LoginModal = ({ onLogin, onClose, onRegister }) => {
     window.location.href = `${API_URL}/auth/google`;
   };
 
-  const handleAdminLogin = () => {
-    const adminUser = {
-      id: 2,
-      email: 'admin@logicjunior.com',
-      name: 'Admin User',
-      avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=100',
-      joinedDate: '2024-01-01',
-      role: 'admin',
-    };
-    onLogin(adminUser);
-    onClose();
-  };
+
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -674,13 +663,6 @@ const LoginModal = ({ onLogin, onClose, onRegister }) => {
                 </svg>
                 Sign {activeTab === 'signin' ? 'in' : 'up'} with Google
               </button>
-
-              {/* <button
-                onClick={handleAdminLogin}
-                className="w-full flex items-center justify-center px-3 py-2 border border-purple-300 rounded-lg bg-purple-50 text-xs font-medium text-purple-700 hover:bg-purple-100 transition-colors"
-              >
-                Login as Admin (Demo)
-              </button> */}
 
               <p className="text-center text-xs text-gray-500 mt-4">
                 By signing in, you agree to our Terms of Service and Privacy Policy

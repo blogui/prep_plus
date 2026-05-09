@@ -192,8 +192,8 @@ const ReportBug = () => {
                         <div className="bg-blue-50 border border-blue-100 rounded-2xl p-5 text-sm text-blue-800">
                             <p className="font-semibold mb-1">Urgent issue?</p>
                             <p className="text-blue-700 mb-2">For critical problems like payment failures, email us directly:</p>
-                            <a href="mailto:support@logicjunior.com" className="text-blue-600 font-semibold hover:underline flex items-center gap-1">
-                                <Mail className="w-3.5 h-3.5" /> support@logicjunior.com
+                            <a href="mailto:support@prepplus.online" className="text-blue-600 font-semibold hover:underline flex items-center gap-1">
+                                <Mail className="w-3.5 h-3.5" /> support@prepplus.online
                             </a>
                         </div>
                     </aside>
@@ -357,7 +357,7 @@ const ReportBug = () => {
                                 <Field label="Additional Information" hint="Page URL, error messages, or anything else that might help (optional)">
                                     <textarea
                                         rows={3}
-                                        placeholder="e.g. https://logicjunior.com/test/abc — error message: 'Cannot read property of undefined'"
+                                        placeholder="e.g. https://prepplus.online/test/abc — error message: 'Cannot read property of undefined'"
                                         value={form.extra}
                                         onChange={e => set('extra', e.target.value)}
                                         className={`${inputCls} resize-none`}
