@@ -187,11 +187,11 @@ const PrivacyPolicy = () => {
                             </p>
                             <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
                                 <p className="text-blue-800 text-sm font-medium mb-1">Data Controller</p>
-                                <p className="text-blue-700 text-sm">Prep Plus &mdash; support@logicjunior.com</p>
+                                <p className="text-blue-700 text-sm">Prep Plus &mdash; support@prepplus.online</p>
                             </div>
                             <p className="text-sm text-gray-500">
                                 If you have any questions about this policy or how we handle your data, please contact us
-                                at <a href="mailto:support@logicjunior.com" className="text-blue-600 hover:underline">support@logicjunior.com</a> before
+                                at <a href="mailto:support@prepplus.online" className="text-blue-600 hover:underline">support@prepplus.online</a> before
                                 contacting the ICO.
                             </p>
                         </SectionCard>
@@ -285,7 +285,7 @@ const PrivacyPolicy = () => {
                             <BulletList items={[
                                 'Clicking the "Unsubscribe" link in any marketing email.',
                                 'Updating your communication preferences in your account settings.',
-                                'Emailing us at support@logicjunior.com.',
+                                'Emailing us at support@prepplus.online.',
                             ]} />
                             <p>
                                 Opting out of marketing will not affect service-related messages (e.g. account or
@@ -324,7 +324,7 @@ const PrivacyPolicy = () => {
                             ]} />
                             <p>
                                 You can obtain further details of the specific safeguards in place by contacting us
-                                at <a href="mailto:support@logicjunior.com" className="text-blue-600 hover:underline">support@logicjunior.com</a>.
+                                at <a href="mailto:support@prepplus.online" className="text-blue-600 hover:underline">support@prepplus.online</a>.
                             </p>
                         </SectionCard>
 
@@ -403,7 +403,7 @@ const PrivacyPolicy = () => {
                             </div>
                             <p className="text-sm text-gray-500">
                                 To exercise any of these rights, please email{' '}
-                                <a href="mailto:support@logicjunior.com" className="text-blue-600 hover:underline">support@logicjunior.com</a>.
+                                <a href="mailto:support@prepplus.online" className="text-blue-600 hover:underline">support@prepplus.online</a>.
                                 We will respond within <strong>one calendar month</strong>. There is no fee for most requests; however,
                                 we may charge a reasonable fee if a request is clearly unfounded or excessive.
                             </p>
@@ -428,7 +428,7 @@ const PrivacyPolicy = () => {
                             <p>
                                 If you believe a child under 13 has provided us with personal data without appropriate
                                 parental consent, please contact us immediately at{' '}
-                                <a href="mailto:support@logicjunior.com" className="text-blue-600 hover:underline">support@logicjunior.com</a> and
+                                <a href="mailto:support@prepplus.online" className="text-blue-600 hover:underline">support@prepplus.online</a> and
                                 we will take steps to delete that information.
                             </p>
                         </SectionCard>
@@ -486,8 +486,8 @@ const PrivacyPolicy = () => {
                             <div className="bg-gradient-to-br from-blue-50 to-violet-50 border border-blue-100 rounded-xl p-5 space-y-2">
                                 <div className="flex items-center gap-2 text-sm">
                                     <Mail className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                                    <a href="mailto:support@logicjunior.com" className="text-blue-700 font-medium hover:underline">
-                                        support@logicjunior.com
+                                    <a href="mailto:support@prepplus.online" className="text-blue-700 font-medium hover:underline">
+                                        support@prepplus.online
                                     </a>
                                 </div>
                                 <p className="text-sm text-gray-600">We aim to respond to all requests within <strong>one calendar month</strong>.</p>

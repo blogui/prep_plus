@@ -148,9 +148,9 @@ const ContactUs = () => {
                                 icon: Mail,
                                 colour: 'blue',
                                 title: 'Email Us',
-                                value: 'support@logicjunior.com',
+                                value: 'support@prepplus.online',
                                 sub: 'For all general enquiries',
-                                href: 'mailto:support@logicjunior.com',
+                                href: 'mailto:support@prepplus.online',
                             },
                             {
                                 icon: Phone,

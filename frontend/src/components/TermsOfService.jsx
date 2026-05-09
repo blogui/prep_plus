@@ -221,7 +221,7 @@ const TermsOfService = () => {
                             <BulletList items={[
                                 'Maintaining the confidentiality of your account credentials.',
                                 'All activity that occurs under your account.',
-                                'Notifying us immediately at support@logicjunior.com if you suspect any unauthorised use.',
+                                'Notifying us immediately at support@prepplus.online if you suspect any unauthorised use.',
                                 'Keeping your account information accurate and up to date.',
                             ]} />
                             <p>
@@ -281,7 +281,7 @@ const TermsOfService = () => {
                             <BulletList items={[
                                 'If you have not accessed any premium content, you may request a full refund within 14 days of purchase.',
                                 'Once premium content has been accessed, you expressly waive your right to cancel under the cooling-off period.',
-                                'To request a refund, email support@logicjunior.com with your order reference.',
+                                'To request a refund, email support@prepplus.online with your order reference.',
                                 'Refunds will be processed within 10 business days to your original payment method.',
                                 'We reserve the right to refuse refunds where we reasonably suspect misuse or abuse.',
                             ]} />
@@ -411,8 +411,8 @@ const TermsOfService = () => {
                         <SectionCard id="termination" title="14. Termination">
                             <p>
                                 <strong>By you:</strong> You may close your account at any time by contacting us at{' '}
-                                <a href="mailto:support@logicjunior.com" className="text-blue-600 hover:underline">
-                                    support@logicjunior.com
+                                <a href="mailto:support@prepplus.online" className="text-blue-600 hover:underline">
+                                    support@prepplus.online
                                 </a>. Closing your account does not automatically entitle you to a refund.
                             </p>
                             <p>
@@ -445,8 +445,8 @@ const TermsOfService = () => {
                             </p>
                             <p>
                                 We encourage you to contact us first to resolve any disputes informally at{' '}
-                                <a href="mailto:support@logicjunior.com" className="text-blue-600 hover:underline">
-                                    support@logicjunior.com
+                                <a href="mailto:support@prepplus.online" className="text-blue-600 hover:underline">
+                                    support@prepplus.online
                                 </a>.
                             </p>
                             <InfoBox variant="blue">
@@ -488,8 +488,8 @@ const TermsOfService = () => {
                             <div className="bg-gradient-to-br from-blue-50 to-violet-50 border border-blue-100 rounded-xl p-5 space-y-3">
                                 <div className="flex items-center gap-2 text-sm">
                                     <Mail className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                                    <a href="mailto:support@logicjunior.com" className="text-blue-700 font-medium hover:underline">
-                                        support@logicjunior.com
+                                    <a href="mailto:support@prepplus.online" className="text-blue-700 font-medium hover:underline">
+                                        support@prepplus.online
                                     </a>
                                 </div>
                                 <p className="text-sm text-gray-600">

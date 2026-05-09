@@ -44,15 +44,15 @@ const FAQ_CATEGORIES = [
             },
             {
                 q: 'How do I update my email address or name?',
-                a: 'Currently, account details can be updated by contacting us at support@logicjunior.com. We are working on a self-service profile settings page which will be available soon.',
+                a: 'Currently, account details can be updated by contacting us at support@prepplus.online. We are working on a self-service profile settings page which will be available soon.',
             },
             {
                 q: 'How do I delete my account?',
-                a: 'To request account deletion, email support@logicjunior.com with the subject "Delete Account" from your registered email address. We will process your request within 5 business days and confirm by email. Please review our Privacy Policy for details on data retention.',
+                a: 'To request account deletion, email support@prepplus.online with the subject "Delete Account" from your registered email address. We will process your request within 5 business days and confirm by email. Please review our Privacy Policy for details on data retention.',
             },
             {
                 q: 'I\'m not receiving emails from Prep Plus. What should I do?',
-                a: 'Check your spam or junk folder first. Add support@logicjunior.com to your contacts or safe senders list. If the issue persists, contact us and we will investigate.',
+                a: 'Check your spam or junk folder first. Add support@prepplus.online to your contacts or safe senders list. If the issue persists, contact us and we will investigate.',
             },
         ],
     },
@@ -104,11 +104,11 @@ const FAQ_CATEGORIES = [
             },
             {
                 q: 'Will I be charged automatically on renewal?',
-                a: 'Subscription renewals depend on the plan you select. You will always be notified in advance of any renewal charge. To prevent a renewal, contact us at support@logicjunior.com before the renewal date.',
+                a: 'Subscription renewals depend on the plan you select. You will always be notified in advance of any renewal charge. To prevent a renewal, contact us at support@prepplus.online before the renewal date.',
             },
             {
                 q: 'I was charged but my account is not upgraded. What do I do?',
-                a: 'This is rare but can happen if there is a network delay after payment. Please wait a few minutes and refresh your page. If the issue persists, email us at support@logicjunior.com with your payment confirmation and we will resolve it promptly.',
+                a: 'This is rare but can happen if there is a network delay after payment. Please wait a few minutes and refresh your page. If the issue persists, email us at support@prepplus.online with your payment confirmation and we will resolve it promptly.',
             },
         ],
     },
@@ -144,11 +144,11 @@ const FAQ_CATEGORIES = [
             },
             {
                 q: 'A test question or answer seems incorrect. How do I report it?',
-                a: 'We take content accuracy seriously. Please email support@logicjunior.com with the subject "Content Issue", the name of the test, the question number, and a description of the problem. Our team will review and correct it promptly.',
+                a: 'We take content accuracy seriously. Please email support@prepplus.online with the subject "Content Issue", the name of the test, the question number, and a description of the problem. Our team will review and correct it promptly.',
             },
             {
                 q: 'I found a bug. How do I report it?',
-                a: 'Please email support@logicjunior.com with "Bug Report" in the subject line. Include a description of what happened, what you expected to happen, the steps to reproduce it, and your browser/device. Screenshots are very helpful.',
+                a: 'Please email support@prepplus.online with "Bug Report" in the subject line. Include a description of what happened, what you expected to happen, the steps to reproduce it, and your browser/device. Screenshots are very helpful.',
             },
         ],
     },
@@ -370,11 +370,11 @@ const HelpCenter = () => {
                             2 business days.
                         </p>
                         <a
-                            href="mailto:support@logicjunior.com"
+                            href="mailto:support@prepplus.online"
                             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 text-white font-semibold text-sm shadow-lg shadow-blue-500/30 transition-all"
                         >
                             <Mail className="w-4 h-4" />
-                            support@logicjunior.com
+                            support@prepplus.online
                         </a>
                         <div className="flex flex-wrap justify-center gap-4 mt-6 text-sm text-gray-400">
                             <Link to="/privacy-policy" className="hover:text-blue-400 transition-colors">Privacy Policy</Link>
