@@ -21,6 +21,8 @@ import ContactUs from './components/ContactUs';
 import StudyMaterial from './components/StudyMaterial';
 import Syllabus from './components/Syllabus';
 import ContactSupport from './components/ContactSupport';
+import Blog from './components/Blog';
+import BlogPost from './components/BlogPost';
 
 import api from './services/api';
 
@@ -345,7 +347,7 @@ function App() {
             {user && user.role === 'admin' && (
               <Route
                 path="/admin"
-                element={<AdminDashboard testSeries={testSeries} setTestSeries={setTestSeries} />}
+                element={<AdminDashboard testSeries={testSeries} setTestSeries={setTestSeries} user={user} />}
               />
             )}
             {/* Public route — token in URL acts as the credential */}
@@ -360,6 +362,8 @@ function App() {
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/study-material" element={<StudyMaterial />} />
             <Route path="/syllabus" element={<Syllabus />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             <Route
               path="/contact-support"
               element={<ContactSupport user={user} onLogin={() => setShowLoginModal(true)} />}

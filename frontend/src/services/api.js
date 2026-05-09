@@ -323,6 +323,113 @@ const api = {
         if (!response.ok) throw new Error(data.message || 'Failed to activate premium');
         return data;
     },
+
+    // ── Courses admin CRUD ─────────────────────────────────────────────────
+    createCourse: async (courseData) => {
+        const response = await request('/courses', { method: 'POST', body: JSON.stringify(courseData) });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to create course');
+        return data.data;
+    },
+    updateCourse: async (id, courseData) => {
+        const response = await request(`/courses/${id}`, { method: 'PUT', body: JSON.stringify(courseData) });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to update course');
+        return data.data;
+    },
+    deleteCourse: async (id) => {
+        const response = await request(`/courses/${id}`, { method: 'DELETE' });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to delete course');
+        return data;
+    },
+
+    // ── Categories CRUD ────────────────────────────────────────────────────
+    createCategory: async (categoryData) => {
+        const response = await request('/categories', { method: 'POST', body: JSON.stringify(categoryData) });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to create category');
+        return data.data;
+    },
+    updateCategory: async (id, categoryData) => {
+        const response = await request(`/categories/${id}`, { method: 'PUT', body: JSON.stringify(categoryData) });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to update category');
+        return data.data;
+    },
+    deleteCategory: async (id) => {
+        const response = await request(`/categories/${id}`, { method: 'DELETE' });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to delete category');
+        return data;
+    },
+
+    // ── Questions admin CRUD ───────────────────────────────────────────────
+    createQuestion: async (questionData) => {
+        const response = await request('/questions', { method: 'POST', body: JSON.stringify(questionData) });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to create question');
+        return data.data;
+    },
+    updateQuestion: async (id, questionData) => {
+        const response = await request(`/questions/${id}`, { method: 'PUT', body: JSON.stringify(questionData) });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to update question');
+        return data.data;
+    },
+    deleteQuestion: async (id) => {
+        const response = await request(`/questions/${id}`, { method: 'DELETE' });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to delete question');
+        return data;
+    },
+
+    // ── Blogs public ──────────────────────────────────────────────────────
+    getBlogs: async (params = {}) => {
+        const query = new URLSearchParams(params).toString();
+        const response = await request(`/blogs${query ? `?${query}` : ''}`);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to fetch blogs');
+        return data;
+    },
+    getBlogBySlug: async (slug) => {
+        const response = await request(`/blogs/slug/${slug}`);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to fetch blog post');
+        return data.data;
+    },
+
+    // ── Blogs admin CRUD ──────────────────────────────────────────────────
+    getAllBlogsAdmin: async () => {
+        const response = await request('/blogs/admin/all');
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to fetch blogs');
+        return data.data;
+    },
+    getBlogByIdAdmin: async (id) => {
+        const response = await request(`/blogs/admin/${id}`);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to fetch blog');
+        return data.data;
+    },
+    createBlog: async (blogData) => {
+        const response = await request('/blogs', { method: 'POST', body: JSON.stringify(blogData) });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to create blog');
+        return data.data;
+    },
+    updateBlog: async (id, blogData) => {
+        const response = await request(`/blogs/${id}`, { method: 'PUT', body: JSON.stringify(blogData) });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to update blog');
+        return data.data;
+    },
+    deleteBlog: async (id) => {
+        const response = await request(`/blogs/${id}`, { method: 'DELETE' });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to delete blog');
+        return data;
+    },
 };
 
 export default api;
