@@ -224,7 +224,7 @@ const SkeletonCard = () => (
   </div>
 );
 
-const Home = ({ testSeries, onSelectTest, user, onLogin, heroImage }) => {
+const Home = ({ testSeries, loading, onSelectTest, user, onLogin, heroImage }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedCourseFamily, setSelectedCourseFamily] = useState('All');
@@ -592,17 +592,27 @@ const Home = ({ testSeries, onSelectTest, user, onLogin, heroImage }) => {
           </div>
         </div>
 
-        {/* ── Results count ── */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4">
-          <p className="text-sm text-gray-500">
-            Showing <span className="font-bold text-gray-800">{rangeStart}–{rangeEnd}</span> of{' '}
-            <span className="font-bold text-gray-800">{filteredTests.length}</span> test{filteredTests.length !== 1 ? 's' : ''}
-          </p>
-        </div>
+        {/* ── Results count (hidden while loading) ── */}
+        {!loading && (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4">
+            <p className="text-sm text-gray-500">
+              Showing <span className="font-bold text-gray-800">{rangeStart}–{rangeEnd}</span> of{' '}
+              <span className="font-bold text-gray-800">{filteredTests.length}</span> test{filteredTests.length !== 1 ? 's' : ''}
+            </p>
+          </div>
+        )}
 
         {/* ── Cards grid ── */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-          {filteredTests.length > 0 ? (
+          {loading ? (
+            /* ── Initial load: shimmer skeleton cards ── */
+            <>
+              {shimmerStyle}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {Array.from({ length: CARDS_PER_PAGE }).map((_, i) => <SkeletonCard key={i} />)}
+              </div>
+            </>
+          ) : filteredTests.length > 0 ? (
             <>
               {shimmerStyle}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -670,7 +680,7 @@ const Home = ({ testSeries, onSelectTest, user, onLogin, heroImage }) => {
                         onClick={() => handlePageChange(Math.min(totalPages, safePage + 1))}
                         disabled={safePage === totalPages || isPageChanging}
                         aria-label="Next page"
-                        className="w-9 h-9 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                        className="w-9 h-9 flex items-center justify-center rounded-lg text-sm font-semibold transition-colors text-gray-400 hover:text-gray-600 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed"
                       >
                         <ChevronRight className="w-4 h-4" />
                       </button>

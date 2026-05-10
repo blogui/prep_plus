@@ -309,6 +309,7 @@ function App() {
               element={
                 <Home
                   testSeries={testSeries}
+                  loading={loading}
                   onSelectTest={handleSelectTest}
                   user={user}
                   onLogin={() => setShowLoginModal(true)}
