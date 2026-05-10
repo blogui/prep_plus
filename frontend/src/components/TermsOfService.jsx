@@ -9,7 +9,6 @@ const SECTIONS = [
     { id: 'account', label: 'Your Account' },
     { id: 'services', label: 'Our Services' },
     { id: 'subscriptions', label: 'Subscriptions & Payments' },
-    { id: 'refunds', label: 'Refunds & Cancellations' },
     { id: 'acceptable-use', label: 'Acceptable Use' },
     { id: 'ip', label: 'Intellectual Property' },
     { id: 'user-content', label: 'User Content' },
@@ -18,9 +17,7 @@ const SECTIONS = [
     { id: 'liability', label: 'Limitation of Liability' },
     { id: 'indemnification', label: 'Indemnification' },
     { id: 'termination', label: 'Termination' },
-    { id: 'governing-law', label: 'Governing Law' },
     { id: 'changes', label: 'Changes to Terms' },
-    { id: 'contact', label: 'Contact Us' },
 ];
 
 const LAST_UPDATED = '22 March 2026';
@@ -121,8 +118,7 @@ const TermsOfService = () => {
                             </p>
                             <p className="text-gray-400 mt-3 max-w-2xl leading-relaxed text-[15px]">
                                 Please read these Terms of Service carefully before using Prep Plus. By accessing or
-                                using our platform, you agree to be bound by these terms. These terms are governed by
-                                the laws of <strong className="text-gray-300">England and Wales</strong>.
+                                using our platform, you agree to be bound by these terms.
                             </p>
                         </div>
                     </div>
@@ -238,7 +234,6 @@ const TermsOfService = () => {
                             <BulletList items={[
                                 'Free and premium timed practice tests aligned to UK curricula.',
                                 'Progress tracking, performance analytics, and test history.',
-                                'Certificates of achievement upon completion of qualifying tests.',
                                 'Study materials, syllabi, and learning resources (where available).',
                             ]} />
                             <p>
@@ -258,8 +253,7 @@ const TermsOfService = () => {
                                 Certain features of the Service require a paid subscription ("<strong>Premium Plan</strong>").
                             </p>
                             <BulletList items={[
-                                'All prices are displayed in GBP (£) and are inclusive of VAT where applicable.',
-                                'Payments are processed securely by Razorpay. We do not store your payment card details.',
+                                'Payments are processed securely. We do not store your payment card details.',
                                 'Your subscription begins immediately upon successful payment.',
                                 'Subscriptions are non-transferable and apply to a single user account only.',
                                 'We may change subscription pricing with at least 30 days\' prior notice.',
@@ -270,25 +264,8 @@ const TermsOfService = () => {
                             </p>
                         </SectionCard>
 
-                        {/* 6 — Refunds */}
-                        <SectionCard id="refunds" title="6. Refunds & Cancellations">
-                            <p>
-                                Under the <strong>Consumer Contracts (Information, Cancellation and Additional Charges)
-                                    Regulations 2013</strong>, you have a statutory right to cancel a digital service contract
-                                within <strong>14 days</strong> of purchase (the "cooling-off period"), provided you have
-                                not begun using the premium content.
-                            </p>
-                            <BulletList items={[
-                                'If you have not accessed any premium content, you may request a full refund within 14 days of purchase.',
-                                'Once premium content has been accessed, you expressly waive your right to cancel under the cooling-off period.',
-                                'To request a refund, email support@prepplus.online with your order reference.',
-                                'Refunds will be processed within 10 business days to your original payment method.',
-                                'We reserve the right to refuse refunds where we reasonably suspect misuse or abuse.',
-                            ]} />
-                        </SectionCard>
-
-                        {/* 7 — Acceptable Use */}
-                        <SectionCard id="acceptable-use" title="7. Acceptable Use">
+                        {/* 6 — Acceptable Use */}
+                        <SectionCard id="acceptable-use" title="6. Acceptable Use">
                             <p>You agree <strong>not</strong> to use the Service to:</p>
                             <BulletList items={[
                                 'Violate any applicable law or regulation, including UK law.',
@@ -306,8 +283,8 @@ const TermsOfService = () => {
                             </p>
                         </SectionCard>
 
-                        {/* 8 — IP */}
-                        <SectionCard id="ip" title="8. Intellectual Property">
+                        {/* 7 — IP */}
+                        <SectionCard id="ip" title="7. Intellectual Property">
                             <p>
                                 All content on the Service — including test questions, explanations, study materials,
                                 graphics, logos, and software — is the exclusive property of Prep Plus or its licensors
@@ -325,8 +302,8 @@ const TermsOfService = () => {
                             </InfoBox>
                         </SectionCard>
 
-                        {/* 9 — User Content */}
-                        <SectionCard id="user-content" title="9. User Content">
+                        {/* 8 — User Content */}
+                        <SectionCard id="user-content" title="8. User Content">
                             <p>
                                 If you submit any content to the Service (e.g. feedback, bug reports, or feature
                                 suggestions), you grant Prep Plus a worldwide, royalty-free, perpetual licence to use,
@@ -338,8 +315,8 @@ const TermsOfService = () => {
                             </p>
                         </SectionCard>
 
-                        {/* 10 — Third-Party */}
-                        <SectionCard id="third-party" title="10. Third-Party Links & Services">
+                        {/* 9 — Third-Party */}
+                        <SectionCard id="third-party" title="9. Third-Party Links & Services">
                             <p>
                                 The Service may contain links to third-party websites or integrate with third-party
                                 services (e.g. payment processors, analytics providers). These links are provided for your
@@ -352,8 +329,8 @@ const TermsOfService = () => {
                             </p>
                         </SectionCard>
 
-                        {/* 11 — Disclaimers */}
-                        <SectionCard id="disclaimer" title="11. Disclaimers">
+                        {/* 10 — Disclaimers */}
+                        <SectionCard id="disclaimer" title="10. Disclaimers">
                             <p>
                                 The Service is provided on an "<strong>as is</strong>" and "<strong>as available</strong>"
                                 basis. To the fullest extent permitted by applicable law, we disclaim all warranties,
@@ -371,8 +348,8 @@ const TermsOfService = () => {
                             </p>
                         </SectionCard>
 
-                        {/* 12 — Liability */}
-                        <SectionCard id="liability" title="12. Limitation of Liability">
+                        {/* 11 — Liability */}
+                        <SectionCard id="liability" title="11. Limitation of Liability">
                             <p>
                                 To the fullest extent permitted by English law, Prep Plus shall not be liable for:
                             </p>
@@ -382,19 +359,14 @@ const TermsOfService = () => {
                                 'Any loss arising from your use of or inability to use the Service.',
                                 'Any errors, interruptions, or defects in the Service.',
                             ]} />
-                            <p>
-                                Our total aggregate liability to you in connection with the Service shall not exceed the
-                                greater of <strong>£50</strong> or the total fees paid by you to Prep Plus in the
-                                12 months preceding the event giving rise to the claim.
-                            </p>
                             <InfoBox variant="blue">
                                 Nothing in these Terms excludes or limits our liability where it would be unlawful to do so.
                                 Your statutory rights as a consumer under English law remain unaffected.
                             </InfoBox>
                         </SectionCard>
 
-                        {/* 13 — Indemnification */}
-                        <SectionCard id="indemnification" title="13. Indemnification">
+                        {/* 12 — Indemnification */}
+                        <SectionCard id="indemnification" title="12. Indemnification">
                             <p>
                                 You agree to indemnify and hold harmless Prep Plus, its officers, employees, and agents
                                 from and against any claims, damages, losses, liabilities, and expenses (including
@@ -407,8 +379,8 @@ const TermsOfService = () => {
                             ]} />
                         </SectionCard>
 
-                        {/* 14 — Termination */}
-                        <SectionCard id="termination" title="14. Termination">
+                        {/* 13 — Termination */}
+                        <SectionCard id="termination" title="13. Termination">
                             <p>
                                 <strong>By you:</strong> You may close your account at any time by contacting us at{' '}
                                 <a href="mailto:support@prepplus.online" className="text-blue-600 hover:underline">
@@ -431,40 +403,8 @@ const TermsOfService = () => {
                             </p>
                         </SectionCard>
 
-                        {/* 15 — Governing Law */}
-                        <SectionCard id="governing-law" title="15. Governing Law & Disputes">
-                            <p>
-                                These Terms and any dispute or claim arising out of or in connection with them (including
-                                non-contractual disputes) shall be governed by and construed in accordance with the laws
-                                of <strong>England and Wales</strong>.
-                            </p>
-                            <p>
-                                Any dispute shall be subject to the exclusive jurisdiction of the courts of
-                                <strong> England and Wales</strong>, except where mandatory consumer protection laws in
-                                your country of residence grant you additional rights to bring proceedings in local courts.
-                            </p>
-                            <p>
-                                We encourage you to contact us first to resolve any disputes informally at{' '}
-                                <a href="mailto:support@prepplus.online" className="text-blue-600 hover:underline">
-                                    support@prepplus.online
-                                </a>.
-                            </p>
-                            <InfoBox variant="blue">
-                                As a consumer in the UK, you may also use the Online Dispute Resolution (ODR) platform
-                                provided by the European Commission:{' '}
-                                <a
-                                    href="https://ec.europa.eu/consumers/odr"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="underline font-medium"
-                                >
-                                    ec.europa.eu/consumers/odr
-                                </a>.
-                            </InfoBox>
-                        </SectionCard>
-
-                        {/* 16 — Changes */}
-                        <SectionCard id="changes" title="16. Changes to These Terms">
+                        {/* 14 — Changes */}
+                        <SectionCard id="changes" title="14. Changes to These Terms">
                             <p>
                                 We may revise these Terms from time to time. When we make material changes, we will:
                             </p>
@@ -480,44 +420,6 @@ const TermsOfService = () => {
                             </p>
                         </SectionCard>
 
-                        {/* 17 — Contact */}
-                        <SectionCard id="contact" title="17. Contact Us">
-                            <p>
-                                If you have any questions about these Terms or our Service, please contact us:
-                            </p>
-                            <div className="bg-gradient-to-br from-blue-50 to-violet-50 border border-blue-100 rounded-xl p-5 space-y-3">
-                                <div className="flex items-center gap-2 text-sm">
-                                    <Mail className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                                    <a href="mailto:support@prepplus.online" className="text-blue-700 font-medium hover:underline">
-                                        support@prepplus.online
-                                    </a>
-                                </div>
-                                <p className="text-sm text-gray-600">
-                                    We aim to respond to all enquiries within <strong>3 business days</strong>.
-                                </p>
-                            </div>
-                            <p className="text-sm text-gray-500 mt-2">
-                                You can also review our{' '}
-                                <Link to="/privacy-policy" className="text-blue-600 hover:underline font-medium">
-                                    Privacy Policy
-                                </Link>{' '}
-                                to understand how we handle your personal data.
-                            </p>
-                            <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm text-gray-600 mt-2">
-                                <p>
-                                    For complaints to an independent body, you may contact the{' '}
-                                    <strong>Citizens Advice Bureau</strong> or refer to the{' '}
-                                    <a
-                                        href="https://www.legislation.gov.uk/uksi/2013/3134/contents/made"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-blue-600 hover:underline inline-flex items-center gap-1"
-                                    >
-                                        Consumer Contracts Regulations 2013 <ExternalLink className="w-3 h-3" />
-                                    </a>.
-                                </p>
-                            </div>
-                        </SectionCard>
 
                         {/* Bottom nav */}
                         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 pb-10">

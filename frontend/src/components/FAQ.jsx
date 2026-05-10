@@ -35,7 +35,7 @@ const faqs = [
   },
   {
     question: 'What tests are available on Prep Plus?',
-    answer: 'We offer a comprehensive range of tests including Mathematics, English, Reasoning, Science, and General Knowledge. Each category has multiple tests at different difficulty levels.',
+    answer: 'We offer a comprehensive range of tests including Mathematics, English, Verbal Reasoning and Non-Verbal Reasoning. Each category has multiple tests at different difficulty levels.',
   },
   {
     question: "How accurate are Prep Plus's practice tests?",

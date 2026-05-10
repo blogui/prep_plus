@@ -253,7 +253,7 @@ const ContactSupport = ({ user, onLogin }) => {
                         <div className="bg-blue-50 border border-blue-100 rounded-2xl p-5 text-sm text-blue-800">
                             <p className="font-semibold mb-1">Response time</p>
                             <p className="text-blue-700">
-                                Our team typically responds within <strong>1–2 business days</strong>.
+                                Our team typically responds within <strong>5 business days</strong>.
                             </p>
                         </div>
                     </aside>
