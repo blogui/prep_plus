@@ -478,30 +478,7 @@ const Syllabus = () => {
                             </div>
                         </div>
 
-                        {/* External resources */}
-                        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-                            <h3 className="text-sm font-bold text-gray-800 mb-4">Official & Recommended Resources</h3>
-                            <div className="grid sm:grid-cols-2 gap-3">
-                                {[
-                                    { label: 'GL Assessment — About the 11+', href: 'https://www.gl-assessment.co.uk/products/11-plus/' },
-                                    { label: 'CEM — 11+ Information for Parents', href: 'https://www.cem.org/11-plus' },
-                                    { label: 'ISEB — Common Pre-Test', href: 'https://www.iseb.co.uk/assessments/common-pre-test/' },
-                                    { label: 'BBC Bitesize — KS2 Revision', href: 'https://www.bbc.co.uk/bitesize/primary' },
-                                    { label: 'CGP 11+ Books', href: 'https://www.cgpbooks.co.uk/books/ks2/11-plus' },
-                                    { label: 'Bond 11+ Revision', href: 'https://www.bond11plus.co.uk/' },
-                                ].map(r => (
-                                    <a
-                                        key={r.href}
-                                        href={r.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex items-center gap-2 text-sm text-blue-600 hover:underline font-medium"
-                                    >
-                                        <ExternalLink className="w-3.5 h-3.5 flex-shrink-0" />{r.label}
-                                    </a>
-                                ))}
-                            </div>
-                        </div>
+                       
 
                         {/* Bottom nav */}
                         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2 pb-10">

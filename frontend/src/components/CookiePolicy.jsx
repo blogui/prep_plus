@@ -318,11 +318,7 @@ const CookiePolicy = () => {
                                 </a>
                             </div>
                             <p className="text-sm text-gray-500 mt-2">
-                                You may also visit the{' '}
-                                <a href="https://ico.org.uk/your-data-matters/online/cookies/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                                    ICO's guidance on cookies
-                                </a>
-                                {' '}or review our{' '}
+                                You may also review our{' '}
                                 <Link to="/privacy-policy" className="text-blue-600 hover:underline font-medium">Privacy Policy</Link>
                                 {' '}for more information on how we handle your personal data.
                             </p>

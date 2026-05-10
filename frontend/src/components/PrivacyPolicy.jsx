@@ -8,17 +8,15 @@ const SECTIONS = [
     { id: 'data-collected', label: 'Data We Collect' },
     { id: 'how-collected', label: 'How We Collect Data' },
     { id: 'how-used', label: 'How We Use Your Data' },
-    { id: 'lawful-basis', label: 'Lawful Basis for Processing' },
     { id: 'marketing', label: 'Marketing Communications' },
     { id: 'sharing', label: 'Sharing & Disclosure' },
     { id: 'international', label: 'International Transfers' },
     { id: 'security', label: 'Data Security' },
     { id: 'retention', label: 'Data Retention' },
-    { id: 'your-rights', label: 'Your Rights (UK GDPR)' },
     { id: 'children', label: "Children's Data" },
     { id: 'cookies', label: 'Cookies & Tracking' },
     { id: 'changes', label: 'Changes to This Policy' },
-    { id: 'contact', label: 'Contact Us & ICO' },
+    { id: 'contact', label: 'Contact Us' },
 ];
 
 const LAST_UPDATED = '22 March 2026';
@@ -191,8 +189,7 @@ const PrivacyPolicy = () => {
                             </div>
                             <p className="text-sm text-gray-500">
                                 If you have any questions about this policy or how we handle your data, please contact us
-                                at <a href="mailto:support@prepplus.online" className="text-blue-600 hover:underline">support@prepplus.online</a> before
-                                contacting the ICO.
+                                at <a href="mailto:support@prepplus.online" className="text-blue-600 hover:underline">support@prepplus.online</a>
                             </p>
                         </SectionCard>
 
@@ -221,7 +218,7 @@ const PrivacyPolicy = () => {
                             <BulletList items={[
                                 'Direct interactions — when you register, fill in forms, or contact us.',
                                 'Automated technologies — cookies, server logs, and analytics tools as you interact with our platform.',
-                                'Third-party payment processors — Razorpay provides us with transaction confirmation data.',
+                                'Third-party payment processors — Payment processor provides us with transaction confirmation data.',
                                 'Third-party authentication services — if you log in via Google or similar providers.',
                             ]} />
                         </SectionCard>
@@ -242,38 +239,8 @@ const PrivacyPolicy = () => {
                             ]} />
                         </SectionCard>
 
-                        {/* 5 — Lawful Basis */}
-                        <SectionCard id="lawful-basis" title="5. Lawful Basis for Processing (UK GDPR Article 6)">
-                            <p>
-                                Under UK GDPR, we must have a lawful basis for each processing activity. The bases we
-                                rely on are set out below:
-                            </p>
-                            <div className="overflow-x-auto">
-                                <table className="w-full text-sm mt-2">
-                                    <thead>
-                                        <tr className="border-b-2 border-gray-200">
-                                            <th className="text-left py-2 pr-4 text-gray-700 font-semibold">Purpose</th>
-                                            <th className="text-left py-2 text-gray-700 font-semibold">Lawful Basis</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <TableRow label="Account registration & platform delivery" value="Performance of a contract (Art. 6(1)(b))" />
-                                        <TableRow label="Payment processing" value="Performance of a contract (Art. 6(1)(b))" />
-                                        <TableRow label="Marketing emails" value="Consent (Art. 6(1)(a))" />
-                                        <TableRow label="Platform analytics & improvement" value="Legitimate interests (Art. 6(1)(f)) — improving user experience" />
-                                        <TableRow label="Fraud prevention & security" value="Legitimate interests (Art. 6(1)(f)) — protecting our users and business" />
-                                        <TableRow label="Legal compliance" value="Legal obligation (Art. 6(1)(c))" />
-                                    </tbody>
-                                </table>
-                            </div>
-                            <p className="text-sm text-gray-500">
-                                Where we rely on legitimate interests, we have carried out a balancing test to confirm
-                                that our interests are not overridden by your rights and freedoms.
-                            </p>
-                        </SectionCard>
-
                         {/* 6 — Marketing */}
-                        <SectionCard id="marketing" title="6. Marketing Communications">
+                        <SectionCard id="marketing" title="5. Marketing Communications">
                             <p>
                                 We will only send you marketing emails if you have explicitly opted in at the point of
                                 registration or via your account settings. We will never share your data with third parties
@@ -294,10 +261,10 @@ const PrivacyPolicy = () => {
                         </SectionCard>
 
                         {/* 7 — Sharing */}
-                        <SectionCard id="sharing" title="7. Sharing & Disclosure of Your Data">
+                        <SectionCard id="sharing" title="6. Sharing & Disclosure of Your Data">
                             <p>We do not sell or rent your personal data. We may share it with:</p>
                             <BulletList items={[
-                                'Payment processors (Razorpay) — to handle secure payment transactions.',
+                                'Payment processors — to handle secure payment transactions.',
                                 'Cloud hosting providers — to store data securely on our servers.',
                                 'Analytics providers — to understand platform usage (data is aggregated/anonymised where possible).',
                                 'Email service providers — to send account and marketing communications.',
@@ -311,7 +278,7 @@ const PrivacyPolicy = () => {
                         </SectionCard>
 
                         {/* 8 — International Transfers */}
-                        <SectionCard id="international" title="8. International Transfers">
+                        <SectionCard id="international" title="7. International Transfers">
                             <p>
                                 Some of our service providers may transfer or process your data outside the UK. Where this
                                 occurs, we ensure an equivalent level of protection by relying on one or more of the
@@ -329,7 +296,7 @@ const PrivacyPolicy = () => {
                         </SectionCard>
 
                         {/* 9 — Security */}
-                        <SectionCard id="security" title="9. Data Security">
+                        <SectionCard id="security" title="8. Data Security">
                             <p>
                                 We have implemented appropriate technical and organisational measures to protect your
                                 personal data against unauthorised access, accidental loss, alteration, or disclosure.
@@ -350,7 +317,7 @@ const PrivacyPolicy = () => {
                         </SectionCard>
 
                         {/* 10 — Retention */}
-                        <SectionCard id="retention" title="10. Data Retention">
+                        <SectionCard id="retention" title="9. Data Retention">
                             <p>
                                 We retain personal data only for as long as necessary to fulfil the purposes for which it
                                 was collected, including for legal, accounting, or reporting obligations.
@@ -378,39 +345,8 @@ const PrivacyPolicy = () => {
                             </p>
                         </SectionCard>
 
-                        {/* 11 — Rights */}
-                        <SectionCard id="your-rights" title="11. Your Rights Under UK GDPR">
-                            <p>
-                                Under UK GDPR and the Data Protection Act 2018, you have the following rights regarding
-                                your personal data:
-                            </p>
-                            <div className="space-y-2">
-                                {[
-                                    { right: 'Right to Access', desc: 'Request a copy of the personal data we hold about you (Subject Access Request).' },
-                                    { right: 'Right to Rectification', desc: 'Request correction of inaccurate or incomplete data.' },
-                                    { right: 'Right to Erasure', desc: 'Request deletion of your data where there is no compelling reason for its continued processing.' },
-                                    { right: 'Right to Restriction', desc: 'Request that we limit how we use your data in certain circumstances.' },
-                                    { right: 'Right to Data Portability', desc: 'Receive your data in a structured, machine-readable format and transfer it to another controller.' },
-                                    { right: 'Right to Object', desc: 'Object to processing based on legitimate interests, including for direct marketing.' },
-                                    { right: 'Right to Withdraw Consent', desc: 'Where processing is based on consent, you may withdraw it at any time without affecting prior lawfulness.' },
-                                    { right: 'Rights re Automated Decisions', desc: 'Not to be subject to solely automated decision-making that produces significant effects, without human review.' },
-                                ].map(({ right, desc }) => (
-                                    <div key={right} className="flex gap-3 p-3 bg-gray-50 rounded-xl">
-                                        <span className="inline-block mt-0.5 w-2 h-2 rounded-full bg-blue-500 flex-shrink-0" />
-                                        <div><span className="font-semibold text-gray-800">{right}: </span><span>{desc}</span></div>
-                                    </div>
-                                ))}
-                            </div>
-                            <p className="text-sm text-gray-500">
-                                To exercise any of these rights, please email{' '}
-                                <a href="mailto:support@prepplus.online" className="text-blue-600 hover:underline">support@prepplus.online</a>.
-                                We will respond within <strong>one calendar month</strong>. There is no fee for most requests; however,
-                                we may charge a reasonable fee if a request is clearly unfounded or excessive.
-                            </p>
-                        </SectionCard>
-
                         {/* 12 — Children */}
-                        <SectionCard id="children" title="12. Children's Data (ICO Children's Code)">
+                        <SectionCard id="children" title="10. Children's Data (ICO Children's Code)">
                             <p>
                                 Prep Plus is a platform designed to serve students including those under the age of 18.
                                 We comply with the <strong>ICO's Children's Code (Age Appropriate Design Code)</strong> and
@@ -434,7 +370,7 @@ const PrivacyPolicy = () => {
                         </SectionCard>
 
                         {/* 13 — Cookies */}
-                        <SectionCard id="cookies" title="13. Cookies & Tracking Technologies">
+                        <SectionCard id="cookies" title="11. Cookies & Tracking Technologies">
                             <p>
                                 We use cookies and similar tracking technologies to operate and improve our platform.
                                 Cookies are small files stored on your browser.
@@ -461,7 +397,7 @@ const PrivacyPolicy = () => {
                         </SectionCard>
 
                         {/* 14 — Changes */}
-                        <SectionCard id="changes" title="14. Changes to This Policy">
+                        <SectionCard id="changes" title="12. Changes to This Policy">
                             <p>
                                 We may update this Privacy Policy from time to time to reflect changes in our practices,
                                 technology, legal requirements, or other factors.
@@ -478,7 +414,7 @@ const PrivacyPolicy = () => {
                         </SectionCard>
 
                         {/* 15 — Contact */}
-                        <SectionCard id="contact" title="15. Contact Us & How to Complain to the ICO">
+                        <SectionCard id="contact" title="13. Contact Us">
                             <p>
                                 If you have any questions, concerns, or wish to exercise your data rights, please contact
                                 our Data Protection contact in the first instance:
@@ -491,24 +427,6 @@ const PrivacyPolicy = () => {
                                     </a>
                                 </div>
                                 <p className="text-sm text-gray-600">We aim to respond to all requests within <strong>one calendar month</strong>.</p>
-                            </div>
-
-                            <p className="mt-2">
-                                If you are not satisfied with our response or believe we are processing your data unlawfully,
-                                you have the right to <strong>lodge a complaint with the Information Commissioner's Office (ICO)</strong>:
-                            </p>
-                            <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-2 text-sm">
-                                <p className="font-semibold text-gray-800">Information Commissioner's Office (ICO)</p>
-                                <p className="text-gray-600">Wycliffe House, Water Lane, Wilmslow, Cheshire, SK9 5AF</p>
-                                <p className="text-gray-600">Helpline: <strong>0303 123 1113</strong></p>
-                                <a
-                                    href="https://ico.org.uk/make-a-complaint/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1 text-blue-600 hover:underline font-medium"
-                                >
-                                    ico.org.uk/make-a-complaint <ExternalLink className="w-3.5 h-3.5" />
-                                </a>
                             </div>
                         </SectionCard>
 

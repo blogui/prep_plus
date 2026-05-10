@@ -75,10 +75,6 @@ const FAQ_CATEGORIES = [
                 a: 'Log in and navigate to your Dashboard. The "Test History" tab shows all your past attempts, scores, and dates. You can also see your progress over time in the Overview tab.',
             },
             {
-                q: 'How do I earn a certificate?',
-                a: 'Certificates are awarded upon completion of qualifying tests. Visit your Dashboard to view and download any certificates you have earned.',
-            },
-            {
                 q: 'Why did my test submit automatically?',
                 a: 'Tests have a fixed time limit. When the timer reaches zero, the test is automatically submitted with whatever answers you have provided at that point. Make sure to keep an eye on the countdown timer shown during the test.',
             },
@@ -100,7 +96,7 @@ const FAQ_CATEGORIES = [
             },
             {
                 q: 'Can I get a refund?',
-                a: 'Yes, in certain circumstances. If you haven\'t accessed any premium content within 14 days of purchase, you are entitled to a full refund under the Consumer Contracts Regulations 2013. See our Refund Policy for full details.',
+                a: 'Yes, in certain circumstances. See our Refund Policy for full details.',
             },
             {
                 q: 'Will I be charged automatically on renewal?',
