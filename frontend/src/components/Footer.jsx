@@ -49,7 +49,7 @@ const Footer = () => {
       { label: 'Study Material', href: '#', to: '/study-material' },
       { label: 'Syllabus', href: '#', to: '/syllabus' },
       // { label: 'Tips & Tricks', href: '#' },
-      { label: 'Blog', href: '#' },
+      { label: 'Blog', href: '#', to: '/blog' },
     ],
     Support: [
       { label: 'Help Center', href: '#', to: '/help-center' },
