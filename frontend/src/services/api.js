@@ -430,6 +430,52 @@ const api = {
         if (!response.ok) throw new Error(data.message || 'Failed to delete blog');
         return data;
     },
+
+    getUserAccessLogs: async (params = {}) => {
+        const query = new URLSearchParams();
+        Object.entries(params).forEach(([key, value]) => {
+            if (value !== undefined && value !== null && value !== '') {
+                query.append(key, String(value));
+            }
+        });
+        const queryString = query.toString();
+        const response = await request(`/user-access/logs${queryString ? `?${queryString}` : ''}`);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to fetch user access logs');
+        return data;
+    },
+
+    getUserAccessUsers: async (params = {}) => {
+        const query = new URLSearchParams();
+        Object.entries({ ...params, listUsers: true }).forEach(([key, value]) => {
+            if (value !== undefined && value !== null && value !== '') {
+                query.append(key, String(value));
+            }
+        });
+        const response = await request(`/user-access/logs?${query.toString()}`);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to fetch user list');
+        return data.users || [];
+    },
+
+    exportUserDetails: async (userIds) => {
+        const response = await request('/user-access/export-user-details', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userIds }),
+        });
+        if (!response.ok) {
+            const data = await response.json();
+            throw new Error(data.message || 'Failed to export user details');
+        }
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `user-details-${Date.now()}.csv`;
+        link.click();
+        window.URL.revokeObjectURL(url);
+    },
 };
 
 export default api;
