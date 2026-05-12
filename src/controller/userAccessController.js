@@ -137,7 +137,7 @@ const getUserAccessLogs = async (req, res, next) => {
   }
 };
 
-module.exports = { getUserAccessLogs, exportUserDetails };
+
 
 /**
  * Export user details with course information
@@ -271,3 +271,4 @@ const exportUserDetails = async (req, res, next) => {
     next(err);
   }
 };
+module.exports = { getUserAccessLogs, exportUserDetails };
