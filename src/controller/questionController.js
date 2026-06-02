@@ -172,6 +172,79 @@ const uploadQuestionExplanationController = async (req, res, next) => {
     return next(error);
   }
 };
+
+/**
+ * Start a test session - returns only question IDs for IP protection
+ * Handles question filtering, randomization, and session creation
+ */
+const startTestSessionController = async (req, res, next) => {
+  try {
+    const { courseId, totalQuestions } = req.query;
+    
+    if (!courseId) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "courseId is required" 
+      });
+    }
+
+    // User ID from auth token (optional - guests can take tests)
+    const userId = req.user?._id;
+
+    const { startTestSessionService } = require("../services/questionServices");
+    const result = await startTestSessionService(
+      courseId,
+      userId,
+      totalQuestions ? parseInt(totalQuestions) : null
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Test session started",
+      data: result,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+/**
+ * Get a single question for a test session with validation
+ * Ensures the question belongs to the user's current session
+ */
+const getQuestionForTestSessionController = async (req, res, next) => {
+  try {
+    const { questionId } = req.params;
+    const { sessionId } = req.query;
+
+    if (!questionId || !sessionId) {
+      return res.status(400).json({
+        success: false,
+        message: "questionId and sessionId are required"
+      });
+    }
+
+    const { getQuestionForTestSessionService } = require("../services/questionServices");
+    const question = await getQuestionForTestSessionService(
+      questionId,
+      sessionId
+    );
+
+    res.status(200).json({
+      success: true,
+      data: question,
+    });
+  } catch (error) {
+    // Handle session validation errors
+    if (error.message.includes("session expired") || error.message.includes("Unauthorized")) {
+      error.status = 403;
+    } else if (error.message.includes("not found")) {
+      error.status = 404;
+    }
+    return next(error);
+  }
+};
+
 module.exports = {
   getAllQuestionController,
   getQuestionByIdController,
@@ -180,5 +253,7 @@ module.exports = {
   deleteQuestionController,
   uploadQuestionImageController,
   uploadQuestionOptionController,
-  uploadQuestionExplanationController
+  uploadQuestionExplanationController,
+  startTestSessionController,
+  getQuestionForTestSessionController,
 };

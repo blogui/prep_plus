@@ -8,6 +8,8 @@ const {
   uploadQuestionImageController,
   uploadQuestionOptionController,
   uploadQuestionExplanationController,
+  startTestSessionController,
+  getQuestionForTestSessionController,
 } = require('../controller/questionController');
 const {
   createQuestionValidationRules,
@@ -79,6 +81,66 @@ const router = express.Router();
  *       400:
  *         description: Validation failed / missing courseId
  */
+
+/**
+ * @swagger
+ * /api/questions/test/start:
+ *   post:
+ *     summary: Start a test session (returns only question IDs for IP protection)
+ *     tags: [Questions]
+ *     parameters:
+ *       - in: query
+ *         name: courseId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Course ID to start test for
+ *       - in: query
+ *         name: totalQuestions
+ *         schema:
+ *           type: integer
+ *         description: Number of questions to select (optional, defaults to course.totalQuestions)
+ *     responses:
+ *       200:
+ *         description: Test session started
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: true
+ *               data:
+ *                 sessionId: "sess_1234567890_abc123def456"
+ *                 questionIds: ["q1", "q2", "q3"]
+ *                 totalQuestions: 3
+ */
+router.post('/test/start', authenticate, startTestSessionController);
+
+/**
+ * @swagger
+ * /api/questions/test/{questionId}:
+ *   get:
+ *     summary: Get a single question for a test session (validates session ownership)
+ *     tags: [Questions]
+ *     parameters:
+ *       - in: path
+ *         name: questionId
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: sessionId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Question retrieved successfully
+ *       403:
+ *         description: Session invalid/expired or question not in session
+ *       404:
+ *         description: Question not found
+ */
+router.get('/test/:questionId', authenticate, getQuestionForTestSessionController);
+
 router.get('/', authenticate, getSingleQuestionValidationRules, getAllQuestionController);
 
 /**

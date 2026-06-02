@@ -226,6 +226,38 @@ const api = {
         return data.data;
     },
 
+    /**
+     * Start a test session - get question IDs for on-demand fetching
+     * @param {string} courseId - Course to start test for
+     * @param {number} totalQuestions - Optional: number of questions to select
+     */
+    startTest: async (courseId, totalQuestions = null) => {
+        const params = new URLSearchParams({ courseId });
+        if (totalQuestions) params.append('totalQuestions', totalQuestions);
+        
+        const response = await request(`/questions/test/start?${params.toString()}`, {
+            method: 'POST',
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to start test');
+        return data.data;
+    },
+
+    /**
+     * Fetch a single question for a test session
+     * @param {string} questionId - Question ID to fetch
+     * @param {string} sessionId - Test session ID
+     */
+    getQuestionForTest: async (questionId, sessionId) => {
+        const response = await request(
+            `/questions/test/${questionId}?sessionId=${sessionId}`,
+            { cache: 'no-store' }
+        );
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to fetch question');
+        return data.data;
+    },
+
     submitTestProgress: async ({ userId, courseId, questionIds, score, totalMarks }) => {
         const response = await request('/progress', {
             method: 'POST',
