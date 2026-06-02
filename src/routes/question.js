@@ -20,6 +20,16 @@ const createUpload = require('../config/multer');
 const authenticate = require('../middleware/authenticate');
 const router = express.Router();
 
+const adminOnly = (req, res, next) => {
+  if (req.user?.role !== 'admin') {
+    return res.status(403).json({
+      success: false,
+      message: 'Admin access required',
+    });
+  }
+  next();
+};
+
 /**
  * @swagger
  * /api/questions:
@@ -79,7 +89,7 @@ const router = express.Router();
  *       400:
  *         description: Validation failed / missing courseId
  */
-router.get('/', authenticate, getSingleQuestionValidationRules, getAllQuestionController);
+router.get('/', authenticate, adminOnly, getSingleQuestionValidationRules, getAllQuestionController);
 
 /**
  * @swagger
@@ -145,7 +155,7 @@ router.get('/', authenticate, getSingleQuestionValidationRules, getAllQuestionCo
  *       400:
  *         description: Validation failed
  */
-router.post('/', createQuestionValidationRules, createQuestionController);
+router.post('/', authenticate, adminOnly, createQuestionValidationRules, createQuestionController);
 /**
  * @swagger
  * /api/questions/{id}:
@@ -170,7 +180,7 @@ router.post('/', createQuestionValidationRules, createQuestionController);
  *       404:
  *         description: Question not found
  */
-router.delete('/:id', deleteQuestionValidationRules, deleteQuestionController);
+router.delete('/:id', authenticate, adminOnly, deleteQuestionValidationRules, deleteQuestionController);
 
 /**
  * @swagger
@@ -200,7 +210,7 @@ router.delete('/:id', deleteQuestionValidationRules, deleteQuestionController);
  *       404:
  *         description: Question not found
  */
-router.get('/:id', getQuestionValidationRules, getQuestionByIdController);
+router.get('/:id', authenticate, adminOnly, getQuestionValidationRules, getQuestionByIdController);
 
 /**
  * @swagger
@@ -234,7 +244,7 @@ router.get('/:id', getQuestionValidationRules, getQuestionByIdController);
  *       404:
  *         description: Question not found
  */
-router.put('/:id', updateQuestionValidationRules, updateQuestionController);
+router.put('/:id', authenticate, adminOnly, updateQuestionValidationRules, updateQuestionController);
 
 /**
  * @swagger
@@ -268,6 +278,8 @@ router.put('/:id', updateQuestionValidationRules, updateQuestionController);
  */
 router.post(
   '/upload/question-image',
+  authenticate,
+  adminOnly,
   createUpload('questions').single('que-img'),
   uploadQuestionImageController
 );
@@ -304,6 +316,8 @@ router.post(
  */
 router.post(
   '/upload/question-option',
+  authenticate,
+  adminOnly,
   createUpload('options').single('opt-img'),
   uploadQuestionOptionController
 );
@@ -340,6 +354,8 @@ router.post(
  */
 router.post(
   '/upload/question-explanation',
+  authenticate,
+  adminOnly,
   createUpload('explanations').single('exp-img'),
   uploadQuestionExplanationController
 );

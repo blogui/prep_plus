@@ -226,6 +226,35 @@ const api = {
         return data.data;
     },
 
+    startTestAttempt: async (courseId) => {
+        const response = await request('/test-attempts/start', {
+            method: 'POST',
+            body: JSON.stringify({ courseId }),
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to start test attempt');
+        return data.data;
+    },
+
+    getAttemptQuestion: async (attemptId, questionId) => {
+        const response = await request(`/test-attempts/${attemptId}/questions/${questionId}`, {
+            cache: 'no-store',
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to fetch question');
+        return data.data;
+    },
+
+    submitTestAttempt: async ({ attemptId, score, totalMarks }) => {
+        const response = await request(`/test-attempts/${attemptId}/submit`, {
+            method: 'POST',
+            body: JSON.stringify({ score, totalMarks }),
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Failed to submit test attempt');
+        return data;
+    },
+
     submitTestProgress: async ({ userId, courseId, questionIds, score, totalMarks }) => {
         const response = await request('/progress', {
             method: 'POST',

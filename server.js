@@ -54,6 +54,7 @@ app.use("/api/auth", require("./src/routes/auth"));
 app.use("/api/categories", require("./src/routes/categories"));
 app.use("/api/courses", require("./src/routes/courses"));
 app.use("/api/questions", require("./src/routes/question"));
+app.use("/api/test-attempts", require("./src/routes/testAttempt"));
 app.use("/api/progress", require("./src/routes/userTestProgress"));
 app.use("/api/payment", require("./src/routes/payment"));
 app.use("/api/support", require("./src/routes/support"));
