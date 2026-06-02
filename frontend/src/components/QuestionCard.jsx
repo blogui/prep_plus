@@ -1,11 +1,12 @@
 import React, { useState, useCallback } from 'react';
+import { isSvgContent, svgToDataUri, getDisplayImageSrc } from '../utils/svgUtils';
 
 // ─────────────────────────────────────────────
 // Helpers
 // ─────────────────────────────────────────────
 
 /**
- * Returns true only when src is a non-empty string that looks like a URL.
+ * Returns true only when src is a non-empty string that looks like a URL or SVG content.
  * Deliberately conservative — unknown / relative paths are treated as valid
  * and allowed to fail through onError instead.
  */
@@ -24,10 +25,16 @@ const QuestionImage = ({ src, alt = 'Question image' }) => {
 
     if (!isValidImageSrc(src) || hidden) return null;
 
+    // Check if it's inline SVG content
+    const isSvg = isSvgContent(src);
+    const displaySrc = isSvg ? svgToDataUri(src) : src;
+
+    if (!displaySrc) return null;
+
     return (
         <div className="flex justify-center mt-4">
             <img
-                src={src}
+                src={displaySrc}
                 alt={alt}
                 onError={() => setHidden(true)}
                 style={{
@@ -49,10 +56,16 @@ const OptionImage = ({ src, alt = 'Option image' }) => {
 
     if (!isValidImageSrc(src) || hidden) return null;
 
+    // Check if it's inline SVG content
+    const isSvg = isSvgContent(src);
+    const displaySrc = isSvg ? svgToDataUri(src) : src;
+
+    if (!displaySrc) return null;
+
     return (
         <div className="flex justify-center mt-2">
             <img
-                src={src}
+                src={displaySrc}
                 alt={alt}
                 onError={() => setHidden(true)}
                 style={{

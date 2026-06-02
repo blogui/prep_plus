@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CheckCircle, XCircle, Award, Clock, Target, Home, Download } from 'lucide-react';
+import { getDisplayImageSrc } from '../utils/svgUtils';
 
 const TestResults = () => {
   const location = useLocation();
@@ -163,7 +164,7 @@ const TestResults = () => {
                         {question.questionImage && (
                           <div className="mb-4">
                             <img
-                              src={question.questionImage}
+                              src={getDisplayImageSrc(question.questionImage)}
                               alt="Question"
                               style={{
                                 maxHeight: '220px',
@@ -206,7 +207,7 @@ const TestResults = () => {
                                     {/* option image */}
                                     {option.image && (
                                       <img
-                                        src={option.image}
+                                        src={getDisplayImageSrc(option.image)}
                                         alt={`Option ${optionIndex + 1}`}
                                         style={{ maxHeight: '80px', objectFit: 'contain', borderRadius: '6px', marginTop: '4px' }}
                                       />
@@ -260,7 +261,7 @@ const TestResults = () => {
                             )}
                             {question.explanationImage && (
                               <img
-                                src={question.explanationImage}
+                                src={getDisplayImageSrc(question.explanationImage)}
                                 alt="Explanation"
                                 style={{
                                   maxHeight: '200px',

@@ -17,7 +17,7 @@ const getAllQuestionController = async (req, res, next) => {
       return res.status(400).json({ success: false, message: "courseId is required" });
     }
     const result = await getQuestionsByCourseIdService(req.query);
-
+     console.log("**************",result.data.length)
     res.status(200).json({
       success: true,
       ...result,

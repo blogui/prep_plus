@@ -25,9 +25,9 @@ const createUpload = (folderName) => {
   });
 
   const fileFilter = (req, file, cb) => {
-    const allowed = ["image/jpeg", "image/png", "image/jpg", "image/webp"];
+    const allowed = ["image/jpeg", "image/png", "image/jpg", "image/webp", "image/svg+xml"];
     if (!allowed.includes(file.mimetype)) {
-      return cb(new Error("Invalid file type, only JPG, PNG, or WEBP allowed!"), false);
+      return cb(new Error("Invalid file type, only JPG, PNG, WEBP, or SVG allowed!"), false);
     }
     cb(null, true);
   };

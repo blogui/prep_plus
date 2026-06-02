@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const connectDB = require("./src/config/db");
+const path = require("path");
 
 // Initialize dotenv
 dotenv.config();
@@ -23,6 +24,9 @@ app.use(morgan("dev"));
 
 // Database Connection
 connectDB();
+
+// Serve static files from public directory
+app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 
 // Swagger Config
 const swaggerOptions = {
