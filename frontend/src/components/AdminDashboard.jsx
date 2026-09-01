@@ -5,6 +5,7 @@ import AdminCoursesTab from './AdminCoursesTab';
 import AdminCategoriesTab from './AdminCategoriesTab';
 import AdminQuestionsTab from './AdminQuestionsTab';
 import AdminBlogsTab from './AdminBlogsTab';
+import AdminUserAccessTab from './AdminUserAccessTab';
 
 const TABS = [
   { id: 'overview',    label: 'Overview',    icon: LayoutDashboard },
@@ -12,6 +13,7 @@ const TABS = [
   { id: 'categories',  label: 'Categories',  icon: Tag },
   { id: 'questions',   label: 'Questions',   icon: HelpCircle },
   { id: 'blogs',       label: 'Blogs',       icon: FileText },
+  { id: 'access',      label: 'Access Logs', icon: Users },
 ];
 
 const AdminDashboard = ({ testSeries, setTestSeries, user }) => {
@@ -116,6 +118,7 @@ const AdminDashboard = ({ testSeries, setTestSeries, user }) => {
           )}
 
           {activeTab === 'blogs' && <AdminBlogsTab />}
+          {activeTab === 'access' && <AdminUserAccessTab />}
         </div>
       </div>
     </div>

@@ -1,5 +1,8 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const geoip = require('geoip-lite');
+const UserAccessLog = require('../models/UserAccessLog');
+const UAParser = require('ua-parser-js');
 
 /**
  * authenticate — private-route middleware
@@ -43,7 +46,7 @@ module.exports = async function authenticate(req, res, next) {
         // ── 3. Confirm user still exists in DB ───────────────────────────────
         // Lean query — only select the fields we need to minimise DB load
         const user = await User.findById(decoded.user.id)
-            .select('_id role')
+            .select('_id role name email mobile')
             .lean();
 
         if (!user) {
@@ -54,7 +57,39 @@ module.exports = async function authenticate(req, res, next) {
         }
 
         // ── 4. Attach user to request for downstream controllers ──────────────
-        req.user = { id: user._id, role: user.role };
+        req.user = { id: user._id, role: user.role, name: user.name, email: user.email, mobile: user.mobile };
+
+        // ── 5. Log user access ───────────────────────────────────────────────
+        const forwardedFor = req.headers['x-forwarded-for'];
+        const rawIp = forwardedFor
+            ? forwardedFor.split(',')[0].trim()
+            : req.ip || req.connection.remoteAddress || req.socket.remoteAddress || 'unknown';
+        const ip = rawIp.replace('::ffff:', '');
+        const geo = geoip.lookup(ip);
+        const country = geo ? geo.country : 'Unknown';
+        const userAgent = req.headers['user-agent'] || 'Unknown';
+        const parser = new UAParser(userAgent);
+        const { browser, os, device } = parser.getResult();
+
+        UserAccessLog.create({
+          userId: req.user.id,
+          userName: req.user.name || 'Unknown',
+          userEmail: req.user.email || 'Unknown',
+          userMobile: req.user.mobile || null,
+          ip,
+          country,
+          page: req.originalUrl,
+          userAgent,
+          browserName: browser.name || 'Unknown',
+          browserVersion: browser.version || '',
+          osName: os.name || 'Unknown',
+          osVersion: os.version || '',
+          deviceType: device.type || 'desktop',
+          deviceModel: device.model || '',
+          isIncognito: false,
+        }).catch((err) => {
+          console.error('Failed to save access log:', err);
+        });
 
         next();
     } catch (err) {

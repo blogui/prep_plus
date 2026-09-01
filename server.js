@@ -14,6 +14,7 @@ dotenv.config();
 require("./src/config/redisClient");
 
 const app = express();
+app.set('trust proxy', true);
 
 // Middleware
 app.use(express.json());
@@ -59,6 +60,7 @@ app.use("/api/progress", require("./src/routes/userTestProgress"));
 app.use("/api/payment", require("./src/routes/payment"));
 app.use("/api/support", require("./src/routes/support"));
 app.use("/api/blogs", require("./src/routes/blog"));
+app.use("/api/user-access", require("./src/routes/userAccess"));
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
